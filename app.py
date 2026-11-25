@@ -9,7 +9,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# Supprime tout le chrome Streamlit et évite le double défilement (iOS/Android/Mac/Windows)
+# Masque l'interface Streamlit et fixe l'iframe exactement à l'écran (iOS, Android, Mac, Windows)
 st.markdown(
     """
     <style>
@@ -18,6 +18,7 @@ st.markdown(
         [data-testid="stDecoration"],
         [data-testid="stStatusWidget"],
         [data-testid="stHeader"],
+        [data-testid="collapsedControl"],
         section[data-testid="stSidebar"] {
             display: none !important;
             visibility: hidden !important;
@@ -25,6 +26,7 @@ st.markdown(
         html, body,
         [data-testid="stAppViewContainer"],
         [data-testid="stMain"],
+        [data-testid="stMainBlockContainer"],
         .main, .block-container {
             margin: 0 !important;
             padding: 0 !important;
@@ -50,13 +52,11 @@ st.markdown(
             left: 0 !important;
             width: 100% !important;
             height: 100% !important;
-            height: 100vh !important;
-            height: -webkit-fill-available !important;
-            height: 100dvh !important;
+            min-height: 100% !important;
             border: none !important;
             display: block !important;
             background: #eef2f6 !important;
-            z-index: 999 !important;
+            z-index: 9999 !important;
         }
     </style>
     """,
@@ -69,5 +69,5 @@ if not html_path.exists():
     st.error("Fichier simulation.html introuvable dans le même dossier que app.py.")
 else:
     html_content = html_path.read_text(encoding="utf-8")
-    # scrolling=False car simulation.html gère lui-même son défilement interne (évite les bugs iOS Safari)
-    components.html(html_content, height=900, scrolling=False)
+    # scrolling=True garantit un repli tactile même sur les très anciens iOS/WebViews
+    components.html(html_content, height=800, scrolling=True)
