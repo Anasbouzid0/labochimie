@@ -2,60 +2,56 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="color-scheme" content="light">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="light only">
 <meta name="theme-color" content="#1b365d">
 <title>Chapitre 3 : Concentration et solutions électrolytiques</title>
 <style>
-:root {
-    --navy: #1b365d;
-    --navy-dark: #102033;
-    --slate: #334e68;
-    --muted: #52606d;
-    --teal: #0f766e;
-    --crimson: #b91c1c;
-    --amber: #b45309;
-    --violet: #6d28d9;
-    --bg: #eef2f6;
-    --card: #ffffff;
-    --border: #cbd5e1;
-    --soft: #f8fafc;
-    --app-height: 100vh;
-}
 *, *::before, *::after {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
 html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     height: 100%;
-    height: -webkit-fill-available;
-    background: var(--bg);
-    color-scheme: light;
+    background: #eef2f6;
+    color-scheme: light only;
     -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
     text-size-adjust: 100%;
 }
 body {
     margin: 0;
     padding: 0;
+    width: 100%;
     height: 100%;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    background: var(--bg);
+    background: #eef2f6;
     color: #1e293b;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
     overflow: hidden;
     overscroll-behavior: none;
 }
+
 .shell {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
     flex-direction: column;
+    width: 100%;
     height: 100%;
-    height: var(--app-height, 100vh);
-    height: 100dvh;
-    max-height: 100%;
     overflow: hidden;
     padding-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -63,233 +59,465 @@ body {
 
 /* En-tête */
 .topbar {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    color: #fff;
-    padding: calc(10px + env(safe-area-inset-top, 0px)) calc(18px + env(safe-area-inset-right, 0px)) 10px calc(18px + env(safe-area-inset-left, 0px));
+    background: #1b365d;
+    background: -webkit-linear-gradient(315deg, #1b365d 0%, #102033 100%);
+    background: linear-gradient(135deg, #1b365d 0%, #102033 100%);
+    color: #ffffff;
+    padding: 10px 18px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    padding-right: calc(18px + env(safe-area-inset-right, 0px));
+    padding-left: calc(18px + env(safe-area-inset-left, 0px));
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
     justify-content: space-between;
-    gap: 12px;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(16,32,51,0.22);
+    box-shadow: 0 2px 8px rgba(16, 32, 51, 0.22);
 }
-.topbar .meta { font-size: 11.8px; color: #cbd5e1; letter-spacing: 0.2px; margin-bottom: 2px; }
-.topbar h1 { margin: 0; font-size: 18px; font-family: Georgia, "Times New Roman", serif; font-weight: 700; }
+.topbar-text {
+    min-width: 0;
+    padding-right: 10px;
+}
+.topbar .meta {
+    font-size: 11.8px;
+    color: #cbd5e1;
+    letter-spacing: 0.2px;
+    margin-bottom: 2px;
+}
+.topbar h1 {
+    margin: 0;
+    font-size: 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    line-height: 1.25;
+}
 .fs-btn {
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(255,255,255,0.14);
-    color: #fff;
-    border: 1.5px solid rgba(255,255,255,0.45);
+    background: rgba(255, 255, 255, 0.14);
+    color: #ffffff;
+    border: 1.5px solid rgba(255, 255, 255, 0.48);
     border-radius: 7px;
     padding: 7px 12px;
     font-size: 12.5px;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
     white-space: nowrap;
     touch-action: manipulation;
 }
-.fs-btn:hover { background: rgba(255,255,255,0.25); }
+.fs-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
-/* Onglets */
+/* Onglets (espacement par margin : 100 % compatible iOS 9-14.4 et anciens Android) */
 .tabs {
-    background: #fff;
-    border-bottom: 2px solid var(--border);
-    padding: 7px 14px;
+    background: #ffffff;
+    border-bottom: 2px solid #cbd5e1;
+    padding: 4px 11px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    gap: 6px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
     justify-content: center;
-    flex-shrink: 0;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
 }
 .tab-btn {
     -webkit-appearance: none;
     appearance: none;
+    margin: 3px;
     padding: 7px 12px;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid #cbd5e1;
     border-radius: 7px;
-    background: var(--soft);
-    color: var(--slate);
+    background: #f8fafc;
+    color: #334e68;
     font-weight: 600;
     font-size: 12.6px;
     font-family: inherit;
     cursor: pointer;
     touch-action: manipulation;
+    -webkit-transition: background 0.15s, color 0.15s, border-color 0.15s;
     transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.tab-btn:hover { background: #e6eef7; border-color: var(--navy); color: var(--navy); }
-.tab-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+.tab-btn:hover { background: #e6eef7; border-color: #1b365d; color: #1b365d; }
+.tab-btn.active { background: #1b365d; border-color: #1b365d; color: #ffffff; }
 .tab-fs-exit {
     -webkit-appearance: none;
     appearance: none;
     display: none;
-    margin-left: auto;
+    margin: 3px 3px 3px auto;
     padding: 6px 10px;
-    border: 1.5px solid var(--navy);
+    border: 1.5px solid #1b365d;
     border-radius: 7px;
-    background: #fff;
-    color: var(--navy);
+    background: #ffffff;
+    color: #1b365d;
     font-size: 12px;
     font-weight: 700;
     font-family: inherit;
     cursor: pointer;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
     white-space: nowrap;
     touch-action: manipulation;
 }
 .shell.compact-fs .tab-fs-exit { display: inline-block; }
 
-/* Zone principale */
+/* Zone principale défilante */
 .stage {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: contain;
-    padding: 12px calc(16px + env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) calc(16px + env(safe-area-inset-left, 0px));
+    padding: 12px 16px 28px 16px;
+    padding-right: calc(16px + env(safe-area-inset-right, 0px));
+    padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    padding-left: calc(16px + env(safe-area-inset-left, 0px));
 }
 .view { display: none; max-width: 1280px; margin: 0 auto; }
 .view.active { display: block; }
 
 /* Étapes */
-.stepper { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.stepper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: -4px -4px 8px -4px;
+}
 .step-chip {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 12px; border-radius: 20px; font-size: 12.6px; font-weight: 600;
-    background: #fff; border: 1.5px solid var(--border); color: var(--muted);
-    cursor: pointer; user-select: none; -webkit-user-select: none;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: 4px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12.6px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    color: #52606d;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     touch-action: manipulation;
 }
 .step-chip .num {
-    width: 20px; height: 20px; border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 11.5px; font-weight: 700; background: #e2e8f0; color: var(--slate);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 7px;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 11.5px;
+    font-weight: 700;
+    background: #e2e8f0;
+    color: #334e68;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
 }
-.step-chip.active { background: #ebf3fb; border-color: var(--navy); color: var(--navy); }
-.step-chip.active .num { background: var(--navy); color: #fff; }
-.step-chip.done { border-color: #99d5cf; color: var(--teal); }
-.step-chip.done .num { background: var(--teal); color: #fff; }
+.step-chip.active { background: #ebf3fb; border-color: #1b365d; color: #1b365d; }
+.step-chip.active .num { background: #1b365d; color: #ffffff; }
+.step-chip.done { border-color: #99d5cf; color: #0f766e; }
+.step-chip.done .num { background: #0f766e; color: #ffffff; }
 
-/* Cartes & grilles */
+/* Cartes & grilles universelles (Flexbox sur anciens OS + Grid sur OS récents) */
 .card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
     border-radius: 10px;
     padding: 14px;
-    box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 .card-title {
-    margin: 0 0 8px;
+    margin: 0 0 8px 0;
     font-family: Georgia, "Times New Roman", serif;
-    color: var(--navy);
+    color: #1b365d;
     font-size: 15px;
     font-weight: 700;
 }
-.grid-main { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; align-items: start; }
-.grid-half { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
-.grid-main > *, .grid-half > *, .grid-4 > * { min-width: 0; }
 
-/* Boutons & contrôles */
-.toolbar { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 10px; }
-.push-right { margin-left: auto; }
-.tb-sep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
+.grid-main, .grid-half, .grid-4 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    margin-left: -7px;
+    margin-right: -7px;
+}
+.grid-main > *, .grid-half > *, .grid-4 > * {
+    min-width: 0;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin-bottom: 10px;
+}
+.grid-main > *:first-child { width: 60%; }
+.grid-main > *:last-child  { width: 40%; }
+.grid-half > *             { width: 50%; }
+.grid-4 { margin-top: 10px; }
+.grid-4 > *                { width: 25%; }
+
+/* Repli propre pour panes cachés de Sim2 */
+.pane-hidden { display: none !important; }
+
+/* Barre d'outils & boutons */
+.toolbar {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: -3px -3px 8px -3px;
+}
+.toolbar > * { margin: 3px; }
+.push-right { margin-left: auto !important; }
+.tb-sep { width: 1px; height: 22px; background: #cbd5e1; margin: 3px 6px; }
+
 .btn {
     -webkit-appearance: none;
     appearance: none;
     padding: 6.5px 12px;
-    border: 1.6px solid var(--navy);
+    border: 1.6px solid #1b365d;
     border-radius: 7px;
-    background: #fff;
-    color: var(--navy);
+    background: #ffffff;
+    color: #1b365d;
     font-weight: 600;
     font-size: 12.6px;
     font-family: inherit;
+    line-height: 1.25;
     cursor: pointer;
-    user-select: none;
     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     touch-action: manipulation;
+    -webkit-transition: background 0.15s, color 0.15s;
     transition: background 0.15s, color 0.15s;
 }
 .btn:hover:not(:disabled) { background: #e8f0f8; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn.active, .btn.solid { background: var(--navy); color: #fff; }
-.btn.teal { border-color: var(--teal); color: var(--teal); }
-.btn.teal.solid, .btn.teal.active { background: var(--teal); color: #fff; }
-.btn.crimson { border-color: var(--crimson); color: var(--crimson); }
-.btn.crimson.solid, .btn.crimson.active { background: var(--crimson); color: #fff; }
-.btn.amber { border-color: var(--amber); color: var(--amber); }
-.btn.amber.solid, .btn.amber.active { background: var(--amber); color: #fff; }
-.btn.violet { border-color: var(--violet); color: var(--violet); }
-.btn.violet.solid, .btn.violet.active { background: var(--violet); color: #fff; }
+.btn.active, .btn.solid { background: #1b365d; color: #ffffff; }
+.btn.teal { border-color: #0f766e; color: #0f766e; }
+.btn.teal.solid, .btn.teal.active { background: #0f766e; color: #ffffff; }
+.btn.crimson { border-color: #b91c1c; color: #b91c1c; }
+.btn.crimson.solid, .btn.crimson.active { background: #b91c1c; color: #ffffff; }
+.btn.amber { border-color: #b45309; color: #b45309; }
+.btn.amber.solid, .btn.amber.active { background: #b45309; color: #ffffff; }
+.btn.violet { border-color: #6d28d9; color: #6d28d9; }
+.btn.violet.solid, .btn.violet.active { background: #6d28d9; color: #ffffff; }
 
 canvas {
     display: block;
     width: 100%;
     height: auto;
-    border: 1px solid var(--border);
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
-    background: var(--soft);
-    user-select: none;
+    background: #f8fafc;
     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     -webkit-touch-callout: none;
 }
-.interactive-cv { touch-action: none; cursor: grab; }
+.interactive-cv {
+    touch-action: none;
+    -ms-touch-action: none;
+    cursor: grab;
+}
 .interactive-cv:active { cursor: grabbing; }
 
+/* Curseurs universels (apparence identique sur anciens iOS, Android, Mac, Windows) */
 .slider-group {
-    background: var(--soft);
+    background: #f8fafc;
     border: 1px solid #dce4ee;
     border-radius: 8px;
     padding: 8px 11px;
     margin-bottom: 8px;
 }
 .slider-head {
-    display: flex; justify-content: space-between; gap: 8px;
-    font-size: 12.5px; font-weight: 700; color: var(--slate); margin-bottom: 4px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #334e68;
+    margin-bottom: 5px;
 }
+.slider-head > span:first-child { padding-right: 8px; }
 input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
     width: 100%;
-    accent-color: var(--navy);
+    height: 24px;
+    background: transparent;
     cursor: pointer;
     touch-action: pan-y;
+    margin: 0;
 }
+input[type="range"]:focus { outline: none; }
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -7px;
+    border-radius: 50%;
+    background: #1b365d;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.35);
+}
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1b365d;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.35);
+}
+input[type="range"].violet-range::-webkit-slider-thumb { background: #6d28d9; }
+input[type="range"].violet-range::-moz-range-thumb { background: #6d28d9; }
+
 input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
+    width: 17px;
+    height: 17px;
     vertical-align: middle;
-    accent-color: var(--navy);
     cursor: pointer;
+    margin-right: 5px;
 }
+.chk-list label {
+    display: block;
+    margin-bottom: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+}
+.chk-list label:last-child { margin-bottom: 0; }
+
 select {
     width: 100%;
     padding: 8px 10px;
     border-radius: 7px;
-    border: 1.5px solid var(--border);
+    border: 1.5px solid #cbd5e1;
     font-size: 14px;
     font-weight: 600;
     font-family: inherit;
     color: #1e293b;
-    background: #fff;
+    background: #ffffff;
 }
 
 .note-box {
-    margin-top: 10px; padding: 9px 13px; border-radius: 7px;
-    background: #eef5fc; border-left: 4px solid var(--navy);
-    font-size: 13.3px; line-height: 1.48; color: #1e293b;
+    margin-top: 10px;
+    padding: 9px 13px;
+    border-radius: 7px;
+    background: #eef5fc;
+    border-left: 4px solid #1b365d;
+    font-size: 13.3px;
+    line-height: 1.48;
+    color: #1e293b;
 }
 .legend {
-    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;
-    font-size: 12.2px; color: var(--slate); align-items: center;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 6px -6px 0 -6px;
+    font-size: 12.2px;
+    color: #334e68;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
+.legend > span { margin: 2px 6px; }
 .swatch {
-    width: 12px; height: 12px; border-radius: 50%;
-    display: inline-block; vertical-align: middle; margin-right: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
 /* Tableaux & zones glissables */
@@ -298,102 +526,178 @@ select {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12.8px; background: #fff; }
-th, td { border: 1px solid var(--border); padding: 6px 8px; text-align: center; }
-th { background: #e3eef9; color: var(--navy-dark); font-weight: 700; }
+table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12.8px; background: #ffffff; }
+th, td { border: 1px solid #cbd5e1; padding: 6px 8px; text-align: center; }
+th { background: #e3eef9; color: #102033; font-weight: 700; }
 tr.row-hl { background: #fef9c3; font-weight: 700; }
 
 /* Afficheurs numériques */
 .meter-panel {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    background: var(--navy-dark); padding: 10px; border-radius: 9px; margin-bottom: 10px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    background: #102033;
+    padding: 6px;
+    border-radius: 9px;
+    margin-bottom: 10px;
 }
-.meter-box { background: #1e334a; border-radius: 7px; padding: 8px; text-align: center; color: #fff; }
+.meter-box {
+    width: 50%;
+    margin: 4px;
+    background: #1e334a;
+    border-radius: 7px;
+    padding: 8px 6px;
+    text-align: center;
+    color: #ffffff;
+}
 .meter-lbl { font-size: 10.5px; color: #9fb3c8; text-transform: uppercase; letter-spacing: 0.4px; }
-.meter-val { font-size: 20px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; margin-top: 2px; }
-.meter-sub { font-size: 11px; color: #cbd5e1; margin-top: 1px; }
+.meter-val {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+    margin-top: 2px;
+}
+.meter-sub { font-size: 11px; color: #cbd5e1; margin-top: 2px; }
 
 /* Cartes KPI */
-.kpi-box {
-    background: var(--soft); border: 1px solid var(--border);
-    border-top: 4px solid var(--navy); border-radius: 8px; padding: 10px; text-align: center;
+.kpi-card {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-top: 4px solid #1b365d;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    height: 100%;
 }
-.kpi-lbl { font-size: 11.8px; color: var(--muted); font-weight: 700; }
-.kpi-num { font-size: 19px; font-weight: 800; color: var(--navy); margin-top: 4px; }
-.kpi-sub { font-size: 11.5px; color: var(--slate); margin-top: 2px; }
+.kpi-card.crimson-top { border-top-color: #b91c1c; }
+.kpi-card.teal-top { border-top-color: #0f766e; }
+.kpi-lbl { font-size: 11.8px; color: #52606d; font-weight: 700; }
+.kpi-num { font-size: 19px; font-weight: 800; color: #1b365d; margin-top: 4px; }
+.kpi-sub { font-size: 11.5px; color: #334e68; margin-top: 2px; }
 
-/* Synthèse dépliable */
+/* Synthèse dépliable (fonctionne aussi via polyfill JS sur anciens Android/IE) */
 details.synthesis {
-    margin-top: 10px; background: #f2fbf7; border: 1.5px solid #99d5cf;
-    border-radius: 8px; padding: 9px 14px;
+    margin-top: 10px;
+    background: #f2fbf7;
+    border: 1.5px solid #99d5cf;
+    border-radius: 8px;
+    padding: 9px 14px;
 }
 details.synthesis summary {
-    cursor: pointer; font-weight: 700; font-size: 13.5px; color: var(--teal);
-    font-family: Georgia, "Times New Roman", serif; user-select: none; -webkit-user-select: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: #0f766e;
+    font-family: Georgia, "Times New Roman", serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     touch-action: manipulation;
+    list-style: disclosure-closed inside;
 }
+details.synthesis[open] summary { list-style: disclosure-open inside; }
 details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55; color: #134e4a; }
-.mobile-hint { display: none; font-size: 11.5px; color: var(--muted); text-align: center; margin: 2px 0 6px; }
+details.synthesis.legacy-closed .body { display: none; }
 
-/* Repli flex-gap pour anciens iOS (< 14.5) et anciens navigateurs Android */
-@supports not (gap: 6px) {
-    .tabs > *, .toolbar > *, .stepper > *, .legend > * { margin: 3px; }
-}
+.mobile-hint { display: none; font-size: 11.5px; color: #52606d; text-align: center; margin: 2px 0 6px; }
 
 /* Tablettes & écrans moyens */
 @media (max-width: 980px) {
-    .grid-main, .grid-half { grid-template-columns: 1fr; }
-    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-main > *:first-child,
+    .grid-main > *:last-child,
+    .grid-half > * {
+        width: 100%;
+    }
+    .grid-4 > * { width: 50%; }
 }
 
-/* Smartphones iOS & Android */
+/* Smartphones iOS & Android (de 320px à 768px) */
 @media (max-width: 768px) {
-    .topbar { padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px; }
-    .topbar .meta { font-size: 10.5px; }
-    .topbar h1 { font-size: 15px; line-height: 1.25; }
+    .topbar {
+        padding: 8px 12px;
+        padding-top: calc(8px + env(safe-area-inset-top, 0px));
+    }
+    .topbar .meta { font-size: 10.2px; }
+    .topbar h1 { font-size: 14.5px; line-height: 1.25; }
     .fs-btn { padding: 6px 10px; font-size: 11.8px; }
 
     .tabs {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        z-index: 50;
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
+        -webkit-box-pack: start;
+        -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
         justify-content: flex-start;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        padding: 7px 10px;
+        padding: 5px 8px;
         scrollbar-width: none;
     }
     .tabs::-webkit-scrollbar { display: none; }
-    .tab-btn { flex-shrink: 0; white-space: nowrap; min-height: 38px; font-size: 12.4px; }
+    .tab-btn {
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        white-space: nowrap;
+        min-height: 38px;
+        font-size: 12.2px;
+    }
 
     .stage {
-        padding: 10px 10px calc(28px + env(safe-area-inset-bottom, 0px));
+        padding: 10px 10px 28px 10px;
+        padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px));
     }
     .stepper {
-        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
-        padding-bottom: 3px; scrollbar-width: none;
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 3px;
+        scrollbar-width: none;
     }
     .stepper::-webkit-scrollbar { display: none; }
-    .step-chip { flex-shrink: 0; white-space: nowrap; font-size: 12.2px; padding: 6px 11px; }
+    .step-chip {
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        white-space: nowrap;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
 
     .card { padding: 10px; border-radius: 9px; }
-    .card-title { font-size: 14px; }
-    .toolbar { gap: 6px; }
-    .btn { min-height: 40px; padding: 7px 11px; font-size: 12.4px; }
-    .push-right { margin-left: 0; }
+    .card-title { font-size: 13.8px; }
+    .btn { min-height: 40px; padding: 7px 10px; font-size: 12.2px; }
+    .push-right { margin-left: 3px !important; }
     .tb-sep { display: none; }
-    select { font-size: 16px; min-height: 42px; } /* Évite le zoom automatique iOS Safari */
+    select { font-size: 16px; min-height: 42px; } /* Empêche le zoom auto iOS Safari */
     input[type="range"] { height: 32px; }
+    input[type="range"]::-webkit-slider-thumb { width: 24px; height: 24px; margin-top: -9px; }
+    input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; }
 
-    table { font-size: 12px; }
+    table { font-size: 11.8px; }
     th, td { padding: 5px 6px; white-space: nowrap; }
-    #cv-5-dil { min-width: 720px; }
+    #cv-5-dil { min-width: 700px; }
     .mobile-hint { display: block; }
     .meter-val { font-size: 17px; }
+    .meter-sub { font-size: 10.5px; }
     .kpi-num { font-size: 16.5px; }
-    .note-box { font-size: 12.8px; padding: 8px 11px; }
+    .note-box { font-size: 12.6px; padding: 8px 10px; }
+}
+
+/* Très petits téléphones (iPhone SE 1re gén / Android 320px-360px) */
+@media (max-width: 380px) {
+    .grid-4 > * { width: 100%; }
+    .meter-panel { -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap; }
+    .meter-box { width: calc(100% - 8px); }
+    .topbar h1 { font-size: 13.5px; }
 }
 </style>
 </head>
@@ -402,7 +706,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
 
     <!-- EN-TÊTE -->
     <header class="topbar">
-        <div>
+        <div class="topbar-text">
             <div class="meta">Lycée Qualifiant Hassan II — Kceibya &nbsp;|&nbsp; 1<sup>ère</sup> Année Bac Sciences &nbsp;|&nbsp; Prof. BOUZID Anas</div>
             <h1>Chapitre 3 : Concentration et solutions électrolytiques</h1>
         </div>
@@ -442,7 +746,9 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                 </div>
 
                 <div class="grid-main">
-                    <canvas id="cv-0" width="760" height="370"></canvas>
+                    <div>
+                        <canvas id="cv-0" width="760" height="370"></canvas>
+                    </div>
                     <div>
                         <h3 class="card-title">Tableau d'observations expérimentales</h3>
                         <div class="table-wrap">
@@ -539,7 +845,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                         </div>
 
                         <div class="toolbar" style="margin-top:6px;">
-                            <span style="font-size:12.5px;font-weight:700;color:var(--slate);">Cristal étudié :</span>
+                            <span style="font-size:12.5px;font-weight:700;color:#334e68;">Cristal étudié :</span>
                             <button type="button" class="btn active" id="v1-cr-NaCl" onclick="Sim1.setCrystal('NaCl')">NaCl</button>
                             <button type="button" class="btn" id="v1-cr-CaF2" onclick="Sim1.setCrystal('CaF2')">CaF₂</button>
                             <button type="button" class="btn" id="v1-cr-Al2S3" onclick="Sim1.setCrystal('Al2S3')">Al₂S₃</button>
@@ -611,7 +917,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                 </div>
 
                 <!-- ÉTAPE 2 : FILET D'EAU -->
-                <div id="v2-pane-2" class="grid-main" style="display:none;">
+                <div id="v2-pane-2" class="grid-main pane-hidden">
                     <div>
                         <h3 class="card-title">Étape 2 : Approcher librement le ballon du mince filet d'eau (glisser)</h3>
                         <canvas id="cv-2b" class="interactive-cv" width="760" height="365"></canvas>
@@ -636,7 +942,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                         <div class="toolbar">
                             <button type="button" class="btn active" id="v2-tap-btn" onclick="Sim2.toggleTap()">Robinet : Ouvert (mince filet)</button>
                             <label class="push-right" style="font-size:12.5px;font-weight:600;cursor:pointer;">
-                                <input type="checkbox" id="v2-zoom-chk" checked> Zoom dipôles H₂O
+                                <input type="checkbox" id="v2-zoom-chk" checked>Zoom dipôles H₂O
                             </label>
                         </div>
                         <div class="note-box" id="v2-water-msg"></div>
@@ -648,7 +954,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                 </div>
 
                 <!-- ÉTAPE 3 : POLARITÉ -->
-                <div id="v2-pane-3" class="grid-main" style="display:none;">
+                <div id="v2-pane-3" class="grid-main pane-hidden">
                     <div>
                         <div class="toolbar">
                             <button type="button" class="btn" id="v2-m-Cl2" onclick="Sim2.setMol('Cl2')">Cl₂</button>
@@ -657,14 +963,14 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                             <button type="button" class="btn" id="v2-m-H2S" onclick="Sim2.setMol('H2S')">H₂S</button>
                             <button type="button" class="btn" id="v2-m-CO2" onclick="Sim2.setMol('CO2')">CO₂</button>
                         </div>
-                        <canvas id="cv-2c" width="760" height="315" style="background:#fff;"></canvas>
+                        <canvas id="cv-2c" width="760" height="315" style="background:#ffffff;"></canvas>
                     </div>
                     <div>
                         <h3 class="card-title">Construction étape par étape</h3>
-                        <div class="slider-group" style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;">
-                            <label style="cursor:pointer;"><input type="checkbox" id="v2-chk-lewis" checked> 1. Doublets non liants (géométrie)</label>
-                            <label style="cursor:pointer;"><input type="checkbox" id="v2-chk-pol" checked> 2. Polarisation des liaisons (δ⁺ / δ⁻)</label>
-                            <label style="cursor:pointer;"><input type="checkbox" id="v2-chk-bary" checked> 3. Barycentres des charges (⊕ / ⊖)</label>
+                        <div class="slider-group chk-list">
+                            <label><input type="checkbox" id="v2-chk-lewis" checked>1. Doublets non liants (géométrie)</label>
+                            <label><input type="checkbox" id="v2-chk-pol" checked>2. Polarisation des liaisons (δ⁺ / δ⁻)</label>
+                            <label><input type="checkbox" id="v2-chk-bary" checked>3. Barycentres des charges (⊕ / ⊖)</label>
                         </div>
                         <div class="table-wrap">
                             <table>
@@ -715,7 +1021,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                     </div>
                     <div>
                         <div class="toolbar" style="margin-bottom:6px;">
-                            <span style="font-size:12.5px;font-weight:700;color:var(--navy);">Étape microscopique :</span>
+                            <span style="font-size:12.5px;font-weight:700;color:#1b365d;">Étape microscopique :</span>
                             <button type="button" class="btn active" id="v3-ph-0" onclick="Sim3.setPhase(0)">0. Cristal</button>
                             <button type="button" class="btn" id="v3-ph-1" onclick="Sim3.setPhase(1)">1. Dissociation</button>
                             <button type="button" class="btn" id="v3-ph-2" onclick="Sim3.setPhase(2)">2. Hydratation</button>
@@ -756,26 +1062,26 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                 </div>
 
                 <div class="grid-main">
-                    <canvas id="cv-4-main" width="760" height="390"></canvas>
-                    <div style="display:flex;flex-direction:column;justify-content:space-between;">
-                        <div>
-                            <div class="meter-panel">
-                                <div class="meter-box">
-                                    <div class="meter-lbl">Pression dans l'ampoule</div>
-                                    <div class="meter-val" id="v4-p" style="color:#38bdf8;">1013 hPa</div>
-                                    <div class="meter-sub" id="v4-p-sub">P<sub>atm</sub> = 1013 hPa</div>
-                                </div>
-                                <div class="meter-box">
-                                    <div class="meter-lbl">Température (Exothermique)</div>
-                                    <div class="meter-val" id="v4-t" style="color:#fb923c;">20,0 °C</div>
-                                    <div class="meter-sub">Solubilité : 445 L / L d'eau</div>
-                                </div>
+                    <div>
+                        <canvas id="cv-4-main" width="760" height="390"></canvas>
+                    </div>
+                    <div>
+                        <div class="meter-panel">
+                            <div class="meter-box">
+                                <div class="meter-lbl">Pression dans l'ampoule</div>
+                                <div class="meter-val" id="v4-p" style="color:#38bdf8;">1013 hPa</div>
+                                <div class="meter-sub" id="v4-p-sub">P<sub>atm</sub> = 1013 hPa</div>
                             </div>
-                            <div class="note-box" id="v4-msg" style="margin-top:0;"></div>
+                            <div class="meter-box">
+                                <div class="meter-lbl">Température (Exothermique)</div>
+                                <div class="meter-val" id="v4-t" style="color:#fb923c;">20,0 °C</div>
+                                <div class="meter-sub">Solubilité : 445 L / L d'eau</div>
+                            </div>
                         </div>
+                        <div class="note-box" id="v4-msg" style="margin-top:0;"></div>
                         <div style="margin-top:10px;">
                             <h3 class="card-title" style="font-size:14px;">Tests d'identification des ions formés</h3>
-                            <canvas id="cv-4-tubes" width="420" height="168" style="background:#fff;"></canvas>
+                            <canvas id="cv-4-tubes" width="420" height="168" style="background:#ffffff;"></canvas>
                         </div>
                     </div>
                 </div>
@@ -807,12 +1113,12 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                     <button type="button" class="btn violet" id="v5-st2" onclick="Sim5.runStep(2)">Étape 2 : Diluer S₁ → S₂ (×10)</button>
                     <button type="button" class="btn violet" id="v5-st3" onclick="Sim5.runStep(3)">Étape 3 : Diluer S₂ → S₃ (×10)</button>
                     <button type="button" class="btn" onclick="Sim5.resetDil()">Réinitialiser</button>
-                    <span class="push-right" style="font-size:12.8px;font-weight:700;color:var(--slate);">
-                        Masse m(KMnO₄) : <strong id="v5-m-lbl" style="color:var(--violet);">2,0 g</strong>
+                    <span class="push-right" style="font-size:12.8px;font-weight:700;color:#334e68;">
+                        Masse m(KMnO₄) : <strong id="v5-m-lbl" style="color:#6d28d9;">2,0 g</strong>
                     </span>
-                    <input id="v5-m-slider" type="range" min="0.5" max="4.0" step="0.1" value="2.0" oninput="Sim5.onMass(this.value)" onchange="Sim5.onMass(this.value)" style="width:120px;accent-color:var(--violet);">
+                    <input id="v5-m-slider" class="violet-range" type="range" min="0.5" max="4.0" step="0.1" value="2.0" oninput="Sim5.onMass(this.value)" onchange="Sim5.onMass(this.value)" style="width:120px;">
                     <label style="font-size:12.5px;font-weight:600;cursor:pointer;">
-                        <input type="checkbox" id="v5-show-tbl" checked onchange="Sim5.renderTable()"> Afficher les calculs
+                        <input type="checkbox" id="v5-show-tbl" checked onchange="Sim5.renderTable()">Afficher les calculs
                     </label>
                 </div>
 
@@ -841,7 +1147,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
             </div>
 
             <!-- MODE 5B : SIMULATEUR C, [X] ET Cm -->
-            <div id="v5-pane-calc" class="card" style="display:none;">
+            <div id="v5-pane-calc" class="card pane-hidden">
                 <div class="grid-half">
                     <div>
                         <h3 class="card-title" style="font-size:14.5px;">Choix de l'électrolyte et paramètres</h3>
@@ -873,25 +1179,33 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                 </div>
 
                 <div class="grid-4">
-                    <div class="kpi-box">
-                        <div class="kpi-lbl">Masse de soluté m</div>
-                        <div class="kpi-num" id="v5-k-m">24,53 g</div>
-                        <div class="kpi-sub" id="v5-k-n">n = 0,250 mol</div>
+                    <div>
+                        <div class="kpi-card">
+                            <div class="kpi-lbl">Masse de soluté m</div>
+                            <div class="kpi-num" id="v5-k-m">24,53 g</div>
+                            <div class="kpi-sub" id="v5-k-n">n = 0,250 mol</div>
+                        </div>
                     </div>
-                    <div class="kpi-box">
-                        <div class="kpi-lbl">Concentration massique C<sub>m</sub></div>
-                        <div class="kpi-num" id="v5-k-cm">49,05 g·L⁻¹</div>
-                        <div class="kpi-sub" id="v5-k-M">M = 98,1 g·mol⁻¹</div>
+                    <div>
+                        <div class="kpi-card">
+                            <div class="kpi-lbl">Concentration massique C<sub>m</sub></div>
+                            <div class="kpi-num" id="v5-k-cm">49,05 g·L⁻¹</div>
+                            <div class="kpi-sub" id="v5-k-M">M = 98,1 g·mol⁻¹</div>
+                        </div>
                     </div>
-                    <div class="kpi-box" style="border-top-color:var(--crimson);">
-                        <div class="kpi-lbl" id="v5-k-cat-t">[H₃O⁺] = 2·C</div>
-                        <div class="kpi-num" id="v5-k-cat" style="color:var(--crimson);">1,00 mol·L⁻¹</div>
-                        <div class="kpi-sub">Concentration effective (cation)</div>
+                    <div>
+                        <div class="kpi-card crimson-top">
+                            <div class="kpi-lbl" id="v5-k-cat-t">[H₃O⁺] = 2·C</div>
+                            <div class="kpi-num" id="v5-k-cat" style="color:#b91c1c;">1,00 mol·L⁻¹</div>
+                            <div class="kpi-sub">Concentration effective (cation)</div>
+                        </div>
                     </div>
-                    <div class="kpi-box" style="border-top-color:var(--teal);">
-                        <div class="kpi-lbl" id="v5-k-an-t">[SO₄²⁻] = 1·C</div>
-                        <div class="kpi-num" id="v5-k-an" style="color:var(--teal);">0,50 mol·L⁻¹</div>
-                        <div class="kpi-sub">Concentration effective (anion)</div>
+                    <div>
+                        <div class="kpi-card teal-top">
+                            <div class="kpi-lbl" id="v5-k-an-t">[SO₄²⁻] = 1·C</div>
+                            <div class="kpi-num" id="v5-k-an" style="color:#0f766e;">0,50 mol·L⁻¹</div>
+                            <div class="kpi-sub">Concentration effective (anion)</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -911,56 +1225,177 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
 
 <script>
 // ============================================================================
-// UTILITAIRES MULTI-PLATEFORMES (iOS 12-18+, Android, macOS, Windows)
+// COUCHE UNIVERSELLE ES5 (100 % compatible iOS 9-26, Android 5-16, Mac, Windows)
 // ============================================================================
-let ACTIVE_VIEW = 0;
-let LAST_TOUCH_TS = 0;
+var ACTIVE_VIEW = 0;
+var LAST_TOUCH_TS = 0;
 
-const FONT_SANS  = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-const FONT_SERIF = 'Georgia, "Times New Roman", serif';
-const FONT_MONO  = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+var FONT_SANS  = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+var FONT_SERIF = 'Georgia, "Times New Roman", serif';
+var FONT_MONO  = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace';
 
-// Hauteur dynamique réelle (fixe les barres d'adresse iOS Safari / Android Chrome)
+// Détection sécurisée de l'option passive (évite le bug sur iOS 9 / Android 5-6)
+var SUPPORTS_PASSIVE = false;
+try {
+    var passiveTest = Object.defineProperty({}, 'passive', {
+        get: function() { SUPPORTS_PASSIVE = true; return true; }
+    });
+    window.addEventListener('testpassive', null, passiveTest);
+    window.removeEventListener('testpassive', null, passiveTest);
+} catch (e) {}
+var EV_NO_PASSIVE = SUPPORTS_PASSIVE ? { passive: false } : false;
+
+function byId(id) { return document.getElementById(id); }
+
+function forEachEl(selector, fn) {
+    var list = document.querySelectorAll(selector);
+    for (var i = 0; i < list.length; i++) {
+        fn(list[i], i);
+    }
+}
+
+function hasClass(el, cls) {
+    if (!el) return false;
+    if (el.classList) return el.classList.contains(cls);
+    return (' ' + el.className + ' ').indexOf(' ' + cls + ' ') !== -1;
+}
+
+function setClass(el, cls, on) {
+    if (!el) return;
+    if (el.classList) {
+        if (on) el.classList.add(cls);
+        else el.classList.remove(cls);
+    } else {
+        var cur = (' ' + el.className + ' ').replace(' ' + cls + ' ', ' ');
+        el.className = (on ? cur + cls : cur).replace(/^\s+|\s+$/g, '');
+    }
+}
+
+function makeArray(len, fn) {
+    var out = [];
+    for (var i = 0; i < len; i++) out.push(fn(i));
+    return out;
+}
+
+function hypot2(dx, dy) { return Math.sqrt(dx * dx + dy * dy); }
+function log10(v) { return Math.log(v) / Math.LN10; }
+
+function setDash(ctx, arr) {
+    if (ctx && typeof ctx.setLineDash === 'function') {
+        ctx.setLineDash(arr);
+    }
+}
+
+// Tracé d'ellipse universel (sans ctx.ellipse absent sur anciens navigateurs)
+function drawEllipsePath(ctx, cx, cy, rx, ry) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(rx, ry);
+    ctx.beginPath();
+    ctx.arc(0, 0, 1, 0, Math.PI * 2);
+    ctx.restore();
+}
+
+// Polyfill léger pour <details>/<summary> sur anciens Android / IE11
+(function initDetailsPolyfill() {
+    var test = document.createElement('details');
+    if ('open' in test) return;
+    forEachEl('details.synthesis', function(det) {
+        setClass(det, 'legacy-closed', !det.hasAttribute('open'));
+        var sum = det.getElementsByTagName('summary')[0];
+        if (sum) {
+            sum.onclick = function() {
+                var isClosed = hasClass(det, 'legacy-closed');
+                setClass(det, 'legacy-closed', !isClosed);
+                if (isClosed) det.setAttribute('open', '');
+                else det.removeAttribute('open');
+            };
+        }
+    });
+})();
+
+// Hauteur réelle de l'écran (corrige barres d'adresse iOS Safari & Android Chrome)
+var REGISTERED_CANVASES = [];
 function syncAppHeight() {
-    const h = (window.visualViewport && window.visualViewport.height) || window.innerHeight || document.documentElement.clientHeight;
-    document.documentElement.style.setProperty('--app-height', h + 'px');
+    var shell = byId('appShell');
+    if (!shell) return;
+    var h = window.innerHeight || document.documentElement.clientHeight || 600;
+    try {
+        if (window.self === window.top && window.visualViewport && window.visualViewport.height) {
+            h = Math.round(window.visualViewport.height);
+        }
+    } catch (e) {}
+    shell.style.height = h + 'px';
 }
 syncAppHeight();
-window.addEventListener('resize', syncAppHeight);
-window.addEventListener('orientationchange', function() { setTimeout(syncAppHeight, 120); });
-if (window.visualViewport) window.visualViewport.addEventListener('resize', syncAppHeight);
+window.addEventListener('resize', function() {
+    syncAppHeight();
+    refreshAllCanvases();
+});
+window.addEventListener('orientationchange', function() {
+    setTimeout(function() {
+        syncAppHeight();
+        refreshAllCanvases();
+    }, 150);
+});
+if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', syncAppHeight);
+}
 
 // Configuration HiDPI / Retina (Mac, iPhone, iPad, Android, Windows 125%-200%)
+function applyCanvasDPR(item) {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (item.dpr === dpr) return;
+    item.dpr = dpr;
+    item.cv._lw = item.w;
+    item.cv._lh = item.h;
+    item.cv.width = Math.round(item.w * dpr);
+    item.cv.height = Math.round(item.h * dpr);
+    if (typeof item.ctx.setTransform === 'function') {
+        item.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    } else {
+        item.ctx.scale(dpr, dpr);
+    }
+}
+
 function setupCanvas(cv, logicalW, logicalH) {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    cv._lw = logicalW;
-    cv._lh = logicalH;
-    cv.width = Math.round(logicalW * dpr);
-    cv.height = Math.round(logicalH * dpr);
-    const ctx = cv.getContext('2d');
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var ctx = cv.getContext('2d');
+    var item = { cv: cv, ctx: ctx, w: logicalW, h: logicalH, dpr: 0 };
+    applyCanvasDPR(item);
+    REGISTERED_CANVASES.push(item);
     return ctx;
 }
 
-// Bloque le zoom gestuel natif iOS Safari sur les canvas interactifs
+function refreshAllCanvases() {
+    for (var i = 0; i < REGISTERED_CANVASES.length; i++) {
+        applyCanvasDPR(REGISTERED_CANVASES[i]);
+    }
+}
+
+// Bloque le pincement Safari natif sur les zones de manipulation 3D / ballon
 function preventIOSGesture(el) {
-    ['gesturestart', 'gesturechange', 'gestureend'].forEach(function(ev) {
-        el.addEventListener(ev, function(e) { if (e.cancelable) e.preventDefault(); }, { passive: false });
-    });
+    var evs = ['gesturestart', 'gesturechange', 'gestureend'];
+    for (var i = 0; i < evs.length; i++) {
+        el.addEventListener(evs[i], function(e) {
+            if (e && e.cancelable) e.preventDefault();
+        }, EV_NO_PASSIVE);
+    }
 }
 
 function openView(idx) {
     ACTIVE_VIEW = idx;
-    document.querySelectorAll('.view').forEach(function(v, i) { v.classList.toggle('active', i === idx); });
-    document.querySelectorAll('.tab-btn').forEach(function(b) {
-        const act = Number(b.dataset.v) === idx;
-        b.classList.toggle('active', act);
+    forEachEl('.view', function(v, i) { setClass(v, 'active', i === idx); });
+    forEachEl('.tab-btn', function(b) {
+        var act = Number(b.getAttribute('data-v')) === idx;
+        setClass(b, 'active', act);
         if (act && window.innerWidth <= 768 && b.scrollIntoView) {
             try { b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
-            catch (err) { b.scrollIntoView(false); }
+            catch (err) {
+                try { b.scrollIntoView(false); } catch (e2) {}
+            }
         }
     });
-    const stage = document.getElementById('mainStage');
+    var stage = byId('mainStage');
     if (stage) stage.scrollTop = 0;
 }
 
@@ -968,54 +1403,61 @@ function getFsElement() {
     return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
 }
 function syncFsLabel() {
-    const span = document.querySelector('#fsBtn span');
-    const isFs = Boolean(getFsElement() || document.getElementById('appShell').classList.contains('compact-fs'));
+    var btn = byId('fsBtn');
+    var span = btn ? btn.getElementsByTagName('span')[0] : null;
+    var isFs = Boolean(getFsElement() || hasClass(byId('appShell'), 'compact-fs'));
     if (span) span.textContent = isFs ? 'Quitter' : 'Plein écran';
 }
 function toggleFullscreen() {
-    const el = document.documentElement;
-    const shell = document.getElementById('appShell');
-    const fsElem = getFsElement();
-    if (!fsElem && !shell.classList.contains('compact-fs')) {
-        const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+    var el = document.documentElement;
+    var shell = byId('appShell');
+    var fsElem = getFsElement();
+    if (!fsElem && !hasClass(shell, 'compact-fs')) {
+        var req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
         if (req) {
             try {
-                const res = req.call(el);
+                var res = req.call(el);
                 if (res && typeof res.catch === 'function') {
-                    res.catch(function() { shell.classList.add('compact-fs'); syncFsLabel(); });
+                    res.catch(function() { setClass(shell, 'compact-fs', true); syncFsLabel(); syncAppHeight(); });
                 }
             } catch (e) {
-                shell.classList.add('compact-fs');
+                setClass(shell, 'compact-fs', true);
                 syncFsLabel();
+                syncAppHeight();
             }
         } else {
-            // Repli fiable sur iPhone Safari et iframes restreintes
-            shell.classList.add('compact-fs');
+            setClass(shell, 'compact-fs', true);
             syncFsLabel();
+            syncAppHeight();
         }
     } else {
-        shell.classList.remove('compact-fs');
-        const ex = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        setClass(shell, 'compact-fs', false);
+        var ex = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
         if (fsElem && ex) {
             try { ex.call(document); } catch (e) {}
         }
         syncFsLabel();
+        syncAppHeight();
     }
 }
-['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(function(ev) {
-    document.addEventListener(ev, syncFsLabel);
-});
+(function bindFsEvents() {
+    var evs = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+    for (var i = 0; i < evs.length; i++) {
+        document.addEventListener(evs[i], function() { syncFsLabel(); syncAppHeight(); });
+    }
+})();
 
 function getCanvasPos(canvas, evt) {
-    const rect = canvas.getBoundingClientRect();
-    const pt = (evt.touches && evt.touches[0]) || (evt.changedTouches && evt.changedTouches[0]) || evt;
-    const lw = canvas._lw || canvas.width;
-    const lh = canvas._lh || canvas.height;
+    var rect = canvas.getBoundingClientRect();
+    var pt = (evt.touches && evt.touches[0]) || (evt.changedTouches && evt.changedTouches[0]) || evt;
+    var lw = canvas._lw || canvas.width;
+    var lh = canvas._lh || canvas.height;
     return {
         x: (pt.clientX - rect.left) * (lw / (rect.width || 1)),
         y: (pt.clientY - rect.top) * (lh / (rect.height || 1))
     };
 }
+
 function fmtFR(val, dec) {
     if (typeof dec === 'undefined') dec = 2;
     return val.toFixed(dec).replace('.', ',');
@@ -1036,55 +1478,64 @@ function drawWaterDipole(ctx, x, y, ang, scale) {
 // ============================================================================
 // 0. SITUATION DE DÉPART
 // ============================================================================
-const Sim0 = (function() {
-    const W = 760, H = 370;
-    const cv = document.getElementById('cv-0'), ctx = setupCanvas(cv, W, H);
-    let selected = 'pure', sw = false, grains = [];
-    const state = {
+var Sim0 = (function() {
+    var W = 760, H = 370;
+    var cv = byId('cv-0'), ctx = setupCanvas(cv, W, H);
+    var selected = 'pure', sw = false, grains = [];
+    var state = {
         pure:  { added: true,  diss: 1, tested: false },
         sugar: { added: false, diss: 0, tested: false },
         salt:  { added: false, diss: 0, tested: false }
     };
+    var keys = ['pure', 'sugar', 'salt'];
 
     function syncButtons() {
-        ['pure','sugar','salt'].forEach(function(k) { document.getElementById('v0-b-'+k).classList.toggle('active', k === selected); });
-        const btnAdd = document.getElementById('v0-add');
+        for (var i = 0; i < keys.length; i++) {
+            setClass(byId('v0-b-' + keys[i]), 'active', keys[i] === selected);
+        }
+        var btnAdd = byId('v0-add');
         btnAdd.disabled = (selected === 'pure' || state[selected].added);
         btnAdd.textContent = selected === 'pure' ? "Eau pure (pas de soluté)" : (state[selected].added ? "Solide dissous" : "Ajouter le solide et agiter");
-        const btnSw = document.getElementById('v0-sw');
+        var btnSw = byId('v0-sw');
         btnSw.className = sw ? "btn teal solid push-right" : "btn crimson push-right";
         btnSw.textContent = sw ? "Interrupteur : Fermé (4,5 V)" : "Interrupteur : Ouvert";
     }
     function updateRow(k) {
-        const st = state[k];
-        if (k !== 'pure') document.getElementById('v0-asp-'+k).textContent = st.added ? "Mélange homogène" : "Eau seule";
+        var st = state[k];
+        if (k !== 'pure') byId('v0-asp-' + k).textContent = st.added ? "Mélange homogène" : "Eau seule";
         if (st.tested) {
-            const cond = (k === 'salt' && st.added);
-            document.getElementById('v0-lmp-'+k).innerHTML = cond ? "<strong style='color:#0f766e'>Allumée</strong>" : "Éteinte";
-            document.getElementById('v0-amp-'+k).innerHTML = cond ? "<strong style='color:#0f766e'>185 mA</strong>" : "0,0 mA";
+            var cond = (k === 'salt' && st.added);
+            byId('v0-lmp-' + k).innerHTML = cond ? "<strong style='color:#0f766e'>Allumée</strong>" : "Éteinte";
+            byId('v0-amp-' + k).innerHTML = cond ? "<strong style='color:#0f766e'>185 mA</strong>" : "0,0 mA";
         }
-        ['pure','sugar','salt'].forEach(function(x) { document.getElementById('v0-r-'+x).classList.toggle('row-hl', x === selected); });
+        for (var i = 0; i < keys.length; i++) {
+            setClass(byId('v0-r-' + keys[i]), 'row-hl', keys[i] === selected);
+        }
     }
     function setStep(n) {
-        [1,2,3].forEach(function(i) { document.getElementById('v0-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')); });
+        for (var i = 1; i <= 3; i++) {
+            byId('v0-s' + i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : ''));
+        }
         if (n === 1) {
             sw = false; syncButtons();
-            document.getElementById('v0-msg').innerHTML = "<strong>Étape 1 :</strong> Sélectionnez le bécher 2 (Sucre) ou 3 (Sel), puis cliquez sur <em>Ajouter le solide et agiter</em>.";
+            byId('v0-msg').innerHTML = "<strong>Étape 1 :</strong> Sélectionnez le bécher 2 (Sucre) ou 3 (Sel), puis cliquez sur <em>Ajouter le solide et agiter</em>.";
         } else if (n === 2) {
             if (!sw) toggleSwitch();
         } else {
             state.sugar.added = true; state.sugar.diss = 1;
             state.salt.added = true; state.salt.diss = 1; sw = true;
-            ['pure','sugar','salt'].forEach(function(k) { state[k].tested = true; updateRow(k); });
+            for (var j = 0; j < keys.length; j++) {
+                state[keys[j]].tested = true; updateRow(keys[j]);
+            }
             syncButtons();
-            document.getElementById('v0-msg').innerHTML = "<strong>Comparaison :</strong> Seul le bécher d'<strong>Eau + Sel (NaCl)</strong> conduit le courant (185 mA). Formulez vos hypothèses avant l'Activité 1.";
+            byId('v0-msg').innerHTML = "<strong>Comparaison :</strong> Seul le bécher d'<strong>Eau + Sel (NaCl)</strong> conduit le courant (185 mA). Formulez vos hypothèses avant l'Activité 1.";
         }
     }
     function selectBeaker(k) {
         selected = k; if (sw) state[k].tested = true; syncButtons(); updateRow(k);
         if (sw) {
-            const cond = (k === 'salt' && state.salt.added);
-            document.getElementById('v0-msg').innerHTML = cond
+            var cond = (k === 'salt' && state.salt.added);
+            byId('v0-msg').innerHTML = cond
                 ? "<strong>Résultat :</strong> La lampe brille dans l'eau salée (185 mA) — solution conductrice."
                 : "<strong>Résultat :</strong> La lampe reste éteinte (0,0 mA) — le liquide se comporte comme un isolant.";
         }
@@ -1092,12 +1543,12 @@ const Sim0 = (function() {
     function addSolute() {
         if (selected === 'pure' || state[selected].added) return;
         state[selected].added = true; state[selected].diss = 0.05;
-        grains = Array.from({length: 26}, function() {
-            return { x: 345+(Math.random()-0.5)*44, y: 120+Math.random()*40, vy: 2.2+Math.random()*1.4 };
+        grains = makeArray(26, function() {
+            return { x: 345 + (Math.random() - 0.5) * 44, y: 120 + Math.random() * 40, vy: 2.2 + Math.random() * 1.4 };
         });
         if (sw) state[selected].tested = true;
         syncButtons(); updateRow(selected);
-        document.getElementById('v0-msg').innerHTML = selected === 'salt'
+        byId('v0-msg').innerHTML = selected === 'salt'
             ? "Le sel (NaCl) se dissout entièrement : mélange homogène. Fermez l'interrupteur pour tester."
             : "Le sucre (saccharose) se dissout entièrement : mélange homogène. Fermez l'interrupteur pour tester.";
     }
@@ -1105,68 +1556,80 @@ const Sim0 = (function() {
         sw = !sw;
         if (sw) {
             state[selected].tested = true; updateRow(selected);
-            [1,2,3].forEach(function(i) { document.getElementById('v0-s'+i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : '')); });
+            for (var i = 1; i <= 3; i++) {
+                byId('v0-s' + i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : ''));
+            }
         }
         syncButtons(); selectBeaker(selected);
     }
     function step(dt) {
-        if (state[selected].added && state[selected].diss < 1) state[selected].diss = Math.min(1, state[selected].diss + 0.015 * dt);
+        if (state[selected].added && state[selected].diss < 1) {
+            state[selected].diss = Math.min(1, state[selected].diss + 0.015 * dt);
+        }
         ctx.clearRect(0, 0, W, H);
         ctx.textBaseline = "alphabetic";
         ctx.fillStyle = "#e2e8f0"; ctx.fillRect(0, 315, W, 55);
-        ctx.strokeStyle = "#cbd5e1"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0,315); ctx.lineTo(W,315); ctx.stroke();
+        ctx.strokeStyle = "#cbd5e1"; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(0, 315); ctx.lineTo(W, 315); ctx.stroke();
 
-        const st = state[selected], cond = sw && selected === 'salt' && st.added && st.diss > 0.35, mA = cond ? Math.round(185*st.diss) : 0;
-        const bx = 265, by = 180, bw = 190, bh = 135;
+        var st = state[selected];
+        var cond = sw && selected === 'salt' && st.added && st.diss > 0.35;
+        var mA = cond ? Math.round(185 * st.diss) : 0;
+        var bx = 265, by = 180, bw = 190, bh = 135;
+
         ctx.fillStyle = selected === 'salt' && st.added ? "rgba(125,211,252,0.58)" : "rgba(186,230,253,0.48)";
-        ctx.fillRect(bx+3, by+26, bw-6, bh-28);
+        ctx.fillRect(bx + 3, by + 26, bw - 6, bh - 28);
         if (grains.length > 0 && st.diss < 0.75) {
             ctx.fillStyle = selected === 'salt' ? "#ffffff" : "#fef3c7";
-            grains.forEach(function(g) { g.y = Math.min(by+bh-8, g.y+g.vy*dt); ctx.fillRect(g.x, g.y, 4, 4); });
+            for (var i = 0; i < grains.length; i++) {
+                var gr = grains[i];
+                gr.y = Math.min(by + bh - 8, gr.y + gr.vy * dt);
+                ctx.fillRect(gr.x, gr.y, 4, 4);
+            }
         }
         ctx.strokeStyle = "#334155"; ctx.lineWidth = 2.8;
-        ctx.beginPath(); ctx.moveTo(bx-6,by-4); ctx.lineTo(bx,by); ctx.lineTo(bx,by+bh); ctx.lineTo(bx+bw,by+bh); ctx.lineTo(bx+bw,by); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx - 6, by - 4); ctx.lineTo(bx, by); ctx.lineTo(bx, by + bh); ctx.lineTo(bx + bw, by + bh); ctx.lineTo(bx + bw, by); ctx.stroke();
 
-        ctx.fillStyle = "#475569"; ctx.fillRect(bx+34,by-24,14,125); ctx.fillRect(bx+bw-48,by-24,14,125);
-        ctx.fillStyle = "#94a3b8"; ctx.fillRect(bx+36,by-24,3,125); ctx.fillRect(bx+bw-46,by-24,3,125);
+        ctx.fillStyle = "#475569"; ctx.fillRect(bx + 34, by - 24, 14, 125); ctx.fillRect(bx + bw - 48, by - 24, 14, 125);
+        ctx.fillStyle = "#94a3b8"; ctx.fillRect(bx + 36, by - 24, 3, 125); ctx.fillRect(bx + bw - 46, by - 24, 3, 125);
 
         ctx.strokeStyle = "#b91c1c"; ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.moveTo(bx+41,by-24); ctx.lineTo(bx+41,70); ctx.lineTo(150,70); ctx.lineTo(150,118); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx + 41, by - 24); ctx.lineTo(bx + 41, 70); ctx.lineTo(150, 70); ctx.lineTo(150, 118); ctx.stroke();
         ctx.strokeStyle = "#1e293b";
-        ctx.beginPath(); ctx.moveTo(bx+bw-41,by-24); ctx.lineTo(bx+bw-41,70); ctx.lineTo(548,70); ctx.moveTo(604,70); ctx.lineTo(665,70); ctx.lineTo(665,340); ctx.lineTo(150,340); ctx.lineTo(150,180); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx + bw - 41, by - 24); ctx.lineTo(bx + bw - 41, 70); ctx.lineTo(548, 70); ctx.moveTo(604, 70); ctx.lineTo(665, 70); ctx.lineTo(665, 340); ctx.lineTo(150, 340); ctx.lineTo(150, 180); ctx.stroke();
 
-        ctx.fillStyle = "#1e293b"; ctx.fillRect(92,118,116,62);
-        ctx.fillStyle = "#334e68"; ctx.fillRect(96,122,108,20);
+        ctx.fillStyle = "#1e293b"; ctx.fillRect(92, 118, 116, 62);
+        ctx.fillStyle = "#334e68"; ctx.fillRect(96, 122, 108, 20);
         ctx.fillStyle = "#ffffff"; ctx.font = "bold 11px " + FONT_SANS; ctx.textAlign = "center"; ctx.fillText("GÉNÉRATEUR CC", 150, 136);
         ctx.fillStyle = "#fbbf24"; ctx.font = "bold 17px " + FONT_MONO; ctx.fillText("4,5 V", 150, 166);
 
-        ctx.fillStyle = "#ffffff"; ctx.fillRect(380,326,90,28);
-        ctx.strokeStyle = "#64748b"; ctx.lineWidth = 1.5; ctx.strokeRect(380,326,90,28);
-        ctx.fillStyle = "#1e293b"; ctx.beginPath(); ctx.arc(400,340,4,0,Math.PI*2); ctx.arc(450,340,4,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle = "#ffffff"; ctx.fillRect(380, 326, 90, 28);
+        ctx.strokeStyle = "#64748b"; ctx.lineWidth = 1.5; ctx.strokeRect(380, 326, 90, 28);
+        ctx.fillStyle = "#1e293b"; ctx.beginPath(); ctx.arc(400, 340, 4, 0, Math.PI * 2); ctx.arc(450, 340, 4, 0, Math.PI * 2); ctx.fill();
         ctx.strokeStyle = sw ? "#0f766e" : "#b91c1c"; ctx.lineWidth = 3.5;
-        ctx.beginPath(); ctx.moveTo(400,340); if (sw) ctx.lineTo(450,340); else ctx.lineTo(442,322); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(400, 340); if (sw) ctx.lineTo(450, 340); else ctx.lineTo(442, 322); ctx.stroke();
         ctx.fillStyle = "#475569"; ctx.font = "bold 11px " + FONT_SANS; ctx.fillText(sw ? "Interrupteur fermé" : "Interrupteur ouvert", 425, 366);
 
-        const lx = 576, ly = 70;
+        var lx = 576, ly = 70;
         if (cond) {
-            const g = ctx.createRadialGradient(lx,ly,4,lx,ly,50);
-            g.addColorStop(0,"rgba(254,240,138,0.95)"); g.addColorStop(0.55,"rgba(250,204,21,0.35)"); g.addColorStop(1,"rgba(250,204,21,0)");
-            ctx.fillStyle = g; ctx.beginPath(); ctx.arc(lx,ly,50,0,Math.PI*2); ctx.fill();
+            var g = ctx.createRadialGradient(lx, ly, 4, lx, ly, 50);
+            g.addColorStop(0, "rgba(254,240,138,0.95)"); g.addColorStop(0.55, "rgba(250,204,21,0.35)"); g.addColorStop(1, "rgba(250,204,21,0)");
+            ctx.fillStyle = g; ctx.beginPath(); ctx.arc(lx, ly, 50, 0, Math.PI * 2); ctx.fill();
         }
-        ctx.beginPath(); ctx.arc(lx,ly,26,0,Math.PI*2);
+        ctx.beginPath(); ctx.arc(lx, ly, 26, 0, Math.PI * 2);
         ctx.fillStyle = cond ? "#fef08a" : "#e2e8f0"; ctx.fill();
         ctx.strokeStyle = cond ? "#ca8a04" : "#475569"; ctx.lineWidth = 2.2; ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(lx-10,ly+10); ctx.lineTo(lx-5,ly-7); ctx.lineTo(lx,ly+2); ctx.lineTo(lx+5,ly-7); ctx.lineTo(lx+10,ly+10);
+        ctx.beginPath(); ctx.moveTo(lx - 10, ly + 10); ctx.lineTo(lx - 5, ly - 7); ctx.lineTo(lx, ly + 2); ctx.lineTo(lx + 5, ly - 7); ctx.lineTo(lx + 10, ly + 10);
         ctx.strokeStyle = cond ? "#ea580c" : "#64748b"; ctx.stroke();
-        ctx.fillStyle = "#334155"; ctx.font = "bold 12px " + FONT_SANS; ctx.fillText(cond ? "Lampe allumée" : "Lampe éteinte", lx, ly+42);
+        ctx.fillStyle = "#334155"; ctx.font = "bold 12px " + FONT_SANS; ctx.fillText(cond ? "Lampe allumée" : "Lampe éteinte", lx, ly + 42);
 
-        ctx.fillStyle = "#102033"; ctx.fillRect(512,194,128,60);
-        ctx.strokeStyle = "#475569"; ctx.lineWidth = 2; ctx.strokeRect(512,194,128,60);
+        ctx.fillStyle = "#102033"; ctx.fillRect(512, 194, 128, 60);
+        ctx.strokeStyle = "#475569"; ctx.lineWidth = 2; ctx.strokeRect(512, 194, 128, 60);
         ctx.fillStyle = "#9fb3c8"; ctx.font = "bold 10px " + FONT_SANS; ctx.fillText("AMPÈREMÈTRE", 576, 210);
         ctx.fillStyle = cond ? "#34d399" : "#94a3b8"; ctx.font = "bold 20px " + FONT_MONO; ctx.fillText(fmtFR(mA, 1) + " mA", 576, 238);
 
-        const titles = { pure: "Bécher 1 : Eau distillée", sugar: "Bécher 2 : Eau + Saccharose", salt: "Bécher 3 : Eau + Sel (NaCl)" };
-        ctx.fillStyle = "#1b365d"; ctx.font = "bold 14px " + FONT_SERIF; ctx.fillText(titles[selected], bx+bw/2, by+bh-14);
+        var titles = { pure: "Bécher 1 : Eau distillée", sugar: "Bécher 2 : Eau + Saccharose", salt: "Bécher 3 : Eau + Sel (NaCl)" };
+        ctx.fillStyle = "#1b365d"; ctx.font = "bold 14px " + FONT_SERIF; ctx.fillText(titles[selected], bx + bw / 2, by + bh - 14);
     }
 
     syncButtons(); updateRow('pure');
@@ -1176,22 +1639,22 @@ const Sim0 = (function() {
 // ============================================================================
 // 1. ACTIVITÉ 1 : ÉTAT SOLIDE -> ZOOM -> MODÈLES 3D LIBRES
 // ============================================================================
-const Sim1 = (function() {
-    const W = 760, H = 410;
-    const cv = document.getElementById('cv-1'), ctx = setupCanvas(cv, W, H);
+var Sim1 = (function() {
+    var W = 760, H = 410;
+    var cv = byId('cv-1'), ctx = setupCanvas(cv, W, H);
     preventIOSGesture(cv);
-    let zoomVal = 0, sepVal = 0, layers = 3, modelMode = 'compact', crystal = 'NaCl';
-    let showForces = false, autoRot = true, rotX = -0.36, rotY = 0.56, camScale = 1.0;
-    let dragging = false, lastX = 0, lastY = 0, loupeX = 380, loupeY = 205, pinchDist = 0;
+    var zoomVal = 0, sepVal = 0, layers = 3, modelMode = 'compact', crystal = 'NaCl';
+    var showForces = false, autoRot = true, rotX = -0.36, rotY = 0.56, camScale = 1.0;
+    var dragging = false, lastX = 0, lastY = 0, loupeX = 380, loupeY = 205, pinchDist = 0;
 
-    const crystals = {
+    var crystals = {
         NaCl:  { name: "chlorure de sodium (NaCl)", cat: "Na⁺", an: "Cl⁻", catCol: "#94a3b8", anCol: "#15803d", grainCol: "#f8fafc", catR: 0.72, anR: 1.0 },
         CaF2:  { name: "fluorure de calcium (CaF₂)", cat: "Ca²⁺", an: "F⁻", catCol: "#64748b", anCol: "#d97706", grainCol: "#fef3c7", catR: 0.85, anR: 0.92 },
         Al2S3: { name: "sulfure d'aluminium (Al₂S₃)", cat: "Al³⁺", an: "S²⁻", catCol: "#2563eb", anCol: "#ca8a04", grainCol: "#fef9c3", catR: 0.70, anR: 1.0 }
     };
-    const grains = Array.from({length: 36}, function() {
-        const a = Math.random()*Math.PI*2, r = Math.sqrt(Math.random())*115;
-        return { x: 380+Math.cos(a)*r, y: 215+Math.sin(a)*r*0.62, s: 11+Math.random()*12, ang: (Math.random()-0.5)*0.6 };
+    var grains = makeArray(36, function() {
+        var a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * 115;
+        return { x: 380 + Math.cos(a) * r, y: 215 + Math.sin(a) * r * 0.62, s: 11 + Math.random() * 12, ang: (Math.random() - 0.5) * 0.6 };
     });
 
     function startDrag(e) {
@@ -1199,105 +1662,107 @@ const Sim1 = (function() {
         if (e.type === 'touchstart') LAST_TOUCH_TS = Date.now();
         if (e.touches && e.touches.length === 2) {
             if (e.cancelable) e.preventDefault();
-            pinchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+            pinchDist = hypot2(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
             dragging = false; return;
         }
         if (e.cancelable) e.preventDefault();
-        const p = getCanvasPos(cv, e), pt = (e.touches && e.touches[0]) || e;
+        var p = getCanvasPos(cv, e), pt = (e.touches && e.touches[0]) || e;
         dragging = true; lastX = pt.clientX; lastY = pt.clientY;
         if (zoomVal >= 60) { autoRot = false; syncControls(); } else { loupeX = p.x; loupeY = p.y; }
     }
     function moveDrag(e) {
         if (e.touches && e.touches.length === 2 && pinchDist > 0) {
             if (e.cancelable) e.preventDefault();
-            const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+            var d = hypot2(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
             if (zoomVal >= 68) camScale = Math.max(0.65, Math.min(1.55, camScale * (d / pinchDist)));
             pinchDist = d; return;
         }
         if (!dragging) return;
         if (e.cancelable) e.preventDefault();
-        const pt = (e.touches && e.touches[0]) || e;
+        var pt = (e.touches && e.touches[0]) || e;
         if (zoomVal >= 60) {
             rotY += (pt.clientX - lastX) * 0.01; rotX += (pt.clientY - lastY) * 0.01;
             lastX = pt.clientX; lastY = pt.clientY;
         } else {
-            const p = getCanvasPos(cv, e);
+            var p = getCanvasPos(cv, e);
             loupeX = Math.max(110, Math.min(650, p.x)); loupeY = Math.max(85, Math.min(325, p.y));
         }
     }
     function endDrag() { dragging = false; pinchDist = 0; }
     cv.addEventListener('mousedown', startDrag);
-    cv.addEventListener('touchstart', startDrag, { passive: false });
-    window.addEventListener('touchmove', moveDrag, { passive: false });
+    cv.addEventListener('touchstart', startDrag, EV_NO_PASSIVE);
+    window.addEventListener('touchmove', moveDrag, EV_NO_PASSIVE);
     window.addEventListener('mousemove', moveDrag);
     window.addEventListener('mouseup', endDrag);
     window.addEventListener('touchend', endDrag);
     window.addEventListener('touchcancel', endDrag);
     cv.addEventListener('wheel', function(e) {
-        e.preventDefault();
+        if (e.cancelable) e.preventDefault();
         if (zoomVal >= 68) camScale = Math.max(0.65, Math.min(1.55, camScale - e.deltaY * 0.0008));
-        else { zoomVal = Math.max(0, Math.min(100, zoomVal - e.deltaY * 0.05)); document.getElementById('v1-zoom-slider').value = zoomVal; syncStageUI(); }
-    }, { passive: false });
+        else { zoomVal = Math.max(0, Math.min(100, zoomVal - e.deltaY * 0.05)); byId('v1-zoom-slider').value = zoomVal; syncStageUI(); }
+    }, EV_NO_PASSIVE);
 
-    function goStage(st) { zoomVal = st === 'macro' ? 0 : (st === 'zoom' ? 48 : 100); document.getElementById('v1-zoom-slider').value = zoomVal; syncStageUI(); }
+    function goStage(st) { zoomVal = st === 'macro' ? 0 : (st === 'zoom' ? 48 : 100); byId('v1-zoom-slider').value = zoomVal; syncStageUI(); }
     function onZoom(v) { zoomVal = Number(v); syncStageUI(); }
     function onSep(v) { sepVal = Number(v); modelMode = sepVal < 25 ? 'compact' : 'eclate'; syncControls(); }
-    function onLayers(v) { layers = Number(v); document.getElementById('v1-layer-lbl').textContent = layers + " / 3 plans"; }
+    function onLayers(v) { layers = Number(v); byId('v1-layer-lbl').textContent = layers + " / 3 plans"; }
     function zoom3D(delta) {
-        if (zoomVal < 70) { zoomVal = 100; document.getElementById('v1-zoom-slider').value = 100; syncStageUI(); }
+        if (zoomVal < 70) { zoomVal = 100; byId('v1-zoom-slider').value = 100; syncStageUI(); }
         camScale = Math.max(0.65, Math.min(1.55, camScale + delta));
     }
     function setModel(m) {
         modelMode = m;
-        if (zoomVal < 70) { zoomVal = 100; document.getElementById('v1-zoom-slider').value = 100; }
+        if (zoomVal < 70) { zoomVal = 100; byId('v1-zoom-slider').value = 100; }
         if (m === 'compact') { sepVal = 0; showForces = false; }
         else if (m === 'eclate') { sepVal = 85; showForces = false; }
         else { sepVal = 70; showForces = true; }
-        document.getElementById('v1-sep-slider').value = sepVal; syncStageUI(); syncControls();
+        byId('v1-sep-slider').value = sepVal; syncStageUI(); syncControls();
     }
     function setCrystal(cr) {
         crystal = cr;
-        ['NaCl','CaF2','Al2S3'].forEach(function(k) {
-            document.getElementById('v1-cr-'+k).classList.toggle('active', k === cr);
-            document.getElementById('v1-r-'+k).classList.toggle('row-hl', k === cr);
-        });
+        var list = ['NaCl', 'CaF2', 'Al2S3'];
+        for (var i = 0; i < list.length; i++) {
+            setClass(byId('v1-cr-' + list[i]), 'active', list[i] === cr);
+            setClass(byId('v1-r-' + list[i]), 'row-hl', list[i] === cr);
+        }
         syncStageUI();
     }
     function toggleForces() { showForces = !showForces; syncControls(); }
     function toggleRot() { autoRot = !autoRot; syncControls(); }
-    function resetView() { rotX = -0.36; rotY = 0.56; camScale = 1.0; layers = 3; document.getElementById('v1-layer-slider').value = 3; document.getElementById('v1-layer-lbl').textContent = "3 / 3 plans"; }
+    function resetView() { rotX = -0.36; rotY = 0.56; camScale = 1.0; layers = 3; byId('v1-layer-slider').value = 3; byId('v1-layer-lbl').textContent = "3 / 3 plans"; }
 
     function syncControls() {
-        document.getElementById('v1-sep-lbl').textContent = Math.round(sepVal) + " %";
-        ['compact','eclate','maille'].forEach(function(k) { document.getElementById('v1-m-'+k).classList.toggle('active', k === modelMode); });
-        const bf = document.getElementById('v1-btn-forces'); bf.classList.toggle('solid', showForces);
+        byId('v1-sep-lbl').textContent = Math.round(sepVal) + " %";
+        var mods = ['compact', 'eclate', 'maille'];
+        for (var i = 0; i < mods.length; i++) setClass(byId('v1-m-' + mods[i]), 'active', mods[i] === modelMode);
+        var bf = byId('v1-btn-forces'); setClass(bf, 'solid', showForces);
         bf.textContent = showForces ? "Attraction (6 voisins) : ON" : "Attraction (6 voisins) : OFF";
-        const br = document.getElementById('v1-btn-rot'); br.classList.toggle('active', autoRot);
+        var br = byId('v1-btn-rot'); setClass(br, 'active', autoRot);
         br.textContent = autoRot ? "Rotation auto : ON" : "Rotation auto : OFF";
     }
     function syncStageUI() {
-        const d = crystals[crystal], stage = zoomVal < 30 ? 'macro' : (zoomVal < 68 ? 'zoom' : 'models');
-        document.getElementById('v1-s1').className = 'step-chip' + (stage === 'macro' ? ' active' : ' done');
-        document.getElementById('v1-s2').className = 'step-chip' + (stage === 'zoom' ? ' active' : (stage === 'models' ? ' done' : ''));
-        document.getElementById('v1-s3').className = 'step-chip' + (stage === 'models' ? ' active' : '');
-        document.getElementById('v1-3d-controls').style.opacity = stage === 'models' ? '1' : '0.48';
+        var d = crystals[crystal], stage = zoomVal < 30 ? 'macro' : (zoomVal < 68 ? 'zoom' : 'models');
+        byId('v1-s1').className = 'step-chip' + (stage === 'macro' ? ' active' : ' done');
+        byId('v1-s2').className = 'step-chip' + (stage === 'zoom' ? ' active' : (stage === 'models' ? ' done' : ''));
+        byId('v1-s3').className = 'step-chip' + (stage === 'models' ? ' active' : '');
+        byId('v1-3d-controls').style.opacity = stage === 'models' ? '1' : '0.48';
 
-        const titleEl = document.getElementById('v1-stage-title'), msgEl = document.getElementById('v1-msg'), scaleEl = document.getElementById('v1-scale-lbl');
+        var titleEl = byId('v1-stage-title'), msgEl = byId('v1-msg'), scaleEl = byId('v1-scale-lbl');
         if (stage === 'macro') {
             scaleEl.textContent = "1 × à 20 × (Loupe)";
             titleEl.textContent = "Étape 1 : État solide macroscopique — Cristaux de " + d.name;
             msgEl.innerHTML = "<strong>État solide :</strong> Déplacez la loupe au doigt ou à la souris. Les grains ont naturellement des <strong>faces planes cubiques</strong>. Glissez le curseur d'échelle pour zoomer.";
         } else if (stage === 'zoom') {
-            scaleEl.textContent = "10^" + Math.round(2+(zoomVal-30)/38*6) + " × (Zoom interne)";
+            scaleEl.textContent = "10^" + Math.round(2 + (zoomVal - 30) / 38 * 6) + " × (Zoom interne)";
             titleEl.textContent = "Étape 2 : Zoom progressif vers l'échelle ionique (" + crystal + ")";
             msgEl.innerHTML = "<strong>Changement d'échelle :</strong> En grossissant plusieurs millions de fois, la géométrie cubique du cristal s'explique par l'empilement régulier de cations et d'anions.";
         } else {
             scaleEl.textContent = "10⁸ × (Échelle ionique 3D)";
-            const mLbl = modelMode === 'compact' ? "Modèle compact" : (modelMode === 'eclate' ? "Modèle éclaté (assemblage de mailles)" : "Maille élémentaire (6 voisins)");
+            var mLbl = modelMode === 'compact' ? "Modèle compact" : (modelMode === 'eclate' ? "Modèle éclaté (assemblage de mailles)" : "Maille élémentaire (6 voisins)");
             titleEl.textContent = "Étape 3 : Modèles 3D libres — " + mLbl + " (" + crystal + ")";
             msgEl.innerHTML = "<strong>Manipulation libre :</strong> Glissez pour tourner en 3D, pincez (ou <em>Zoom + / −</em>), ajustez l'<em>Écartement</em> et la <em>Coupe du cristal</em>.";
         }
-        document.getElementById('v1-legend').innerHTML =
+        byId('v1-legend').innerHTML =
             '<span><span class="swatch" style="background:' + d.anCol + '"></span>Anion ' + d.an + '</span>' +
             '<span><span class="swatch" style="background:' + d.catCol + '"></span>Cation ' + d.cat + '</span>' +
             '<span><span style="display:inline-block;width:16px;height:2.5px;background:#1b365d;vertical-align:middle;margin-right:5px;"></span>Maille cubique</span>' +
@@ -1307,31 +1772,34 @@ const Sim1 = (function() {
     function drawGrain(x, y, s, a, fill) {
         ctx.save(); ctx.translate(x, y); ctx.rotate(a);
         ctx.fillStyle = fill; ctx.strokeStyle = "#94a3b8"; ctx.lineWidth = 1.2;
-        ctx.fillRect(-s/2,-s/2,s,s); ctx.strokeRect(-s/2,-s/2,s,s);
+        ctx.fillRect(-s / 2, -s / 2, s, s); ctx.strokeRect(-s / 2, -s / 2, s, s);
         ctx.fillStyle = "rgba(255,255,255,0.88)";
-        ctx.beginPath(); ctx.moveTo(-s/2,-s/2); ctx.lineTo(-s/2+s*0.35,-s/2-s*0.3); ctx.lineTo(s/2+s*0.35,-s/2-s*0.3); ctx.lineTo(s/2,-s/2); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-s / 2, -s / 2); ctx.lineTo(-s / 2 + s * 0.35, -s / 2 - s * 0.3); ctx.lineTo(s / 2 + s * 0.35, -s / 2 - s * 0.3); ctx.lineTo(s / 2, -s / 2); ctx.closePath(); ctx.fill(); ctx.stroke();
         ctx.fillStyle = "rgba(148,163,184,0.35)";
-        ctx.beginPath(); ctx.moveTo(s/2,-s/2); ctx.lineTo(s/2+s*0.35,-s/2-s*0.3); ctx.lineTo(s/2+s*0.35,s/2-s*0.3); ctx.lineTo(s/2,s/2); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(s / 2, -s / 2); ctx.lineTo(s / 2 + s * 0.35, -s / 2 - s * 0.3); ctx.lineTo(s / 2 + s * 0.35, s / 2 - s * 0.3); ctx.lineTo(s / 2, s / 2); ctx.closePath(); ctx.fill(); ctx.stroke();
         ctx.restore();
     }
     function drawMacro() {
-        const d = crystals[crystal];
+        var d = crystals[crystal];
         ctx.fillStyle = "#e8eef5"; ctx.fillRect(0, 0, W, H);
-        const cx = 380, cy = 215, dg = ctx.createRadialGradient(cx,cy,40,cx,cy,175);
-        dg.addColorStop(0,"#cbd5e1"); dg.addColorStop(0.85,"#dbe4ee"); dg.addColorStop(1,"#94a3b8");
-        ctx.fillStyle = dg; ctx.beginPath(); ctx.ellipse(cx,cy,175,112,0,0,Math.PI*2); ctx.fill();
+        var cx = 380, cy = 215, dg = ctx.createRadialGradient(cx, cy, 40, cx, cy, 175);
+        dg.addColorStop(0, "#cbd5e1"); dg.addColorStop(0.85, "#dbe4ee"); dg.addColorStop(1, "#94a3b8");
+        drawEllipsePath(ctx, cx, cy, 175, 112);
+        ctx.fillStyle = dg; ctx.fill();
         ctx.strokeStyle = "#64748b"; ctx.lineWidth = 2.4; ctx.stroke();
-        grains.forEach(function(g) { drawGrain(g.x, g.y, g.s, g.ang, d.grainCol); });
+        for (var i = 0; i < grains.length; i++) {
+            var g = grains[i]; drawGrain(g.x, g.y, g.s, g.ang, d.grainCol);
+        }
 
-        ctx.save(); ctx.beginPath(); ctx.arc(loupeX, loupeY, 64, 0, Math.PI*2); ctx.clip();
-        ctx.fillStyle = "#102033"; ctx.fillRect(loupeX-64, loupeY-64, 128, 128);
-        drawGrain(loupeX-18, loupeY+6, 38, -0.15, d.grainCol);
-        drawGrain(loupeX+24, loupeY-8, 32, 0.22, d.grainCol);
-        drawGrain(loupeX+8, loupeY+26, 28, 0.08, d.grainCol);
+        ctx.save(); ctx.beginPath(); ctx.arc(loupeX, loupeY, 64, 0, Math.PI * 2); ctx.clip();
+        ctx.fillStyle = "#102033"; ctx.fillRect(loupeX - 64, loupeY - 64, 128, 128);
+        drawGrain(loupeX - 18, loupeY + 6, 38, -0.15, d.grainCol);
+        drawGrain(loupeX + 24, loupeY - 8, 32, 0.22, d.grainCol);
+        drawGrain(loupeX + 8, loupeY + 26, 28, 0.08, d.grainCol);
         ctx.restore();
-        ctx.strokeStyle = "#1b365d"; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(loupeX, loupeY, 64, 0, Math.PI*2); ctx.stroke();
+        ctx.strokeStyle = "#1b365d"; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(loupeX, loupeY, 64, 0, Math.PI * 2); ctx.stroke();
         ctx.strokeStyle = "#334e68"; ctx.lineWidth = 8; ctx.lineCap = "round";
-        ctx.beginPath(); ctx.moveTo(loupeX+46, loupeY+46); ctx.lineTo(loupeX+90, loupeY+90); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(loupeX + 46, loupeY + 46); ctx.lineTo(loupeX + 90, loupeY + 90); ctx.stroke();
 
         ctx.fillStyle = "#1b365d"; ctx.font = "bold 14px " + FONT_SERIF; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
         ctx.fillText("État solide : cristaux cubiques de " + crystal, 18, 28);
@@ -1339,101 +1807,120 @@ const Sim1 = (function() {
         ctx.fillText("Déplacez la loupe sur la coupelle ou glissez le curseur d'échelle.", 18, 48);
     }
     function drawZoom() {
-        const d = crystals[crystal], frac = (zoomVal - 30) / 38;
+        var d = crystals[crystal], frac = (zoomVal - 30) / 38;
         ctx.fillStyle = "#102033"; ctx.fillRect(0, 0, W, H);
-        const cx = 380, cy = 205, sz = 120 + frac * 165;
+        var cx = 380, cy = 205, sz = 120 + frac * 165;
         ctx.save(); ctx.globalAlpha = Math.min(1, frac * 1.35);
-        const stp = sz / 4, sx0 = cx - sz/2 + stp/2, sy0 = cy - sz/2 + stp/2;
-        for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
-            const isAn = (r+c)%2 === 0, rad = stp * (isAn ? 0.44 : 0.34), sx = sx0+c*stp, sy = sy0+r*stp;
-            const g = ctx.createRadialGradient(sx-rad*0.3, sy-rad*0.3, 2, sx, sy, rad);
-            g.addColorStop(0,"#fff"); g.addColorStop(0.35, isAn ? d.anCol : d.catCol); g.addColorStop(1,"#0f172a");
-            ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sx, sy, rad, 0, Math.PI*2); ctx.fill();
+        var stp = sz / 4, sx0 = cx - sz / 2 + stp / 2, sy0 = cy - sz / 2 + stp / 2;
+        for (var r = 0; r < 4; r++) {
+            for (var c = 0; c < 4; c++) {
+                var isAn = (r + c) % 2 === 0, rad = stp * (isAn ? 0.44 : 0.34), sx = sx0 + c * stp, sy = sy0 + r * stp;
+                var g = ctx.createRadialGradient(sx - rad * 0.3, sy - rad * 0.3, 2, sx, sy, rad);
+                g.addColorStop(0, "#fff"); g.addColorStop(0.35, isAn ? d.anCol : d.catCol); g.addColorStop(1, "#0f172a");
+                ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sx, sy, rad, 0, Math.PI * 2); ctx.fill();
+            }
         }
         ctx.restore();
-        ctx.save(); ctx.globalAlpha = Math.max(0.08, 0.78*(1-frac)); ctx.fillStyle = d.grainCol; ctx.fillRect(cx-sz/2, cy-sz/2, sz, sz); ctx.restore();
-        ctx.strokeStyle = "rgba(255,255,255,0.65)"; ctx.lineWidth = 2; ctx.strokeRect(cx-sz/2, cy-sz/2, sz, sz);
+        ctx.save(); ctx.globalAlpha = Math.max(0.08, 0.78 * (1 - frac)); ctx.fillStyle = d.grainCol; ctx.fillRect(cx - sz / 2, cy - sz / 2, sz, sz); ctx.restore();
+        ctx.strokeStyle = "rgba(255,255,255,0.65)"; ctx.lineWidth = 2; ctx.strokeRect(cx - sz / 2, cy - sz / 2, sz, sz);
         ctx.fillStyle = "#fff"; ctx.font = "bold 13.5px " + FONT_MONO; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
-        ctx.fillText("GROSSISSEMENT : × 10^" + fmtFR(2+frac*6, 1), 18, 28);
+        ctx.fillText("GROSSISSEMENT : × 10^" + fmtFR(2 + frac * 6, 1), 18, 28);
         ctx.fillStyle = "#cbd5e1"; ctx.font = "12.5px " + FONT_SANS;
         ctx.fillText("Continuez le zoom vers 100 % pour manipuler le réseau en 3D.", 18, 48);
     }
     function project3D(x, y, z, scale) {
-        const x1 = x*Math.cos(rotY) - z*Math.sin(rotY), z1 = x*Math.sin(rotY) + z*Math.cos(rotY);
-        const y2 = y*Math.cos(rotX) - z1*Math.sin(rotX), z2 = y*Math.sin(rotX) + z1*Math.cos(rotX);
-        const p = 740 / (740 + z2 * scale);
-        return { sx: W/2 + x1*scale*p, sy: H/2 - y2*scale*p, z: z2, p: p };
+        var x1 = x * Math.cos(rotY) - z * Math.sin(rotY), z1 = x * Math.sin(rotY) + z * Math.cos(rotY);
+        var y2 = y * Math.cos(rotX) - z1 * Math.sin(rotX), z2 = y * Math.sin(rotX) + z1 * Math.cos(rotX);
+        var p = 740 / (740 + z2 * scale);
+        return { sx: W / 2 + x1 * scale * p, sy: H / 2 - y2 * scale * p, z: z2, p: p };
     }
     function draw3D() {
-        const d = crystals[crystal];
-        const bg = ctx.createRadialGradient(W/2, H/2, 40, W/2, H/2, 440);
-        bg.addColorStop(0,"#fff"); bg.addColorStop(1,"#e2e8f0");
+        var d = crystals[crystal];
+        var bg = ctx.createRadialGradient(W / 2, H / 2, 40, W / 2, H / 2, 440);
+        bg.addColorStop(0, "#fff"); bg.addColorStop(1, "#e2e8f0");
         ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-        const sep = sepVal/100, nodes = [], edges = [], redEdges = [];
+        var sep = sepVal / 100, nodes = [], edges = [], redEdges = [], i, a, b, p;
         if (crystal === 'NaCl') {
-            const xMax = (modelMode === 'eclate' && sep > 0.45) ? 2 : 1;
-            const zMin = layers === 1 ? 0 : -1, zMax = layers === 3 ? 1 : 0, sp = xMax === 2 ? 0.78 : 1.0;
-            for (let x = -xMax; x <= xMax; x++) for (let y = -1; y <= 1; y++) for (let z = zMin; z <= zMax; z++) {
-                const isAn = ((x+y+z+12)%2 === 0);
-                nodes.push({ x:x*sp, y:y*sp, z:z*sp, isAn:isAn, label: isAn?'Cl⁻':'Na⁺' });
-                if (sep > 0.18 || modelMode === 'maille') {
-                    if (x < xMax) edges.push([[x*sp,y*sp,z*sp],[(x+1)*sp,y*sp,z*sp]]);
-                    if (y < 1) edges.push([[x*sp,y*sp,z*sp],[x*sp,(y+1)*sp,z*sp]]);
-                    if (z < zMax) edges.push([[x*sp,y*sp,z*sp],[x*sp,y*sp,(z+1)*sp]]);
+            var xMax = (modelMode === 'eclate' && sep > 0.45) ? 2 : 1;
+            var zMin = layers === 1 ? 0 : -1, zMax = layers === 3 ? 1 : 0, sp = xMax === 2 ? 0.78 : 1.0;
+            for (var x = -xMax; x <= xMax; x++) {
+                for (var y = -1; y <= 1; y++) {
+                    for (var z = zMin; z <= zMax; z++) {
+                        var isAn = ((x + y + z + 12) % 2 === 0);
+                        nodes.push({ x: x * sp, y: y * sp, z: z * sp, isAn: isAn, label: isAn ? 'Cl⁻' : 'Na⁺' });
+                        if (sep > 0.18 || modelMode === 'maille') {
+                            if (x < xMax) edges.push([[x * sp, y * sp, z * sp], [(x + 1) * sp, y * sp, z * sp]]);
+                            if (y < 1) edges.push([[x * sp, y * sp, z * sp], [x * sp, (y + 1) * sp, z * sp]]);
+                            if (z < zMax) edges.push([[x * sp, y * sp, z * sp], [x * sp, y * sp, (z + 1) * sp]]);
+                        }
+                    }
                 }
             }
-            if (showForces) { redEdges.push([[-sp,0,0],[sp,0,0]], [[0,-sp,0],[0,sp,0]]); if (layers === 3) redEdges.push([[0,0,-sp],[0,0,sp]]); }
+            if (showForces) { redEdges.push([[-sp, 0, 0], [sp, 0, 0]], [[0, -sp, 0], [0, sp, 0]]); if (layers === 3) redEdges.push([[0, 0, -sp], [0, 0, sp]]); }
         } else if (crystal === 'CaF2') {
-            [[-1,-1,-1],[1,-1,-1],[-1,1,-1],[1,1,-1],[-1,-1,1],[1,-1,1],[-1,1,1],[1,1,1],[0,0,-1],[0,0,1],[0,-1,0],[0,1,0],[-1,0,0],[1,0,0]].forEach(function(p) {
-                if ((layers < 3 && p[2] > 0.2) || (layers === 1 && Math.abs(p[2]) > 0.2)) return;
-                nodes.push({ x:p[0], y:p[1], z:p[2], isAn:false, label:'Ca²⁺' });
-            });
-            [[-0.5,-0.5,-0.5],[0.5,-0.5,-0.5],[-0.5,0.5,-0.5],[0.5,0.5,-0.5],[-0.5,-0.5,0.5],[0.5,-0.5,0.5],[-0.5,0.5,0.5],[0.5,0.5,0.5]].forEach(function(p) {
-                if (layers < 3 && p[2] > 0) return;
-                nodes.push({ x:p[0], y:p[1], z:p[2], isAn:true, label:'F⁻' });
-            });
+            var caPts = [[-1,-1,-1],[1,-1,-1],[-1,1,-1],[1,1,-1],[-1,-1,1],[1,-1,1],[-1,1,1],[1,1,1],[0,0,-1],[0,0,1],[0,-1,0],[0,1,0],[-1,0,0],[1,0,0]];
+            for (i = 0; i < caPts.length; i++) {
+                p = caPts[i];
+                if ((layers < 3 && p[2] > 0.2) || (layers === 1 && Math.abs(p[2]) > 0.2)) continue;
+                nodes.push({ x: p[0], y: p[1], z: p[2], isAn: false, label: 'Ca²⁺' });
+            }
+            var fPts = [[-0.5,-0.5,-0.5],[0.5,-0.5,-0.5],[-0.5,0.5,-0.5],[0.5,0.5,-0.5],[-0.5,-0.5,0.5],[0.5,-0.5,0.5],[-0.5,0.5,0.5],[0.5,0.5,0.5]];
+            for (i = 0; i < fPts.length; i++) {
+                p = fPts[i];
+                if (layers < 3 && p[2] > 0) continue;
+                nodes.push({ x: p[0], y: p[1], z: p[2], isAn: true, label: 'F⁻' });
+            }
             if (sep > 0.18 || modelMode === 'maille') {
-                [-1,1].forEach(function(a) {
-                    [-1,1].forEach(function(b) {
-                        edges.push([[-1,a,b],[1,a,b]], [[a,-1,b],[a,1,b]], [[a,b,-1],[a,b,1]]);
-                    });
-                });
+                var signs = [-1, 1];
+                for (var ia = 0; ia < 2; ia++) {
+                    for (var ib = 0; ib < 2; ib++) {
+                        a = signs[ia]; b = signs[ib];
+                        edges.push([[-1, a, b], [1, a, b]], [[a, -1, b], [a, 1, b]], [[a, b, -1], [a, b, 1]]);
+                    }
+                }
             }
             if (showForces) redEdges.push([[-0.5,-0.5,-0.5],[-1,-1,-1]], [[-0.5,-0.5,-0.5],[0,0,-1]], [[-0.5,-0.5,-0.5],[-1,0,0]], [[-0.5,-0.5,-0.5],[0,-1,0]]);
         } else {
-            [[-1,-0.8,-0.8,true],[1,-0.8,-0.8,true],[0,0.8,-0.8,true],[-1,0.8,0.8,true],[1,0.8,0.8,true],[0,-0.8,0.8,true],[-0.55,0,0,false],[0.55,0,0,false],[0,0,-0.8,false],[0,0,0.8,false]].forEach(function(p) {
-                if (layers === 1 && Math.abs(p[2]) > 0.2) return;
-                nodes.push({ x:p[0], y:p[1], z:p[2], isAn:p[3], label: p[3]?'S²⁻':'Al³⁺' });
-            });
+            var alPts = [[-1,-0.8,-0.8,true],[1,-0.8,-0.8,true],[0,0.8,-0.8,true],[-1,0.8,0.8,true],[1,0.8,0.8,true],[0,-0.8,0.8,true],[-0.55,0,0,false],[0.55,0,0,false],[0,0,-0.8,false],[0,0,0.8,false]];
+            for (i = 0; i < alPts.length; i++) {
+                p = alPts[i];
+                if (layers === 1 && Math.abs(p[2]) > 0.2) continue;
+                nodes.push({ x: p[0], y: p[1], z: p[2], isAn: p[3], label: p[3] ? 'S²⁻' : 'Al³⁺' });
+            }
             if (sep > 0.18 || modelMode === 'maille') edges.push([[-1,-0.8,-0.8],[1,-0.8,-0.8]], [[-1,0.8,0.8],[1,0.8,0.8]], [[-1,-0.8,-0.8],[-1,0.8,0.8]], [[1,-0.8,-0.8],[1,0.8,0.8]]);
             if (showForces) redEdges.push([[-0.55,0,0],[-1,-0.8,-0.8]], [[-0.55,0,0],[-1,0.8,0.8]], [[0.55,0,0],[1,-0.8,-0.8]], [[0.55,0,0],[1,0.8,0.8]]);
         }
 
-        const scale = 104 * camScale, baseR = (49 - sep*31) * camScale;
+        var scale = 104 * camScale, baseR = (49 - sep * 31) * camScale, e, p1, p2;
         ctx.lineWidth = modelMode === 'eclate' ? 1.15 : 1.9; ctx.strokeStyle = "rgba(27,54,93,0.45)";
-        edges.forEach(function(e) {
-            const p1 = project3D(e[0][0],e[0][1],e[0][2], scale), p2 = project3D(e[1][0],e[1][1],e[1][2], scale);
-            ctx.beginPath(); ctx.moveTo(p1.sx,p1.sy); ctx.lineTo(p2.sx,p2.sy); ctx.stroke();
-        });
+        for (i = 0; i < edges.length; i++) {
+            e = edges[i]; p1 = project3D(e[0][0], e[0][1], e[0][2], scale); p2 = project3D(e[1][0], e[1][1], e[1][2], scale);
+            ctx.beginPath(); ctx.moveTo(p1.sx, p1.sy); ctx.lineTo(p2.sx, p2.sy); ctx.stroke();
+        }
         ctx.lineWidth = 3.2; ctx.strokeStyle = "#b91c1c";
-        redEdges.forEach(function(e) {
-            const p1 = project3D(e[0][0],e[0][1],e[0][2], scale), p2 = project3D(e[1][0],e[1][1],e[1][2], scale);
-            ctx.beginPath(); ctx.moveTo(p1.sx,p1.sy); ctx.lineTo(p2.sx,p2.sy); ctx.stroke();
-        });
+        for (i = 0; i < redEdges.length; i++) {
+            e = redEdges[i]; p1 = project3D(e[0][0], e[0][1], e[0][2], scale); p2 = project3D(e[1][0], e[1][1], e[1][2], scale);
+            ctx.beginPath(); ctx.moveTo(p1.sx, p1.sy); ctx.lineTo(p2.sx, p2.sy); ctx.stroke();
+        }
 
-        nodes.map(function(n) {
-            return Object.assign({}, n, project3D(n.x, n.y, n.z, scale));
-        }).sort(function(a,b) { return b.z - a.z; }).forEach(function(n) {
-            const r = Math.max(5, baseR * (n.isAn ? d.anR : d.catR) * n.p);
-            const g = ctx.createRadialGradient(n.sx-r*0.32, n.sy-r*0.32, Math.max(1,r*0.1), n.sx, n.sy, r);
-            g.addColorStop(0,"#fff"); g.addColorStop(0.32, n.isAn ? d.anCol : d.catCol); g.addColorStop(1,"#0f172a");
-            ctx.beginPath(); ctx.arc(n.sx, n.sy, r, 0, Math.PI*2); ctx.fillStyle = g; ctx.fill();
+        var projected = [];
+        for (i = 0; i < nodes.length; i++) {
+            var nd = nodes[i], pr = project3D(nd.x, nd.y, nd.z, scale);
+            projected.push({ isAn: nd.isAn, label: nd.label, sx: pr.sx, sy: pr.sy, z: pr.z, p: pr.p });
+        }
+        projected.sort(function(u, v) { return v.z - u.z; });
+        for (i = 0; i < projected.length; i++) {
+            var n = projected[i];
+            var r = Math.max(5, baseR * (n.isAn ? d.anR : d.catR) * n.p);
+            var g = ctx.createRadialGradient(n.sx - r * 0.32, n.sy - r * 0.32, Math.max(1, r * 0.1), n.sx, n.sy, r);
+            g.addColorStop(0, "#fff"); g.addColorStop(0.32, n.isAn ? d.anCol : d.catCol); g.addColorStop(1, "#0f172a");
+            ctx.beginPath(); ctx.arc(n.sx, n.sy, r, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
             if (r > 17) {
-                ctx.fillStyle = "#fff"; ctx.font = "bold " + Math.max(10, Math.round(r*0.42)) + "px " + FONT_SANS;
+                ctx.fillStyle = "#fff"; ctx.font = "bold " + Math.max(10, Math.round(r * 0.42)) + "px " + FONT_SANS;
                 ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(n.label, n.sx, n.sy);
             }
-        });
+        }
         ctx.fillStyle = "#52606d"; ctx.font = "12px " + FONT_SANS; ctx.textAlign = "left"; ctx.textBaseline = "bottom";
         ctx.fillText("Glisser : rotation 3D  |  Pincer / Molette / Zoom + −", 14, H - 10);
     }
@@ -1450,51 +1937,57 @@ const Sim1 = (function() {
 // ============================================================================
 // 2. ACTIVITÉ 2 : FROTTEMENT DU BALLON -> FILET D'EAU -> POLARITÉ
 // ============================================================================
-const Sim2 = (function() {
-    const WA = 760, HA = 365, WB = 760, HB = 365, WC = 760, HC = 315;
-    const cvA = document.getElementById('cv-2a'), ctxA = setupCanvas(cvA, WA, HA);
-    const cvB = document.getElementById('cv-2b'), ctxB = setupCanvas(cvB, WB, HB);
-    const cvC = document.getElementById('cv-2c'), ctxC = setupCanvas(cvC, WC, HC);
+var Sim2 = (function() {
+    var WA = 760, HA = 365, WB = 760, HB = 365, WC = 760, HC = 315;
+    var cvA = byId('cv-2a'), ctxA = setupCanvas(cvA, WA, HA);
+    var cvB = byId('cv-2b'), ctxB = setupCanvas(cvB, WB, HB);
+    var cvC = byId('cv-2c'), ctxC = setupCanvas(cvC, WC, HC);
     preventIOSGesture(cvA);
     preventIOSGesture(cvB);
 
-    let activeStep = 1, charge = 0, rubCount = 0, autoRubbing = false, autoT = 0;
-    let tapOpen = true, curMol = 'H2O', animT = 0;
-    let b1x = 520, b1y = 185, drag1 = false, lastRubDir = 0, lastB1x = 520, sparks = [];
-    let b2x = 460, b2y = 195, drag2 = false;
+    var activeStep = 1, charge = 0, rubCount = 0, autoRubbing = false, autoT = 0;
+    var tapOpen = true, curMol = 'H2O', animT = 0;
+    var b1x = 520, b1y = 185, drag1 = false, lastRubDir = 0, lastB1x = 520, sparks = [];
+    var b2x = 460, b2y = 195, drag2 = false;
 
     function startA(e) {
         if (e.type === 'mousedown' && (Date.now() - LAST_TOUCH_TS < 450)) return;
         if (e.type === 'touchstart') LAST_TOUCH_TS = Date.now();
-        const p = getCanvasPos(cvA, e), rad = e.touches ? 110 : 80;
-        if (Math.hypot(p.x-b1x, p.y-b1y) < rad) { if (e.cancelable) e.preventDefault(); drag1 = true; autoRubbing = false; lastB1x = p.x; }
+        var p = getCanvasPos(cvA, e), rad = e.touches ? 120 : 80;
+        if (hypot2(p.x - b1x, p.y - b1y) < rad) {
+            if (e.cancelable) e.preventDefault();
+            drag1 = true; autoRubbing = false; lastB1x = p.x;
+        }
     }
     function startB(e) {
         if (e.type === 'mousedown' && (Date.now() - LAST_TOUCH_TS < 450)) return;
         if (e.type === 'touchstart') LAST_TOUCH_TS = Date.now();
-        const p = getCanvasPos(cvB, e), rad = e.touches ? 110 : 80;
-        if (Math.hypot(p.x-b2x, p.y-b2y) < rad) { if (e.cancelable) e.preventDefault(); drag2 = true; }
+        var p = getCanvasPos(cvB, e), rad = e.touches ? 120 : 80;
+        if (hypot2(p.x - b2x, p.y - b2y) < rad) {
+            if (e.cancelable) e.preventDefault();
+            drag2 = true;
+        }
     }
     function moveA(e) {
         if (!drag1) return;
         if (e.cancelable) e.preventDefault();
-        const p = getCanvasPos(cvA, e);
+        var p = getCanvasPos(cvA, e);
         b1x = Math.max(110, Math.min(650, p.x)); b1y = Math.max(95, Math.min(275, p.y));
         checkRub(b1x - lastB1x); lastB1x = b1x;
     }
     function moveB(e) {
         if (!drag2) return;
         if (e.cancelable) e.preventDefault();
-        const p = getCanvasPos(cvB, e);
+        var p = getCanvasPos(cvB, e);
         b2x = Math.max(245, Math.min(680, p.x)); b2y = Math.max(95, Math.min(285, p.y));
     }
     function endAllDrag() { drag1 = false; drag2 = false; }
 
     cvA.addEventListener('mousedown', startA);
-    cvA.addEventListener('touchstart', startA, { passive: false });
+    cvA.addEventListener('touchstart', startA, EV_NO_PASSIVE);
     cvB.addEventListener('mousedown', startB);
-    cvB.addEventListener('touchstart', startB, { passive: false });
-    window.addEventListener('touchmove', function(e) { moveA(e); moveB(e); }, { passive: false });
+    cvB.addEventListener('touchstart', startB, EV_NO_PASSIVE);
+    window.addEventListener('touchmove', function(e) { moveA(e); moveB(e); }, EV_NO_PASSIVE);
     window.addEventListener('mousemove', function(e) { moveA(e); moveB(e); });
     window.addEventListener('mouseup', endAllDrag);
     window.addEventListener('touchend', endAllDrag);
@@ -1502,22 +1995,24 @@ const Sim2 = (function() {
 
     function checkRub(dx) {
         if (b1x > 80 && b1x < 355 && b1y > 100 && b1y < 280 && Math.abs(dx) > 1.5) {
-            const dir = dx > 0 ? 1 : -1;
+            var dir = dx > 0 ? 1 : -1;
             if (dir !== lastRubDir) { rubCount++; lastRubDir = dir; }
             charge = Math.min(100, charge + Math.abs(dx) * 0.16);
-            if (Math.random() < 0.45 && charge < 100) sparks.push({ x: b1x-25+Math.random()*30, y: b1y+(Math.random()-0.5)*50, vx: (Math.random()-0.5)*2, vy: -1-Math.random()*1.5, life: 22 });
+            if (Math.random() < 0.45 && charge < 100) {
+                sparks.push({ x: b1x - 25 + Math.random() * 30, y: b1y + (Math.random() - 0.5) * 50, vx: (Math.random() - 0.5) * 2, vy: -1 - Math.random() * 1.5, life: 22 });
+            }
             syncCharge();
         }
     }
     function syncCharge() {
-        const q = Math.round(charge);
-        document.getElementById('v2-q-val').textContent = q + " %";
-        document.getElementById('v2-q-val2').textContent = q + " %";
-        document.getElementById('v2-q-sl-lbl').textContent = q + " %";
-        document.getElementById('v2-q-slider').value = q;
-        document.getElementById('v2-rub-cnt').textContent = rubCount;
-        document.getElementById('v2-q-state').textContent = q === 0 ? "Électriquement neutre" : (q < 60 ? "Partiellement chargé (−)" : "Fortement chargé (−)");
-        const msg = document.getElementById('v2-rub-msg');
+        var q = Math.round(charge);
+        byId('v2-q-val').textContent = q + " %";
+        byId('v2-q-val2').textContent = q + " %";
+        byId('v2-q-sl-lbl').textContent = q + " %";
+        byId('v2-q-slider').value = q;
+        byId('v2-rub-cnt').textContent = rubCount;
+        byId('v2-q-state').textContent = q === 0 ? "Électriquement neutre" : (q < 60 ? "Partiellement chargé (−)" : "Fortement chargé (−)");
+        var msg = byId('v2-rub-msg');
         if (q === 0) msg.innerHTML = "<strong>Manipulation :</strong> Faites glisser le ballon sur le tissu de laine (ou cliquez sur <em>Simuler le frottement</em>) pour le charger négativement.";
         else if (q < 95) msg.innerHTML = "<strong>Transfert en cours (" + q + " %) :</strong> Des électrons quittent la laine pour s'accumuler sur le ballon. Continuez ou passez à l'étape 2.";
         else msg.innerHTML = "<strong>Ballon chargé à 100 % :</strong> Le ballon porte un fort excès de charges négatives (−). Passez à l'<strong>étape 2</strong> pour l'approcher du mince filet d'eau.";
@@ -1527,18 +2022,18 @@ const Sim2 = (function() {
     function setChargeManual(v) { charge = Number(v); syncCharge(); }
     function toggleTap() {
         tapOpen = !tapOpen;
-        const b = document.getElementById('v2-tap-btn'); b.classList.toggle('active', tapOpen);
+        var b = byId('v2-tap-btn'); setClass(b, 'active', tapOpen);
         b.textContent = tapOpen ? "Robinet : Ouvert (mince filet)" : "Robinet : Fermé";
     }
     function setStep(n) {
         activeStep = n;
-        [1,2,3].forEach(function(i) {
-            document.getElementById('v2-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : ''));
-            document.getElementById('v2-pane-'+i).style.display = (i === n) ? 'grid' : 'none';
-        });
+        for (var i = 1; i <= 3; i++) {
+            byId('v2-s' + i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : ''));
+            setClass(byId('v2-pane-' + i), 'pane-hidden', i !== n);
+        }
         syncCharge();
     }
-    const molDesc = {
+    var molDesc = {
         Cl2: "<strong>Cl₂ (linéaire) :</strong> Deux atomes identiques (χ = 3,2). Liaison <strong>non polarisée</strong> → molécule <strong>apolaire</strong>.",
         HCl: "<strong>HCl (linéaire) :</strong> χ(Cl) = 3,2 &gt; χ(H) = 2,2. Liaison <strong>polarisée</strong> ; barycentres ⊕ et ⊖ distincts → <strong>polaire</strong>.",
         H2O: "<strong>H₂O (coudée) :</strong> χ(O) = 3,4 &gt; χ(H) = 2,2. Les <strong>2 doublets non liants</strong> de O imposent une forme coudée ; ⊕ et ⊖ distincts → <strong>polaire</strong>.",
@@ -1547,162 +2042,177 @@ const Sim2 = (function() {
     };
     function setMol(m) {
         curMol = m;
-        ['Cl2','HCl','H2O','H2S','CO2'].forEach(function(k) { document.getElementById('v2-m-'+k).classList.toggle('active', k === m); });
-        document.getElementById('v2-mol-msg').innerHTML = molDesc[m];
+        var mols = ['Cl2', 'HCl', 'H2O', 'H2S', 'CO2'];
+        for (var i = 0; i < mols.length; i++) setClass(byId('v2-m-' + mols[i]), 'active', mols[i] === m);
+        byId('v2-mol-msg').innerHTML = molDesc[m];
     }
 
     function drawBalloon(ctx, x, y, qPct) {
         ctx.save(); ctx.translate(x, y);
         ctx.strokeStyle = "#64748b"; ctx.lineWidth = 1.6;
-        ctx.beginPath(); ctx.moveTo(0,62); ctx.quadraticCurveTo(8,86,-4,108); ctx.stroke();
-        const g = ctx.createRadialGradient(-18,-22,8,0,0,66);
-        g.addColorStop(0,"#fb923c"); g.addColorStop(0.65,"#c2410c"); g.addColorStop(1,"#7c2d12");
-        ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0,0,50,60,0,0,Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(0, 62); ctx.quadraticCurveTo(8, 86, -4, 108); ctx.stroke();
+        var g = ctx.createRadialGradient(-18, -22, 8, 0, 0, 66);
+        g.addColorStop(0, "#fb923c"); g.addColorStop(0.65, "#c2410c"); g.addColorStop(1, "#7c2d12");
+        drawEllipsePath(ctx, 0, 0, 50, 60);
+        ctx.fillStyle = g; ctx.fill();
         ctx.strokeStyle = "#7c2d12"; ctx.lineWidth = 2; ctx.stroke();
-        ctx.fillStyle = "#9a3412"; ctx.beginPath(); ctx.moveTo(-6,59); ctx.lineTo(6,59); ctx.lineTo(0,67); ctx.closePath(); ctx.fill();
-        const nb = Math.round(qPct/12), pts = [[-30,-20],[-34,4],[-26,28],[-12,-34],[-14,34],[0,-16],[10,12],[-10,6],[18,-22]];
+        ctx.fillStyle = "#9a3412"; ctx.beginPath(); ctx.moveTo(-6, 59); ctx.lineTo(6, 59); ctx.lineTo(0, 67); ctx.closePath(); ctx.fill();
+        var nb = Math.round(qPct / 12), pts = [[-30,-20],[-34,4],[-26,28],[-12,-34],[-14,34],[0,-16],[10,12],[-10,6],[18,-22]];
         ctx.fillStyle = "#fff"; ctx.font = "bold 17px " + FONT_SANS; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-        for (let i = 0; i < Math.min(nb, pts.length); i++) ctx.fillText("−", pts[i][0], pts[i][1]);
+        for (var i = 0; i < Math.min(nb, pts.length); i++) ctx.fillText("−", pts[i][0], pts[i][1]);
         ctx.fillStyle = "#7c2d12"; ctx.font = "bold 12px " + FONT_SANS; ctx.textBaseline = "top";
         ctx.fillText(qPct > 5 ? "Ballon chargé (−)" : "Ballon neutre", 0, 74);
         ctx.restore();
     }
     function drawStep1(dt) {
         if (autoRubbing) {
-            autoT += 0.14 * dt; const nx = 240 + Math.sin(autoT)*75; b1y = 188 + Math.cos(autoT*2)*14;
+            autoT += 0.14 * dt; var nx = 240 + Math.sin(autoT) * 75; b1y = 188 + Math.cos(autoT * 2) * 14;
             checkRub(nx - b1x); b1x = nx;
             if (charge >= 100) { autoRubbing = false; b1x = 490; b1y = 185; }
         }
         ctxA.clearRect(0, 0, WA, HA);
         ctxA.fillStyle = "#f8fafc"; ctxA.fillRect(0, 0, WA, HA);
-        const wx = 70, wy = 105, ww = 250, wh = 165;
+        var wx = 70, wy = 105, ww = 250, wh = 165, x, y, i;
         ctxA.fillStyle = "#e2e8f0"; ctxA.fillRect(wx, wy, ww, wh);
         ctxA.strokeStyle = "rgba(100,116,139,0.28)"; ctxA.lineWidth = 1.5;
-        for (let x = wx+12; x < wx+ww; x += 14) { ctxA.beginPath(); ctxA.moveTo(x,wy); ctxA.lineTo(x,wy+wh); ctxA.stroke(); }
-        for (let y = wy+12; y < wy+wh; y += 14) { ctxA.beginPath(); ctxA.moveTo(wx,y); ctxA.lineTo(wx+ww,y); ctxA.stroke(); }
+        for (x = wx + 12; x < wx + ww; x += 14) { ctxA.beginPath(); ctxA.moveTo(x, wy); ctxA.lineTo(x, wy + wh); ctxA.stroke(); }
+        for (y = wy + 12; y < wy + wh; y += 14) { ctxA.beginPath(); ctxA.moveTo(wx, y); ctxA.lineTo(wx + ww, y); ctxA.stroke(); }
         ctxA.strokeStyle = "#334e68"; ctxA.lineWidth = 2.2; ctxA.strokeRect(wx, wy, ww, wh);
-        ctxA.fillStyle = "#1b365d"; ctxA.font = "bold 13.5px " + FONT_SERIF; ctxA.textAlign = "center"; ctxA.textBaseline = "alphabetic"; ctxA.fillText("Tissu de laine", wx+ww/2, wy-12);
-        const nbPos = Math.round(charge/14), posPts = [[110,145],[165,135],[220,150],[275,140],[125,215],[190,225],[260,210],[150,180]];
+        ctxA.fillStyle = "#1b365d"; ctxA.font = "bold 13.5px " + FONT_SERIF; ctxA.textAlign = "center"; ctxA.textBaseline = "alphabetic"; ctxA.fillText("Tissu de laine", wx + ww / 2, wy - 12);
+        var nbPos = Math.round(charge / 14), posPts = [[110,145],[165,135],[220,150],[275,140],[125,215],[190,225],[260,210],[150,180]];
         ctxA.fillStyle = "#b91c1c"; ctxA.font = "bold 17px " + FONT_SANS;
-        for (let i = 0; i < Math.min(nbPos, posPts.length); i++) ctxA.fillText("+", posPts[i][0], posPts[i][1]);
+        for (i = 0; i < Math.min(nbPos, posPts.length); i++) ctxA.fillText("+", posPts[i][0], posPts[i][1]);
         if (charge < 15 && !autoRubbing) {
-            ctxA.strokeStyle = "#b45309"; ctxA.lineWidth = 2.2; ctxA.setLineDash([6,5]);
-            ctxA.beginPath(); ctxA.moveTo(455,185); ctxA.lineTo(340,185); ctxA.stroke(); ctxA.setLineDash([]);
+            ctxA.strokeStyle = "#b45309"; ctxA.lineWidth = 2.2; setDash(ctxA, [6, 5]);
+            ctxA.beginPath(); ctxA.moveTo(455, 185); ctxA.lineTo(340, 185); ctxA.stroke(); setDash(ctxA, []);
             ctxA.fillStyle = "#b45309"; ctxA.font = "bold 12px " + FONT_SANS; ctxA.fillText("Glisser ici pour frotter", 398, 170);
         }
-        sparks.forEach(function(s) {
+        var nextSparks = [];
+        for (i = 0; i < sparks.length; i++) {
+            var s = sparks[i];
             s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt;
-            ctxA.fillStyle = "rgba(27,54,93," + Math.max(0, s.life/22) + ")";
-            ctxA.font = "bold 14px " + FONT_SANS; ctxA.fillText("e⁻", s.x, s.y);
-        });
-        sparks = sparks.filter(function(s) { return s.life > 0; });
+            if (s.life > 0) {
+                ctxA.fillStyle = "rgba(27,54,93," + Math.max(0, s.life / 22) + ")";
+                ctxA.font = "bold 14px " + FONT_SANS; ctxA.fillText("e⁻", s.x, s.y);
+                nextSparks.push(s);
+            }
+        }
+        sparks = nextSparks;
         drawBalloon(ctxA, b1x, b1y, charge);
     }
     function drawStep2() {
         ctxB.clearRect(0, 0, WB, HB);
         ctxB.fillStyle = "#f8fafc"; ctxB.fillRect(0, 0, WB, HB);
-        const fx = 165, distPx = Math.max(22, b2x - 50 - fx);
-        const bend = (tapOpen && charge > 0) ? Math.min(115, (charge/100)*(5800/(distPx+26))) : 0;
-        document.getElementById('v2-dist-val').textContent = "Distance : " + fmtFR(distPx/18, 1) + " cm";
-        document.getElementById('v2-def-val').textContent = fmtFR(bend/18, 1) + " cm";
+        var fx = 165, distPx = Math.max(22, b2x - 50 - fx);
+        var bend = (tapOpen && charge > 0) ? Math.min(115, (charge / 100) * (5800 / (distPx + 26))) : 0;
+        byId('v2-dist-val').textContent = "Distance : " + fmtFR(distPx / 18, 1) + " cm";
+        byId('v2-def-val').textContent = fmtFR(bend / 18, 1) + " cm";
 
-        ctxB.fillStyle = "#64748b"; ctxB.fillRect(72,24,108,22); ctxB.fillRect(154,46,22,26);
-        ctxB.fillStyle = "#94a3b8"; ctxB.fillRect(72,28,108,6);
-        ctxB.fillStyle = tapOpen ? "#0f766e" : "#b91c1c"; ctxB.fillRect(102,10,40,12);
+        ctxB.fillStyle = "#64748b"; ctxB.fillRect(72, 24, 108, 22); ctxB.fillRect(154, 46, 22, 26);
+        ctxB.fillStyle = "#94a3b8"; ctxB.fillRect(72, 28, 108, 6);
+        ctxB.fillStyle = tapOpen ? "#0f766e" : "#b91c1c"; ctxB.fillRect(102, 10, 40, 12);
         if (tapOpen) {
             ctxB.save(); ctxB.beginPath(); ctxB.moveTo(fx, 72);
-            for (let y = 72; y <= 338; y += 5) {
-                const fracY = (y-72)/266, prox = Math.exp(-Math.pow((y-b2y)/92, 2));
-                ctxB.lineTo(fx + bend*(fracY*0.62+prox*0.58)*(y>86?1:0), y);
+            for (var y = 72; y <= 338; y += 5) {
+                var fracY = (y - 72) / 266, prox = Math.exp(-Math.pow((y - b2y) / 92, 2));
+                ctxB.lineTo(fx + bend * (fracY * 0.62 + prox * 0.58) * (y > 86 ? 1 : 0), y);
             }
             ctxB.strokeStyle = "#0369a1"; ctxB.lineWidth = 7.5; ctxB.lineCap = "round"; ctxB.stroke();
-            ctxB.strokeStyle = "rgba(224,242,254,0.85)"; ctxB.lineWidth = 2; ctxB.setLineDash([14,14]);
-            ctxB.lineDashOffset = -animT*36; ctxB.stroke(); ctxB.setLineDash([]); ctxB.restore();
+            ctxB.strokeStyle = "rgba(224,242,254,0.85)"; ctxB.lineWidth = 2; setDash(ctxB, [14, 14]);
+            ctxB.lineDashOffset = -animT * 36; ctxB.stroke(); setDash(ctxB, []); ctxB.restore();
         }
-        ctxB.fillStyle = "#bae6fd"; ctxB.fillRect(85,326,235,30);
-        ctxB.strokeStyle = "#334e68"; ctxB.lineWidth = 2.4; ctxB.strokeRect(85,314,235,42);
-        ctxB.strokeStyle = "rgba(100,116,139,0.35)"; ctxB.lineWidth = 1.4; ctxB.setLineDash([5,5]);
-        ctxB.beginPath(); ctxB.moveTo(fx,72); ctxB.lineTo(fx,326); ctxB.stroke(); ctxB.setLineDash([]);
+        ctxB.fillStyle = "#bae6fd"; ctxB.fillRect(85, 326, 235, 30);
+        ctxB.strokeStyle = "#334e68"; ctxB.lineWidth = 2.4; ctxB.strokeRect(85, 314, 235, 42);
+        ctxB.strokeStyle = "rgba(100,116,139,0.35)"; ctxB.lineWidth = 1.4; setDash(ctxB, [5, 5]);
+        ctxB.beginPath(); ctxB.moveTo(fx, 72); ctxB.lineTo(fx, 326); ctxB.stroke(); setDash(ctxB, []);
         drawBalloon(ctxB, b2x, b2y, charge);
 
-        if (document.getElementById('v2-zoom-chk').checked) {
-            const zx = 548, zy = 14, zw = 196, zh = 122, aligned = (charge > 15 && distPx < 250);
+        if (byId('v2-zoom-chk').checked) {
+            var zx = 548, zy = 14, zw = 196, zh = 122, aligned = (charge > 15 && distPx < 250);
             ctxB.fillStyle = "#edf5fc"; ctxB.strokeStyle = "#1b365d"; ctxB.lineWidth = 1.8;
-            ctxB.fillRect(zx,zy,zw,zh); ctxB.strokeRect(zx,zy,zw,zh);
-            ctxB.fillStyle = "#1b365d"; ctxB.font = "bold 11.5px " + FONT_SERIF; ctxB.textAlign = "center"; ctxB.textBaseline = "alphabetic"; ctxB.fillText("Zoom : Dipôles H₂O", zx+zw/2, zy+16);
-            [[zx+50,zy+58],[zx+136,zy+52],[zx+94,zy+94]].forEach(function(p, idx) {
+            ctxB.fillRect(zx, zy, zw, zh); ctxB.strokeRect(zx, zy, zw, zh);
+            ctxB.fillStyle = "#1b365d"; ctxB.font = "bold 11.5px " + FONT_SERIF; ctxB.textAlign = "center"; ctxB.textBaseline = "alphabetic";
+            ctxB.fillText("Zoom : Dipôles H₂O", zx + zw / 2, zy + 16);
+            var dPts = [[zx + 50, zy + 58], [zx + 136, zy + 52], [zx + 94, zy + 94]];
+            for (var idx = 0; idx < dPts.length; idx++) {
+                var p = dPts[idx];
                 ctxB.save(); ctxB.translate(p[0], p[1]);
-                ctxB.rotate(aligned ? Math.sin(animT+idx)*0.1 : (animT*0.6*(idx%2?1:-1)+idx));
-                ctxB.fillStyle = "#dc2626"; ctxB.beginPath(); ctxB.arc(-8,0,10,0,Math.PI*2); ctxB.fill();
+                ctxB.rotate(aligned ? Math.sin(animT + idx) * 0.1 : (animT * 0.6 * (idx % 2 ? 1 : -1) + idx));
+                ctxB.fillStyle = "#dc2626"; ctxB.beginPath(); ctxB.arc(-8, 0, 10, 0, Math.PI * 2); ctxB.fill();
                 ctxB.fillStyle = "#e0f2fe"; ctxB.strokeStyle = "#1b365d"; ctxB.lineWidth = 1.4;
-                ctxB.beginPath(); ctxB.arc(6,-8,6,0,Math.PI*2); ctxB.fill(); ctxB.stroke();
-                ctxB.beginPath(); ctxB.arc(6,8,6,0,Math.PI*2); ctxB.fill(); ctxB.stroke();
+                ctxB.beginPath(); ctxB.arc(6, -8, 6, 0, Math.PI * 2); ctxB.fill(); ctxB.stroke();
+                ctxB.beginPath(); ctxB.arc(6, 8, 6, 0, Math.PI * 2); ctxB.fill(); ctxB.stroke();
                 ctxB.fillStyle = "#fff"; ctxB.font = "bold 9px " + FONT_SANS; ctxB.textAlign = "center"; ctxB.fillText("−", -8, 3);
                 ctxB.fillStyle = "#1b365d"; ctxB.fillText("+", 6, -5); ctxB.fillText("+", 6, 11); ctxB.restore();
-            });
+            }
         }
-        const msg = document.getElementById('v2-water-msg');
+        var msg = byId('v2-water-msg');
         if (charge < 5) msg.innerHTML = "Ballon <strong>neutre</strong> : aucune déviation. Retournez à l'étape 1 pour frotter le ballon ou augmentez la charge.";
         else if (bend < 10) msg.innerHTML = "Ballon chargé (−) : <strong>rapprochez-le</strong> davantage du mince filet d'eau.";
         else msg.innerHTML = "<strong>Attraction observée :</strong> Les pôles positifs (H<sup>δ+</sup>) des dipôles d'eau s'orientent vers le ballon (−) et le filet d'eau est nettement dévié.";
     }
     function drawBary(c, x, y, s) {
-        c.save(); c.beginPath(); c.arc(x,y,12,0,Math.PI*2); c.fillStyle = "#fff"; c.fill();
+        c.save(); c.beginPath(); c.arc(x, y, 12, 0, Math.PI * 2); c.fillStyle = "#fff"; c.fill();
         c.lineWidth = 2.4; c.strokeStyle = s === '+' ? "#b91c1c" : "#1b365d"; c.stroke();
-        c.fillStyle = c.strokeStyle; c.font = "bold 16px " + FONT_SANS; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(s, x, y+0.5); c.restore();
+        c.fillStyle = c.strokeStyle; c.font = "bold 16px " + FONT_SANS; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(s, x, y + 0.5); c.restore();
     }
     function drawLP(c, x1, y1, x2, y2) {
-        c.save(); c.strokeStyle = "#6d28d9"; c.lineWidth = 4; c.lineCap = "round"; c.beginPath(); c.moveTo(x1,y1); c.lineTo(x2,y2); c.stroke(); c.restore();
+        c.save(); c.strokeStyle = "#6d28d9"; c.lineWidth = 4; c.lineCap = "round"; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); c.restore();
     }
     function drawAtom(c, x, y, r, lbl, fill, str) {
-        c.save(); const g = c.createRadialGradient(x-r*0.3,y-r*0.3,2,x,y,r);
-        g.addColorStop(0,"#fff"); g.addColorStop(0.55,fill); g.addColorStop(1,str);
-        c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fillStyle = g; c.fill(); c.strokeStyle = str; c.lineWidth = 2; c.stroke();
+        c.save(); var g = c.createRadialGradient(x - r * 0.3, y - r * 0.3, 2, x, y, r);
+        g.addColorStop(0, "#fff"); g.addColorStop(0.55, fill); g.addColorStop(1, str);
+        c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fillStyle = g; c.fill(); c.strokeStyle = str; c.lineWidth = 2; c.stroke();
         c.fillStyle = "#0f172a"; c.font = "bold 19px " + FONT_SERIF; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(lbl, x, y); c.restore();
     }
     function drawPolArr(c, x1, y1, x2, y2) {
-        c.save(); c.translate((x1+x2)/2, (y1+y2)/2); c.rotate(Math.atan2(y2-y1, x2-x1)); c.fillStyle = "#b91c1c";
-        c.beginPath(); c.moveTo(10,0); c.lineTo(-6,-6.5); c.lineTo(-6,6.5); c.closePath(); c.fill(); c.restore();
+        c.save(); c.translate((x1 + x2) / 2, (y1 + y2) / 2); c.rotate(Math.atan2(y2 - y1, x2 - x1)); c.fillStyle = "#b91c1c";
+        c.beginPath(); c.moveTo(10, 0); c.lineTo(-6, -6.5); c.lineTo(-6, 6.5); c.closePath(); c.fill(); c.restore();
     }
     function drawStep3() {
         ctxC.clearRect(0, 0, WC, HC);
-        const showLP = document.getElementById('v2-chk-lewis').checked, showPol = document.getElementById('v2-chk-pol').checked, showBary = document.getElementById('v2-chk-bary').checked;
-        const cx = 380, cy = 145, pulse = Math.sin(animT*1.2)*3;
+        var showLP = byId('v2-chk-lewis').checked, showPol = byId('v2-chk-pol').checked, showBary = byId('v2-chk-bary').checked;
+        var cx = 380, cy = 145, pulse = Math.sin(animT * 1.2) * 3;
         ctxC.textBaseline = "alphabetic";
         if (curMol === 'Cl2') {
-            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx-95,cy); ctxC.lineTo(cx+95,cy); ctxC.stroke();
-            if (showPol) { ctxC.fillStyle = "#1b365d"; ctxC.beginPath(); ctxC.arc(cx-6,cy-12,4.5,0,Math.PI*2); ctxC.arc(cx+6,cy-12,4.5,0,Math.PI*2); ctxC.fill(); }
-            drawAtom(ctxC, cx-95, cy, 30, "Cl", "#bbf7d0", "#15803d"); drawAtom(ctxC, cx+95, cy, 30, "Cl", "#bbf7d0", "#15803d");
+            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx - 95, cy); ctxC.lineTo(cx + 95, cy); ctxC.stroke();
+            if (showPol) { ctxC.fillStyle = "#1b365d"; ctxC.beginPath(); ctxC.arc(cx - 6, cy - 12, 4.5, 0, Math.PI * 2); ctxC.arc(cx + 6, cy - 12, 4.5, 0, Math.PI * 2); ctxC.fill(); }
+            drawAtom(ctxC, cx - 95, cy, 30, "Cl", "#bbf7d0", "#15803d"); drawAtom(ctxC, cx + 95, cy, 30, "Cl", "#bbf7d0", "#15803d");
             if (showLP) {
-                drawLP(ctxC, cx-114,cy-42,cx-76,cy-42); drawLP(ctxC, cx-114,cy+42,cx-76,cy+42); drawLP(ctxC, cx-136,cy-18,cx-136,cy+18);
-                drawLP(ctxC, cx+76,cy-42,cx+114,cy-42); drawLP(ctxC, cx+76,cy+42,cx+114,cy+42); drawLP(ctxC, cx+136,cy-18,cx+136,cy+18);
+                drawLP(ctxC, cx - 114, cy - 42, cx - 76, cy - 42); drawLP(ctxC, cx - 114, cy + 42, cx - 76, cy + 42); drawLP(ctxC, cx - 136, cy - 18, cx - 136, cy + 18);
+                drawLP(ctxC, cx + 76, cy - 42, cx + 114, cy - 42); drawLP(ctxC, cx + 76, cy + 42, cx + 114, cy + 42); drawLP(ctxC, cx + 136, cy - 18, cx + 136, cy + 18);
             }
             if (showBary) { ctxC.fillStyle = "#475569"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillText("Liaison non polarisée — Molécule apolaire", cx, 248); }
         } else if (curMol === 'HCl') {
-            if (showPol) { const cld = ctxC.createRadialGradient(cx+78,cy,10,cx+55,cy,125); cld.addColorStop(0,"rgba(27,54,93,0.22)"); cld.addColorStop(1,"rgba(27,54,93,0)"); ctxC.fillStyle = cld; ctxC.beginPath(); ctxC.ellipse(cx+45,cy,145,65,0,0,Math.PI*2); ctxC.fill(); }
-            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx-95,cy); ctxC.lineTo(cx+95,cy); ctxC.stroke();
-            if (showPol) drawPolArr(ctxC, cx-45, cy, cx+50+pulse, cy);
-            drawAtom(ctxC, cx-95, cy, 24, "H", "#fee2e2", "#b91c1c"); drawAtom(ctxC, cx+95, cy, 32, "Cl", "#bbf7d0", "#15803d");
-            if (showLP) { drawLP(ctxC, cx+76,cy-44,cx+114,cy-44); drawLP(ctxC, cx+76,cy+44,cx+114,cy+44); drawLP(ctxC, cx+138,cy-18,cx+138,cy+18); }
-            if (showPol) { ctxC.font = "bold 17px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx-95, cy-38); ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx+95, cy-60); }
-            if (showBary) { drawBary(ctxC, cx-95, cy+48, '+'); drawBary(ctxC, cx+95, cy+66, '−'); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Barycentres ⊕ et ⊖ distincts → Molécule polaire", cx, 266); }
+            if (showPol) {
+                var cld = ctxC.createRadialGradient(cx + 78, cy, 10, cx + 55, cy, 125);
+                cld.addColorStop(0, "rgba(27,54,93,0.22)"); cld.addColorStop(1, "rgba(27,54,93,0)");
+                drawEllipsePath(ctxC, cx + 45, cy, 145, 65);
+                ctxC.fillStyle = cld; ctxC.fill();
+            }
+            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx - 95, cy); ctxC.lineTo(cx + 95, cy); ctxC.stroke();
+            if (showPol) drawPolArr(ctxC, cx - 45, cy, cx + 50 + pulse, cy);
+            drawAtom(ctxC, cx - 95, cy, 24, "H", "#fee2e2", "#b91c1c"); drawAtom(ctxC, cx + 95, cy, 32, "Cl", "#bbf7d0", "#15803d");
+            if (showLP) { drawLP(ctxC, cx + 76, cy - 44, cx + 114, cy - 44); drawLP(ctxC, cx + 76, cy + 44, cx + 114, cy + 44); drawLP(ctxC, cx + 138, cy - 18, cx + 138, cy + 18); }
+            if (showPol) { ctxC.font = "bold 17px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx - 95, cy - 38); ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx + 95, cy - 60); }
+            if (showBary) { drawBary(ctxC, cx - 95, cy + 48, '+'); drawBary(ctxC, cx + 95, cy + 66, '−'); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Barycentres ⊕ et ⊖ distincts → Molécule polaire", cx, 266); }
         } else if (curMol === 'H2O' || curMol === 'H2S') {
-            const isO = curMol === 'H2O', oy = cy-36, hy = cy+56;
-            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx,oy); ctxC.lineTo(cx-100,hy); ctxC.moveTo(cx,oy); ctxC.lineTo(cx+100,hy); ctxC.stroke();
-            if (showBary) { ctxC.setLineDash([6,5]); ctxC.strokeStyle = "#94a3b8"; ctxC.lineWidth = 2; ctxC.beginPath(); ctxC.moveTo(cx-100,hy); ctxC.lineTo(cx+100,hy); ctxC.stroke(); ctxC.setLineDash([]); }
-            if (showPol) { drawPolArr(ctxC, cx-90, hy-6, cx-6, oy+6); drawPolArr(ctxC, cx+90, hy-6, cx+6, oy+6); }
-            if (showLP) { drawLP(ctxC, cx-50, oy-24, cx-20, oy-46); drawLP(ctxC, cx+50, oy-24, cx+20, oy-46); }
-            drawAtom(ctxC, cx, oy, 30, isO?"O":"S", isO?"#fecaca":"#fef08a", isO?"#b91c1c":"#b45309");
-            drawAtom(ctxC, cx-100, hy, 23, "H", "#e0f2fe", "#1b365d"); drawAtom(ctxC, cx+100, hy, 23, "H", "#e0f2fe", "#1b365d");
-            if (showPol) { ctxC.font = "bold 16px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx-138, hy+5); ctxC.fillText("δ⁺", cx+138, hy+5); ctxC.fillStyle = "#1b365d"; ctxC.fillText("2δ⁻", cx+56, oy-58); }
-            if (showBary) { drawBary(ctxC, cx, hy, '+'); drawBary(ctxC, cx, oy-58, '−'); ctxC.fillStyle = "#b91c1c"; ctxC.font = "bold 15px " + FONT_SERIF; ctxC.fillText("2δ⁺", cx, hy+28); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Géométrie coudée : ⊕ et ⊖ distincts → Molécule polaire", cx, 282); }
+            var isO = curMol === 'H2O', oy = cy - 36, hy = cy + 56;
+            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx, oy); ctxC.lineTo(cx - 100, hy); ctxC.moveTo(cx, oy); ctxC.lineTo(cx + 100, hy); ctxC.stroke();
+            if (showBary) { setDash(ctxC, [6, 5]); ctxC.strokeStyle = "#94a3b8"; ctxC.lineWidth = 2; ctxC.beginPath(); ctxC.moveTo(cx - 100, hy); ctxC.lineTo(cx + 100, hy); ctxC.stroke(); setDash(ctxC, []); }
+            if (showPol) { drawPolArr(ctxC, cx - 90, hy - 6, cx - 6, oy + 6); drawPolArr(ctxC, cx + 90, hy - 6, cx + 6, oy + 6); }
+            if (showLP) { drawLP(ctxC, cx - 50, oy - 24, cx - 20, oy - 46); drawLP(ctxC, cx + 50, oy - 24, cx + 20, oy - 46); }
+            drawAtom(ctxC, cx, oy, 30, isO ? "O" : "S", isO ? "#fecaca" : "#fef08a", isO ? "#b91c1c" : "#b45309");
+            drawAtom(ctxC, cx - 100, hy, 23, "H", "#e0f2fe", "#1b365d"); drawAtom(ctxC, cx + 100, hy, 23, "H", "#e0f2fe", "#1b365d");
+            if (showPol) { ctxC.font = "bold 16px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx - 138, hy + 5); ctxC.fillText("δ⁺", cx + 138, hy + 5); ctxC.fillStyle = "#1b365d"; ctxC.fillText("2δ⁻", cx + 56, oy - 58); }
+            if (showBary) { drawBary(ctxC, cx, hy, '+'); drawBary(ctxC, cx, oy - 58, '−'); ctxC.fillStyle = "#b91c1c"; ctxC.font = "bold 15px " + FONT_SERIF; ctxC.fillText("2δ⁺", cx, hy + 28); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Géométrie coudée : ⊕ et ⊖ distincts → Molécule polaire", cx, 282); }
         } else {
-            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 3.5; ctxC.beginPath(); ctxC.moveTo(cx-145,cy-5.5); ctxC.lineTo(cx+145,cy-5.5); ctxC.moveTo(cx-145,cy+5.5); ctxC.lineTo(cx+145,cy+5.5); ctxC.stroke();
-            if (showPol) { drawPolArr(ctxC, cx-32, cy, cx-105-pulse, cy); drawPolArr(ctxC, cx+32, cy, cx+105+pulse, cy); }
-            if (showLP) { drawLP(ctxC, cx-185,cy-22,cx-158,cy-42); drawLP(ctxC, cx-185,cy+22,cx-158,cy+42); drawLP(ctxC, cx+185,cy-22,cx+158,cy-42); drawLP(ctxC, cx+185,cy+22,cx+158,cy+42); }
-            drawAtom(ctxC, cx-145, cy, 28, "O", "#fecaca", "#1b365d"); drawAtom(ctxC, cx, cy, 28, "C", "#e2e8f0", "#b91c1c"); drawAtom(ctxC, cx+145, cy, 28, "O", "#fecaca", "#1b365d");
-            if (showPol) { ctxC.font = "bold 16px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx-145, cy-44); ctxC.fillText("δ⁻", cx+145, cy-44); ctxC.fillStyle = "#b91c1c"; ctxC.fillText("2δ⁺", cx, cy-44); }
-            if (showBary) { drawBary(ctxC, cx-14, cy+52, '+'); drawBary(ctxC, cx+14, cy+52, '−'); ctxC.fillStyle = "#475569"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Géométrie linéaire symétrique : ⊕ et ⊖ confondus sur C → Apolaire", cx, 266); }
+            ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 3.5; ctxC.beginPath(); ctxC.moveTo(cx - 145, cy - 5.5); ctxC.lineTo(cx + 145, cy - 5.5); ctxC.moveTo(cx - 145, cy + 5.5); ctxC.lineTo(cx + 145, cy + 5.5); ctxC.stroke();
+            if (showPol) { drawPolArr(ctxC, cx - 32, cy, cx - 105 - pulse, cy); drawPolArr(ctxC, cx + 32, cy, cx + 105 + pulse, cy); }
+            if (showLP) { drawLP(ctxC, cx - 185, cy - 22, cx - 158, cy - 42); drawLP(ctxC, cx - 185, cy + 22, cx - 158, cy + 42); drawLP(ctxC, cx + 185, cy - 22, cx + 158, cy - 42); drawLP(ctxC, cx + 185, cy + 22, cx + 158, cy + 42); }
+            drawAtom(ctxC, cx - 145, cy, 28, "O", "#fecaca", "#1b365d"); drawAtom(ctxC, cx, cy, 28, "C", "#e2e8f0", "#b91c1c"); drawAtom(ctxC, cx + 145, cy, 28, "O", "#fecaca", "#1b365d");
+            if (showPol) { ctxC.font = "bold 16px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx - 145, cy - 44); ctxC.fillText("δ⁻", cx + 145, cy - 44); ctxC.fillStyle = "#b91c1c"; ctxC.fillText("2δ⁺", cx, cy - 44); }
+            if (showBary) { drawBary(ctxC, cx - 14, cy + 52, '+'); drawBary(ctxC, cx + 14, cy + 52, '−'); ctxC.fillStyle = "#475569"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Géométrie linéaire symétrique : ⊕ et ⊖ confondus sur C → Apolaire", cx, 266); }
         }
         if (showLP) { drawLP(ctxC, 22, 296, 52, 296); ctxC.fillStyle = "#6d28d9"; ctxC.font = "bold 12px " + FONT_SANS; ctxC.textAlign = "left"; ctxC.fillText("Doublet non liant (libre)", 60, 300); }
     }
@@ -1714,64 +2224,68 @@ const Sim2 = (function() {
 // ============================================================================
 // 3. ACTIVITÉ 3 : PESÉE -> DISSOLUTION 3 ÉTAPES -> CONDUCTIVITÉ
 // ============================================================================
-const Sim3 = (function() {
-    const WM = 520, HM = 360, WMI = 580, HMI = 322;
-    const cMac = document.getElementById('cv-3-macro'), ctxMac = setupCanvas(cMac, WM, HM);
-    const cMic = document.getElementById('cv-3-micro'), ctxMic = setupCanvas(cMic, WMI, HMI);
-    let solute = 'nacl', weighed = 0.0, poured = false, genOn = false, microPhase = 0, t = 0, particles = [], waters = [];
+var Sim3 = (function() {
+    var WM = 520, HM = 360, WMI = 580, HMI = 322;
+    var cMac = byId('cv-3-macro'), ctxMac = setupCanvas(cMac, WM, HM);
+    var cMic = byId('cv-3-micro'), ctxMic = setupCanvas(cMic, WMI, HMI);
+    var solute = 'nacl', weighed = 0.0, poured = false, genOn = false, microPhase = 0, t = 0, particles = [], waters = [];
 
     function initMicro() {
         particles = [];
-        waters = Array.from({length: 30}, function() {
-            return { x: 34+Math.random()*512, y: 40+Math.random()*250, vx: (Math.random()-0.5)*1.4, vy: (Math.random()-0.5)*1.4, ang: Math.random()*Math.PI*2 };
+        waters = makeArray(30, function() {
+            return { x: 34 + Math.random() * 512, y: 40 + Math.random() * 250, vx: (Math.random() - 0.5) * 1.4, vy: (Math.random() - 0.5) * 1.4, ang: Math.random() * Math.PI * 2 };
         });
+        var r, c;
         if (solute === 'nacl') {
-            for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) {
-                const isCl = (r+c)%2 === 0;
-                particles.push({ hx: 235+c*36, hy: 195+r*34, x: 235+c*36, y: 195+r*34, vx: (Math.random()-0.5)*1.4, vy: (Math.random()-0.5)*1.4, sign: isCl?-1:1, lbl: isCl?'Cl⁻':'Na⁺' });
+            for (r = 0; r < 3; r++) for (c = 0; c < 4; c++) {
+                var isCl = (r + c) % 2 === 0;
+                particles.push({ hx: 235 + c * 36, hy: 195 + r * 34, x: 235 + c * 36, y: 195 + r * 34, vx: (Math.random() - 0.5) * 1.4, vy: (Math.random() - 0.5) * 1.4, sign: isCl ? -1 : 1, lbl: isCl ? 'Cl⁻' : 'Na⁺' });
             }
         } else if (solute === 'sugar') {
-            for (let r = 0; r < 2; r++) for (let c = 0; c < 4; c++) {
-                particles.push({ hx: 215+c*46, hy: 215+r*40, x: 215+c*46, y: 215+r*40, vx: (Math.random()-0.5)*1.1, vy: (Math.random()-0.5)*1.1, sign: 0, lbl: 'Sucre' });
+            for (r = 0; r < 2; r++) for (c = 0; c < 4; c++) {
+                particles.push({ hx: 215 + c * 46, hy: 215 + r * 40, x: 215 + c * 46, y: 215 + r * 40, vx: (Math.random() - 0.5) * 1.1, vy: (Math.random() - 0.5) * 1.1, sign: 0, lbl: 'Sucre' });
             }
         }
     }
-    function syncPhase() { [0,1,2,3].forEach(function(i) { document.getElementById('v3-ph-'+i).classList.toggle('active', i === microPhase); }); }
+    function syncPhase() {
+        for (var i = 0; i <= 3; i++) setClass(byId('v3-ph-' + i), 'active', i === microPhase);
+    }
     function setStep(n) {
-        [1,2,3].forEach(function(i) { document.getElementById('v3-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')); });
+        for (var i = 1; i <= 3; i++) byId('v3-s' + i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : ''));
         if (n === 2 && !poured && solute !== 'pure') { weighed = 2.0; pour(); }
         if (n === 3) { if (solute !== 'pure' && !poured) { weighed = 2.0; pour(); } microPhase = 3; syncPhase(); if (!genOn) toggleGen(); }
         updateMsg();
     }
     function setSolute(s) {
         solute = s; weighed = 0; poured = (s === 'pure'); microPhase = 0; genOn = false;
-        ['nacl','sugar','pure'].forEach(function(k) { document.getElementById('v3-sol-'+k).classList.toggle('active', k === s); });
-        document.getElementById('v3-btn-weigh').disabled = (s === 'pure');
-        document.getElementById('v3-btn-pour').disabled = (s === 'pure');
-        document.getElementById('v3-btn-gen').className = "btn crimson push-right";
-        document.getElementById('v3-btn-gen').textContent = "Générateur 4,5 V : OFF";
+        var list = ['nacl', 'sugar', 'pure'];
+        for (var i = 0; i < list.length; i++) setClass(byId('v3-sol-' + list[i]), 'active', list[i] === s);
+        byId('v3-btn-weigh').disabled = (s === 'pure');
+        byId('v3-btn-pour').disabled = (s === 'pure');
+        byId('v3-btn-gen').className = "btn crimson push-right";
+        byId('v3-btn-gen').textContent = "Générateur 4,5 V : OFF";
         initMicro(); syncPhase(); updateMsg();
     }
-    function addSpoon() { if (solute === 'pure') return; weighed = Math.min(2.0, weighed+0.5); poured = false; microPhase = 0; syncPhase(); updateMsg(); }
+    function addSpoon() { if (solute === 'pure') return; weighed = Math.min(2.0, weighed + 0.5); poured = false; microPhase = 0; syncPhase(); updateMsg(); }
     function pour() {
         if (solute === 'pure') return;
         if (weighed === 0) weighed = 2.0;
         poured = true; microPhase = 1;
-        [1,2,3].forEach(function(i) { document.getElementById('v3-s'+i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : '')); });
+        for (var i = 1; i <= 3; i++) byId('v3-s' + i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : ''));
         syncPhase(); updateMsg();
     }
     function setPhase(ph) { if (solute !== 'pure' && ph > 0 && !poured) { weighed = 2.0; poured = true; } microPhase = ph; syncPhase(); updateMsg(); }
     function toggleGen() {
         genOn = !genOn;
-        const b = document.getElementById('v3-btn-gen');
+        var b = byId('v3-btn-gen');
         b.className = genOn ? "btn teal solid push-right" : "btn crimson push-right";
         b.textContent = genOn ? "Générateur 4,5 V : ON" : "Générateur 4,5 V : OFF";
         updateMsg();
     }
     function updateMsg() {
-        const m = document.getElementById('v3-msg');
+        var m = byId('v3-msg');
         if (solute === 'pure') { m.innerHTML = "<strong>Eau distillée :</strong> Aucun ion mobile. Sous 4,5 V, I = 0,0 mA et la lampe reste éteinte."; return; }
-        if (!poured) { m.innerHTML = "<strong>Étape 1 (Pesée) :</strong> Masse sur la balance : <strong>" + fmtFR(weighed,2) + " g</strong> (objectif : 2,00 g). Cliquez ensuite sur <em>Verser dans les 50 mL d'eau</em>."; return; }
+        if (!poured) { m.innerHTML = "<strong>Étape 1 (Pesée) :</strong> Masse sur la balance : <strong>" + fmtFR(weighed, 2) + " g</strong> (objectif : 2,00 g). Cliquez ensuite sur <em>Verser dans les 50 mL d'eau</em>."; return; }
         if (solute === 'nacl') {
             if (microPhase === 0) m.innerHTML = "<strong>État initial :</strong> Cristal ionique NaCl au contact de l'eau distillée.";
             else if (microPhase === 1) m.innerHTML = "<strong>Étape 1 — Dissociation :</strong> Les molécules d'eau polaires arrachent les ions Na⁺ (vers O) et Cl⁻ (vers H) du cristal.";
@@ -1790,104 +2304,112 @@ const Sim3 = (function() {
         ctxMac.clearRect(0, 0, WM, HM);
         ctxMac.fillStyle = "#e2e8f0"; ctxMac.fillRect(0, 312, WM, 48);
 
-        ctxMac.fillStyle = "#cbd5e1"; ctxMac.fillRect(28,258,155,54);
-        ctxMac.strokeStyle = "#475569"; ctxMac.lineWidth = 2; ctxMac.strokeRect(28,258,155,54);
-        ctxMac.fillStyle = "#94a3b8"; ctxMac.fillRect(46,246,118,12);
-        ctxMac.fillStyle = "#102033"; ctxMac.fillRect(44,272,122,28);
+        ctxMac.fillStyle = "#cbd5e1"; ctxMac.fillRect(28, 258, 155, 54);
+        ctxMac.strokeStyle = "#475569"; ctxMac.lineWidth = 2; ctxMac.strokeRect(28, 258, 155, 54);
+        ctxMac.fillStyle = "#94a3b8"; ctxMac.fillRect(46, 246, 118, 12);
+        ctxMac.fillStyle = "#102033"; ctxMac.fillRect(44, 272, 122, 28);
         ctxMac.fillStyle = "#34d399"; ctxMac.font = "bold 16px " + FONT_MONO; ctxMac.textAlign = "center"; ctxMac.textBaseline = "alphabetic";
-        ctxMac.fillText((poured ? "0,00" : fmtFR(weighed,2)) + " g", 105, 291);
+        ctxMac.fillText((poured ? "0,00" : fmtFR(weighed, 2)) + " g", 105, 291);
         ctxMac.fillStyle = "#fff"; ctxMac.strokeStyle = "#64748b"; ctxMac.lineWidth = 1.5;
-        ctxMac.beginPath(); ctxMac.moveTo(64,246); ctxMac.lineTo(54,232); ctxMac.lineTo(156,232); ctxMac.lineTo(146,246); ctxMac.closePath(); ctxMac.fill(); ctxMac.stroke();
+        ctxMac.beginPath(); ctxMac.moveTo(64, 246); ctxMac.lineTo(54, 232); ctxMac.lineTo(156, 232); ctxMac.lineTo(146, 246); ctxMac.closePath(); ctxMac.fill(); ctxMac.stroke();
         if (!poured && weighed > 0) {
             ctxMac.fillStyle = solute === 'nacl' ? "#f8fafc" : "#fef3c7";
-            ctxMac.beginPath(); ctxMac.moveTo(74,232); ctxMac.quadraticCurveTo(105,232-weighed*17.6,136,232); ctxMac.fill(); ctxMac.stroke();
+            ctxMac.beginPath(); ctxMac.moveTo(74, 232); ctxMac.quadraticCurveTo(105, 232 - weighed * 17.6, 136, 232); ctxMac.fill(); ctxMac.stroke();
         }
         ctxMac.fillStyle = "#334e68"; ctxMac.font = "bold 11.5px " + FONT_SANS; ctxMac.fillText("Balance électronique", 105, 330);
 
-        const cond = genOn && solute === 'nacl' && poured && microPhase >= 1;
-        const mA = cond ? (microPhase === 1 ? 80 : (microPhase === 2 ? 145 : 185)) : 0;
-        const bx = 250, by = 185, bw = 185, bh = 127;
+        var cond = genOn && solute === 'nacl' && poured && microPhase >= 1;
+        var mA = cond ? (microPhase === 1 ? 80 : (microPhase === 2 ? 145 : 185)) : 0;
+        var bx = 250, by = 185, bw = 185, bh = 127;
         ctxMac.fillStyle = (solute === 'nacl' && poured) ? "rgba(125,211,252,0.62)" : "rgba(186,230,253,0.48)";
-        ctxMac.fillRect(bx+3, by+25, bw-6, bh-27);
+        ctxMac.fillRect(bx + 3, by + 25, bw - 6, bh - 27);
         if (poured && solute !== 'pure' && microPhase === 0) {
             ctxMac.fillStyle = solute === 'nacl' ? "#fff" : "#fef3c7";
-            ctxMac.beginPath(); ctxMac.moveTo(bx+45,by+bh-2); ctxMac.quadraticCurveTo(bx+bw/2,by+bh-28,bx+bw-45,by+bh-2); ctxMac.fill();
+            ctxMac.beginPath(); ctxMac.moveTo(bx + 45, by + bh - 2); ctxMac.quadraticCurveTo(bx + bw / 2, by + bh - 28, bx + bw - 45, by + bh - 2); ctxMac.fill();
         }
         ctxMac.strokeStyle = "#334155"; ctxMac.lineWidth = 2.6;
-        ctxMac.beginPath(); ctxMac.moveTo(bx-5,by-4); ctxMac.lineTo(bx,by); ctxMac.lineTo(bx,by+bh); ctxMac.lineTo(bx+bw,by+bh); ctxMac.lineTo(bx+bw,by); ctxMac.stroke();
-        ctxMac.fillStyle = "#475569"; ctxMac.fillRect(bx+36,by-20,12,118); ctxMac.fillRect(bx+bw-48,by-20,12,118);
-        ctxMac.fillStyle = "#b91c1c"; ctxMac.font = "bold 13px " + FONT_SANS; ctxMac.fillText("+", bx+42, by-26);
-        ctxMac.fillStyle = "#1e293b"; ctxMac.fillText("−", bx+bw-42, by-26);
+        ctxMac.beginPath(); ctxMac.moveTo(bx - 5, by - 4); ctxMac.lineTo(bx, by); ctxMac.lineTo(bx, by + bh); ctxMac.lineTo(bx + bw, by + bh); ctxMac.lineTo(bx + bw, by); ctxMac.stroke();
+        ctxMac.fillStyle = "#475569"; ctxMac.fillRect(bx + 36, by - 20, 12, 118); ctxMac.fillRect(bx + bw - 48, by - 20, 12, 118);
+        ctxMac.fillStyle = "#b91c1c"; ctxMac.font = "bold 13px " + FONT_SANS; ctxMac.fillText("+", bx + 42, by - 26);
+        ctxMac.fillStyle = "#1e293b"; ctxMac.fillText("−", bx + bw - 42, by - 26);
 
         ctxMac.strokeStyle = "#b91c1c"; ctxMac.lineWidth = 2.6;
-        ctxMac.beginPath(); ctxMac.moveTo(bx+42,by-20); ctxMac.lineTo(bx+42,68); ctxMac.lineTo(255,68); ctxMac.stroke();
+        ctxMac.beginPath(); ctxMac.moveTo(bx + 42, by - 20); ctxMac.lineTo(bx + 42, 68); ctxMac.lineTo(255, 68); ctxMac.stroke();
         ctxMac.strokeStyle = "#1e293b";
-        ctxMac.beginPath(); ctxMac.moveTo(315,68); ctxMac.lineTo(392,68); ctxMac.moveTo(436,68); ctxMac.lineTo(482,68); ctxMac.lineTo(482,145); ctxMac.lineTo(bx+bw-42,145); ctxMac.lineTo(bx+bw-42,by-20); ctxMac.stroke();
+        ctxMac.beginPath(); ctxMac.moveTo(315, 68); ctxMac.lineTo(392, 68); ctxMac.moveTo(436, 68); ctxMac.lineTo(482, 68); ctxMac.lineTo(482, 145); ctxMac.lineTo(bx + bw - 42, 145); ctxMac.lineTo(bx + bw - 42, by - 20); ctxMac.stroke();
 
-        ctxMac.fillStyle = "#102033"; ctxMac.fillRect(255,48,60,40);
-        ctxMac.fillStyle = "#b45309"; ctxMac.fillRect(255,48,60,11);
+        ctxMac.fillStyle = "#102033"; ctxMac.fillRect(255, 48, 60, 40);
+        ctxMac.fillStyle = "#b45309"; ctxMac.fillRect(255, 48, 60, 11);
         ctxMac.fillStyle = "#fff"; ctxMac.font = "bold 12px " + FONT_MONO; ctxMac.fillText("4,5 V", 285, 76);
 
-        const lx = 414, ly = 68;
-        if (cond) { const g = ctxMac.createRadialGradient(lx,ly,3,lx,ly,42); g.addColorStop(0,"rgba(254,240,138,0.95)"); g.addColorStop(1,"rgba(250,204,21,0)"); ctxMac.fillStyle = g; ctxMac.beginPath(); ctxMac.arc(lx,ly,42,0,Math.PI*2); ctxMac.fill(); }
-        ctxMac.beginPath(); ctxMac.arc(lx,ly,21,0,Math.PI*2); ctxMac.fillStyle = cond ? "#fef08a" : "#e2e8f0"; ctxMac.fill();
+        var lx = 414, ly = 68;
+        if (cond) { var g = ctxMac.createRadialGradient(lx, ly, 3, lx, ly, 42); g.addColorStop(0, "rgba(254,240,138,0.95)"); g.addColorStop(1, "rgba(250,204,21,0)"); ctxMac.fillStyle = g; ctxMac.beginPath(); ctxMac.arc(lx, ly, 42, 0, Math.PI * 2); ctxMac.fill(); }
+        ctxMac.beginPath(); ctxMac.arc(lx, ly, 21, 0, Math.PI * 2); ctxMac.fillStyle = cond ? "#fef08a" : "#e2e8f0"; ctxMac.fill();
         ctxMac.strokeStyle = cond ? "#ca8a04" : "#475569"; ctxMac.lineWidth = 2; ctxMac.stroke();
-        ctxMac.beginPath(); ctxMac.moveTo(lx-7,ly+8); ctxMac.lineTo(lx-3,ly-5); ctxMac.lineTo(lx,ly+2); ctxMac.lineTo(lx+3,ly-5); ctxMac.lineTo(lx+7,ly+8);
+        ctxMac.beginPath(); ctxMac.moveTo(lx - 7, ly + 8); ctxMac.lineTo(lx - 3, ly - 5); ctxMac.lineTo(lx, ly + 2); ctxMac.lineTo(lx + 3, ly - 5); ctxMac.lineTo(lx + 7, ly + 8);
         ctxMac.strokeStyle = cond ? "#ea580c" : "#64748b"; ctxMac.stroke();
 
-        ctxMac.fillStyle = "#102033"; ctxMac.fillRect(42,42,130,54);
-        ctxMac.strokeStyle = "#475569"; ctxMac.lineWidth = 2; ctxMac.strokeRect(42,42,130,54);
+        ctxMac.fillStyle = "#102033"; ctxMac.fillRect(42, 42, 130, 54);
+        ctxMac.strokeStyle = "#475569"; ctxMac.lineWidth = 2; ctxMac.strokeRect(42, 42, 130, 54);
         ctxMac.fillStyle = "#9fb3c8"; ctxMac.font = "bold 10px " + FONT_SANS; ctxMac.fillText("AMPÈREMÈTRE", 107, 57);
-        ctxMac.fillStyle = cond ? "#34d399" : "#94a3b8"; ctxMac.font = "bold 18px " + FONT_MONO; ctxMac.fillText(fmtFR(mA,1) + " mA", 107, 82);
+        ctxMac.fillStyle = cond ? "#34d399" : "#94a3b8"; ctxMac.font = "bold 18px " + FONT_MONO; ctxMac.fillText(fmtFR(mA, 1) + " mA", 107, 82);
         ctxMac.fillStyle = "#1b365d"; ctxMac.font = "bold 12.5px " + FONT_SERIF;
-        ctxMac.fillText(solute === 'nacl' ? "NaCl(s) → Na⁺(aq) + Cl⁻(aq)" : solute === 'sugar' ? "C₁₂H₂₂O₁₁(s) → C₁₂H₂₂O₁₁(aq)" : "Eau distillée : H₂O(l)", bx+bw/2, 332);
+        ctxMac.fillText(solute === 'nacl' ? "NaCl(s) → Na⁺(aq) + Cl⁻(aq)" : solute === 'sugar' ? "C₁₂H₂₂O₁₁(s) → C₁₂H₂₂O₁₁(aq)" : "Eau distillée : H₂O(l)", bx + bw / 2, 332);
 
         ctxMic.clearRect(0, 0, WMI, HMI);
         ctxMic.fillStyle = "#e8f3fc"; ctxMic.fillRect(0, 0, WMI, HMI);
         if (genOn) {
-            ctxMic.fillStyle = "rgba(185,28,28,0.14)"; ctxMic.fillRect(0,0,24,HMI);
-            ctxMic.fillStyle = "rgba(27,54,93,0.14)"; ctxMic.fillRect(WMI-24,0,24,HMI);
+            ctxMic.fillStyle = "rgba(185,28,28,0.14)"; ctxMic.fillRect(0, 0, 24, HMI);
+            ctxMic.fillStyle = "rgba(27,54,93,0.14)"; ctxMic.fillRect(WMI - 24, 0, 24, HMI);
             ctxMic.fillStyle = "#b91c1c"; ctxMic.font = "bold 17px " + FONT_SANS; ctxMic.textAlign = "center"; ctxMic.textBaseline = "alphabetic"; ctxMic.fillText("+", 12, 165);
-            ctxMic.fillStyle = "#1b365d"; ctxMic.fillText("−", WMI-12, 165);
+            ctxMic.fillStyle = "#1b365d"; ctxMic.fillText("−", WMI - 12, 165);
         }
-        waters.forEach(function(w) {
+        var i;
+        for (i = 0; i < waters.length; i++) {
+            var w = waters[i];
             w.x += w.vx * dt; w.y += w.vy * dt; w.ang += 0.025 * dt;
             if (w.x < 30) { w.x = 30; w.vx = Math.abs(w.vx); }
-            else if (w.x > WMI-30) { w.x = WMI-30; w.vx = -Math.abs(w.vx); }
+            else if (w.x > WMI - 30) { w.x = WMI - 30; w.vx = -Math.abs(w.vx); }
             if (w.y < 24) { w.y = 24; w.vy = Math.abs(w.vy); }
-            else if (w.y > HMI-20) { w.y = HMI-20; w.vy = -Math.abs(w.vy); }
+            else if (w.y > HMI - 20) { w.y = HMI - 20; w.vy = -Math.abs(w.vy); }
             drawWaterDipole(ctxMic, w.x, w.y, w.ang, 0.85);
-        });
-        const k1 = 1 - Math.pow(0.94, dt), k2 = 1 - Math.pow(0.95, dt);
+        }
+        var k1 = 1 - Math.pow(0.94, dt), k2 = 1 - Math.pow(0.95, dt);
         if (poured && solute !== 'pure') {
-            particles.forEach(function(p, idx) {
-                if (microPhase === 0) { p.x = p.hx+Math.sin(t*0.2+idx)*0.6; p.y = p.hy+Math.cos(t*0.2+idx)*0.6; }
-                else if (microPhase === 1) { p.x += ((p.hx-289)*1.45+289-p.x)*k1; p.y += ((p.hy-229)*1.45+205-p.y)*k1; }
-                else if (microPhase === 2) { p.x += ((p.hx-289)*2.1+289-p.x)*k2; p.y += ((p.hy-229)*2.1+170-p.y)*k2; }
+            for (var idx = 0; idx < particles.length; idx++) {
+                var p = particles[idx];
+                if (microPhase === 0) { p.x = p.hx + Math.sin(t * 0.2 + idx) * 0.6; p.y = p.hy + Math.cos(t * 0.2 + idx) * 0.6; }
+                else if (microPhase === 1) { p.x += ((p.hx - 289) * 1.45 + 289 - p.x) * k1; p.y += ((p.hy - 229) * 1.45 + 205 - p.y) * k1; }
+                else if (microPhase === 2) { p.x += ((p.hx - 289) * 2.1 + 289 - p.x) * k2; p.y += ((p.hy - 229) * 2.1 + 170 - p.y) * k2; }
                 else {
-                    const drift = (genOn && p.sign !== 0) ? (p.sign > 0 ? 1.45 : -1.45) : 0;
+                    var drift = (genOn && p.sign !== 0) ? (p.sign > 0 ? 1.45 : -1.45) : 0;
                     p.x += (p.vx + drift) * dt; p.y += p.vy * dt;
-                    if (genOn && p.sign !== 0) { if (p.x > WMI-34) p.x = 36; if (p.x < 34) p.x = WMI-36; }
+                    if (genOn && p.sign !== 0) { if (p.x > WMI - 34) p.x = 36; if (p.x < 34) p.x = WMI - 36; }
                     else {
                         if (p.x < 42) { p.x = 42; p.vx = Math.abs(p.vx); }
-                        else if (p.x > WMI-42) { p.x = WMI-42; p.vx = -Math.abs(p.vx); }
+                        else if (p.x > WMI - 42) { p.x = WMI - 42; p.vx = -Math.abs(p.vx); }
                     }
                     if (p.y < 36) { p.y = 36; p.vy = Math.abs(p.vy); }
-                    else if (p.y > HMI-32) { p.y = HMI-32; p.vy = -Math.abs(p.vy); }
+                    else if (p.y > HMI - 32) { p.y = HMI - 32; p.vy = -Math.abs(p.vy); }
                 }
                 if (p.sign !== 0) {
-                    const isCl = p.sign < 0, r = isCl ? 17 : 13;
-                    if (microPhase >= 2) for (let k = 0; k < 4; k++) { const a = k*Math.PI/2 + t*0.015; drawWaterDipole(ctxMic, p.x+Math.cos(a)*(r+13), p.y+Math.sin(a)*(r+13), isCl ? a+Math.PI : a, 0.78); }
-                    ctxMic.beginPath(); ctxMic.arc(p.x,p.y,r,0,Math.PI*2); ctxMic.fillStyle = isCl?"#4ade80":"#cbd5e1"; ctxMic.fill();
-                    ctxMic.strokeStyle = isCl?"#15803d":"#334155"; ctxMic.lineWidth = 2; ctxMic.stroke();
-                    ctxMic.fillStyle = "#0f172a"; ctxMic.font = "bold " + (isCl?11.5:10) + "px " + FONT_SANS; ctxMic.textAlign = "center"; ctxMic.textBaseline = "middle"; ctxMic.fillText(p.lbl, p.x, p.y);
+                    var isCl = p.sign < 0, r = isCl ? 17 : 13;
+                    if (microPhase >= 2) {
+                        for (var k = 0; k < 4; k++) {
+                            var a = k * Math.PI / 2 + t * 0.015;
+                            drawWaterDipole(ctxMic, p.x + Math.cos(a) * (r + 13), p.y + Math.sin(a) * (r + 13), isCl ? a + Math.PI : a, 0.78);
+                        }
+                    }
+                    ctxMic.beginPath(); ctxMic.arc(p.x, p.y, r, 0, Math.PI * 2); ctxMic.fillStyle = isCl ? "#4ade80" : "#cbd5e1"; ctxMic.fill();
+                    ctxMic.strokeStyle = isCl ? "#15803d" : "#334155"; ctxMic.lineWidth = 2; ctxMic.stroke();
+                    ctxMic.fillStyle = "#0f172a"; ctxMic.font = "bold " + (isCl ? 11.5 : 10) + "px " + FONT_SANS; ctxMic.textAlign = "center"; ctxMic.textBaseline = "middle"; ctxMic.fillText(p.lbl, p.x, p.y);
                 } else {
                     ctxMic.save(); ctxMic.translate(p.x, p.y);
                     ctxMic.fillStyle = "#fde68a"; ctxMic.strokeStyle = "#b45309"; ctxMic.lineWidth = 2;
-                    ctxMic.beginPath(); ctxMic.arc(-7,0,11,0,Math.PI*2); ctxMic.arc(9,0,9,0,Math.PI*2); ctxMic.fill(); ctxMic.stroke();
+                    ctxMic.beginPath(); ctxMic.arc(-7, 0, 11, 0, Math.PI * 2); ctxMic.arc(9, 0, 9, 0, Math.PI * 2); ctxMic.fill(); ctxMic.stroke();
                     ctxMic.fillStyle = "#78350f"; ctxMic.font = "bold 9px " + FONT_SANS; ctxMic.textAlign = "center"; ctxMic.textBaseline = "middle"; ctxMic.fillText("Sucre", 1, 0); ctxMic.restore();
                 }
-            });
+            }
         }
     }
     initMicro(); updateMsg();
@@ -1897,71 +2419,87 @@ const Sim3 = (function() {
 // ============================================================================
 // 4. ACTIVITÉ 4 : JET D'EAU (GAZ POLAIRE HCl)
 // ============================================================================
-const Sim4 = (function() {
-    const W = 760, H = 390, WT = 420, HT = 168;
-    const cv = document.getElementById('cv-4-main'), ctx = setupCanvas(cv, W, H);
-    const cT = document.getElementById('cv-4-tubes'), ctxT = setupCanvas(cT, WT, HT);
-    let indAdded = false, opened = false, phase = 0, tubeLv = 0, fill = 0, P = 1013, T = 20.0, agDone = false, prec = 0;
-    let gas = [], spray = [], drops = [], sprayAcc = 0;
+var Sim4 = (function() {
+    var W = 760, H = 390, WT = 420, HT = 168;
+    var cv = byId('cv-4-main'), ctx = setupCanvas(cv, W, H);
+    var cT = byId('cv-4-tubes'), ctxT = setupCanvas(cT, WT, HT);
+    var indAdded = false, opened = false, phase = 0, tubeLv = 0, fill = 0, P = 1013, T = 20.0, agDone = false, prec = 0;
+    var gas = [], spray = [], drops = [], sprayAcc = 0;
 
     function initGas() {
-        gas = Array.from({length: 36}, function() {
-            const a = Math.random()*Math.PI*2, r = Math.random()*78;
-            return { x: 380+Math.cos(a)*r, y: 118+Math.sin(a)*r, vx: (Math.random()-0.5)*2.4, vy: (Math.random()-0.5)*2.4, alive: true };
+        gas = makeArray(36, function() {
+            var a = Math.random() * Math.PI * 2, r = Math.random() * 78;
+            return { x: 380 + Math.cos(a) * r, y: 118 + Math.sin(a) * r, vx: (Math.random() - 0.5) * 2.4, vy: (Math.random() - 0.5) * 2.4, alive: true };
         });
         spray = []; drops = []; sprayAcc = 0;
     }
-    function setStepper(n) { [1,2,3].forEach(function(i) { document.getElementById('v4-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')); }); }
+    function setStepper(n) {
+        for (var i = 1; i <= 3; i++) byId('v4-s' + i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : ''));
+    }
     function goStep(n) {
         if (n === 1) reset();
         else if (n === 2) { if (!indAdded) addInd(); openClamp(); }
-        else { if (!indAdded) addInd(); if (!opened) openClamp(); fill = 0.76; phase = 3; tubeLv = 1; P = 290; T = 32.5; gas.forEach(function(g) { g.alive = false; }); document.getElementById('v4-btn-ag').disabled = false; runAg(); }
+        else {
+            if (!indAdded) addInd();
+            if (!opened) openClamp();
+            fill = 0.76; phase = 3; tubeLv = 1; P = 290; T = 32.5;
+            for (var i = 0; i < gas.length; i++) gas[i].alive = false;
+            byId('v4-btn-ag').disabled = false;
+            runAg();
+        }
     }
     function addInd() {
-        indAdded = true; drops = [{x:440,y:240,vy:2.5},{x:440,y:262,vy:2.5}];
-        document.getElementById('v4-btn-ind').classList.remove('solid');
-        document.getElementById('v4-btn-clamp').disabled = false; document.getElementById('v4-btn-clamp').classList.add('solid');
+        indAdded = true; drops = [{ x: 440, y: 240, vy: 2.5 }, { x: 440, y: 262, vy: 2.5 }];
+        setClass(byId('v4-btn-ind'), 'solid', false);
+        byId('v4-btn-clamp').disabled = false; setClass(byId('v4-btn-clamp'), 'solid', true);
         setStepper(2);
-        document.getElementById('v4-msg').innerHTML = "<strong>Étape 1 effectuée :</strong> L'hélianthine colore l'eau en <strong>jaune</strong> (neutre). Cliquez sur <em>Ouvrir la pince</em>.";
+        byId('v4-msg').innerHTML = "<strong>Étape 1 effectuée :</strong> L'hélianthine colore l'eau en <strong>jaune</strong> (neutre). Cliquez sur <em>Ouvrir la pince</em>.";
     }
     function openClamp() {
         if (!indAdded || opened) return;
-        opened = true; phase = 1; document.getElementById('v4-btn-clamp').textContent = "2. Pince ouverte";
-        document.getElementById('v4-msg').innerHTML = "<strong>Étape 2 :</strong> L'eau monte dans le tube. Au contact de HCl(g), la dissolution crée une chute brutale de pression (dépression).";
+        opened = true; phase = 1; byId('v4-btn-clamp').textContent = "2. Pince ouverte";
+        byId('v4-msg').innerHTML = "<strong>Étape 2 :</strong> L'eau monte dans le tube. Au contact de HCl(g), la dissolution crée une chute brutale de pression (dépression).";
     }
     function runAg() {
         if (fill < 0.2) return;
-        agDone = true; document.getElementById('v4-btn-ag').classList.add('solid'); setStepper(3);
-        document.getElementById('v4-msg').innerHTML = "<strong>Tests positifs :</strong> Teinte <strong>rouge</strong> (ions H₃O⁺) et <strong>précipité blanc</strong> de AgCl (ions Cl⁻).";
+        agDone = true; setClass(byId('v4-btn-ag'), 'solid', true); setStepper(3);
+        byId('v4-msg').innerHTML = "<strong>Tests positifs :</strong> Teinte <strong>rouge</strong> (ions H₃O⁺) et <strong>précipité blanc</strong> de AgCl (ions Cl⁻).";
     }
     function reset() {
         indAdded = false; opened = false; phase = 0; tubeLv = 0; fill = 0; P = 1013; T = 20.0; agDone = false; prec = 0;
-        document.getElementById('v4-btn-ind').classList.add('solid');
-        document.getElementById('v4-btn-clamp').disabled = true; document.getElementById('v4-btn-clamp').classList.remove('solid');
-        document.getElementById('v4-btn-clamp').textContent = "2. Ouvrir la pince";
-        document.getElementById('v4-btn-ag').disabled = true; document.getElementById('v4-btn-ag').classList.remove('solid');
+        setClass(byId('v4-btn-ind'), 'solid', true);
+        byId('v4-btn-clamp').disabled = true; setClass(byId('v4-btn-clamp'), 'solid', false);
+        byId('v4-btn-clamp').textContent = "2. Ouvrir la pince";
+        byId('v4-btn-ag').disabled = true; setClass(byId('v4-btn-ag'), 'solid', false);
         setStepper(1);
-        document.getElementById('v4-msg').innerHTML = "<strong>Étape 1 :</strong> L'ampoule contient du gaz HCl(g) sec. Ajoutez d'abord l'hélianthine dans l'eau distillée du cristallisoir.";
+        byId('v4-msg').innerHTML = "<strong>Étape 1 :</strong> L'ampoule contient du gaz HCl(g) sec. Ajoutez d'abord l'hélianthine dans l'eau distillée du cristallisoir.";
         initGas();
     }
     function step(dt) {
+        var i;
         if (phase === 1) {
             tubeLv = Math.min(1, tubeLv + 0.024 * dt);
             P = Math.max(850, 1013 - tubeLv * 163);
-            if (tubeLv >= 1) { phase = 2; document.getElementById('v4-msg').innerHTML = "<strong>Jet d'eau rouge :</strong> HCl se dissout brutalement (P &lt; P<sub>atm</sub>). L'eau aspirée vire au rouge (acide) et s'échauffe."; }
+            if (tubeLv >= 1) { phase = 2; byId('v4-msg').innerHTML = "<strong>Jet d'eau rouge :</strong> HCl se dissout brutalement (P &lt; P<sub>atm</sub>). L'eau aspirée vire au rouge (acide) et s'échauffe."; }
         } else if (phase === 2) {
             fill = Math.min(0.76, fill + 0.0042 * dt);
             P = Math.max(290, 850 - (fill / 0.76) * 560);
             T = Math.min(32.5, 20.0 + fill * 16.5);
-            const target = Math.max(0, Math.round(36 * (1 - fill / 0.76)));
-            if (gas.filter(function(g) { return g.alive; }).length > target) {
-                const i = gas.findIndex(function(g) { return g.alive; });
-                if (i >= 0) gas[i].alive = false;
+            var target = Math.max(0, Math.round(36 * (1 - fill / 0.76)));
+            var aliveCount = 0, firstAlive = -1;
+            for (i = 0; i < gas.length; i++) {
+                if (gas[i].alive) {
+                    if (firstAlive === -1) firstAlive = i;
+                    aliveCount++;
+                }
             }
-            if (fill >= 0.76) { phase = 3; P = 290; document.getElementById('v4-btn-ag').disabled = false; document.getElementById('v4-msg').innerHTML = "<strong>Dissolution achevée :</strong> HCl(g) + H₂O(l) → H₃O⁺(aq) + Cl⁻(aq). La dépression (P &lt; P<sub>atm</sub>) a aspiré l'eau dans l'ampoule. Lancez le <em>test au nitrate d'argent</em>."; }
+            if (aliveCount > target && firstAlive >= 0) gas[firstAlive].alive = false;
+            if (fill >= 0.76) {
+                phase = 3; P = 290; byId('v4-btn-ag').disabled = false;
+                byId('v4-msg').innerHTML = "<strong>Dissolution achevée :</strong> HCl(g) + H₂O(l) → H₃O⁺(aq) + Cl⁻(aq). La dépression (P &lt; P<sub>atm</sub>) a aspiré l'eau dans l'ampoule. Lancez le <em>test au nitrate d'argent</em>.";
+            }
         }
-        const pEl = document.getElementById('v4-p');
-        const pSub = document.getElementById('v4-p-sub');
+        var pEl = byId('v4-p'), pSub = byId('v4-p-sub');
         pEl.textContent = Math.round(P) + " hPa";
         if (P < 1010) {
             pEl.style.color = "#f87171";
@@ -1970,51 +2508,68 @@ const Sim4 = (function() {
             pEl.style.color = "#38bdf8";
             if (pSub) pSub.innerHTML = "P<sub>atm</sub> = 1013 hPa";
         }
-        document.getElementById('v4-t').textContent = fmtFR(T, 1) + " °C";
+        byId('v4-t').textContent = fmtFR(T, 1) + " °C";
 
         ctx.clearRect(0, 0, W, H);
-        const fx = 380, fy = 118, fr = 90;
-        ctx.fillStyle = "#475569"; ctx.fillRect(150,348,125,12); ctx.fillRect(178,38,10,312);
-        ctx.fillStyle = "#64748b"; ctx.fillRect(184,214,178,10);
+        var fx = 380, fy = 118, fr = 90;
+        ctx.fillStyle = "#475569"; ctx.fillRect(150, 348, 125, 12); ctx.fillRect(178, 38, 10, 312);
+        ctx.fillStyle = "#64748b"; ctx.fillRect(184, 214, 178, 10);
 
-        const wH = 56 - fill*22;
-        ctx.fillStyle = indAdded ? "#facc15" : "rgba(186,230,253,0.55)"; ctx.fillRect(272, 350-wH, 216, wH);
+        var wH = 56 - fill * 22;
+        ctx.fillStyle = indAdded ? "#facc15" : "rgba(186,230,253,0.55)"; ctx.fillRect(272, 350 - wH, 216, wH);
         ctx.strokeStyle = "#334155"; ctx.lineWidth = 2.8;
-        ctx.beginPath(); ctx.moveTo(270,280); ctx.lineTo(270,350); ctx.lineTo(490,350); ctx.lineTo(490,280); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(270, 280); ctx.lineTo(270, 350); ctx.lineTo(490, 350); ctx.lineTo(490, 280); ctx.stroke();
         ctx.fillStyle = "#334e68"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
         ctx.fillText(indAdded ? "Eau distillée + Hélianthine (jaune)" : "Eau distillée (incolore)", fx, 374);
 
-        drops.forEach(function(d) { d.y += d.vy * dt; ctx.fillStyle = "#eab308"; ctx.beginPath(); ctx.arc(d.x,d.y,4,0,Math.PI*2); ctx.fill(); });
-        drops = drops.filter(function(d) { return d.y < 305; });
+        var nextDrops = [];
+        for (i = 0; i < drops.length; i++) {
+            var dr = drops[i]; dr.y += dr.vy * dt;
+            if (dr.y < 305) {
+                ctx.fillStyle = "#eab308"; ctx.beginPath(); ctx.arc(dr.x, dr.y, 4, 0, Math.PI * 2); ctx.fill();
+                nextDrops.push(dr);
+            }
+        }
+        drops = nextDrops;
 
-        ctx.save(); ctx.beginPath(); ctx.arc(fx,fy,fr,0,Math.PI*2); ctx.clip();
-        ctx.fillStyle = "#f1f5f9"; ctx.fillRect(fx-fr,fy-fr,fr*2,fr*2);
-        if (fill > 0) { const ly = fy+fr - fill*(fr*1.42); ctx.fillStyle = "rgba(185,28,28,0.72)"; ctx.fillRect(fx-fr,ly,fr*2,fr*2); }
-        gas.forEach(function(g) {
-            if (!g.alive) return;
-            g.x += g.vx * dt; g.y += g.vy * dt; if (Math.hypot(g.x-fx, g.y-fy) > fr-10) { g.vx *= -1; g.vy *= -1; }
-            ctx.fillStyle = "#15803d"; ctx.beginPath(); ctx.arc(g.x,g.y,4.4,0,Math.PI*2); ctx.fill();
-            ctx.fillStyle = "#e2e8f0"; ctx.strokeStyle = "#475569"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(g.x+5,g.y,3,0,Math.PI*2); ctx.fill(); ctx.stroke();
-        });
+        ctx.save(); ctx.beginPath(); ctx.arc(fx, fy, fr, 0, Math.PI * 2); ctx.clip();
+        ctx.fillStyle = "#f1f5f9"; ctx.fillRect(fx - fr, fy - fr, fr * 2, fr * 2);
+        if (fill > 0) { var ly = fy + fr - fill * (fr * 1.42); ctx.fillStyle = "rgba(185,28,28,0.72)"; ctx.fillRect(fx - fr, ly, fr * 2, fr * 2); }
+        for (i = 0; i < gas.length; i++) {
+            var g = gas[i];
+            if (!g.alive) continue;
+            g.x += g.vx * dt; g.y += g.vy * dt;
+            if (hypot2(g.x - fx, g.y - fy) > fr - 10) { g.vx *= -1; g.vy *= -1; }
+            ctx.fillStyle = "#15803d"; ctx.beginPath(); ctx.arc(g.x, g.y, 4.4, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = "#e2e8f0"; ctx.strokeStyle = "#475569"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(g.x + 5, g.y, 3, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        }
         if (phase === 2) {
             sprayAcc += 4 * dt;
             while (sprayAcc >= 1) {
-                spray.push({ x:fx, y:fy+45, vx:(Math.random()-0.5)*3.8, vy:-5.2-Math.random()*2.3 });
+                spray.push({ x: fx, y: fy + 45, vx: (Math.random() - 0.5) * 3.8, vy: -5.2 - Math.random() * 2.3 });
                 sprayAcc -= 1;
             }
         }
-        spray.forEach(function(s) { s.x += s.vx * dt; s.y += s.vy * dt; s.vy += 0.22 * dt; ctx.fillStyle = "#b91c1c"; ctx.beginPath(); ctx.arc(s.x,s.y,2.6,0,Math.PI*2); ctx.fill(); });
-        spray = spray.filter(function(s) { return s.y < fy+fr; }); ctx.restore();
+        var nextSpray = [];
+        for (i = 0; i < spray.length; i++) {
+            var sp = spray[i]; sp.x += sp.vx * dt; sp.y += sp.vy * dt; sp.vy += 0.22 * dt;
+            if (sp.y < fy + fr) {
+                ctx.fillStyle = "#b91c1c"; ctx.beginPath(); ctx.arc(sp.x, sp.y, 2.6, 0, Math.PI * 2); ctx.fill();
+                nextSpray.push(sp);
+            }
+        }
+        spray = nextSpray;
+        ctx.restore();
 
-        ctx.strokeStyle = "#334155"; ctx.lineWidth = 2.8; ctx.beginPath(); ctx.arc(fx,fy,fr,0.16*Math.PI,0.84*Math.PI,true); ctx.stroke();
-        ctx.fillStyle = "#78716c"; ctx.fillRect(fx-17,fy+82,34,24);
-        ctx.fillStyle = "rgba(255,255,255,0.88)"; ctx.fillRect(fx-5,fy+45,10,282);
-        if (tubeLv > 0) { const ch = tubeLv*282; ctx.fillStyle = phase >= 2 ? "#dc2626" : "#facc15"; ctx.fillRect(fx-4,327-ch,8,ch); }
-        ctx.strokeStyle = "#475569"; ctx.lineWidth = 1.6; ctx.strokeRect(fx-5,fy+45,10,282);
+        ctx.strokeStyle = "#334155"; ctx.lineWidth = 2.8; ctx.beginPath(); ctx.arc(fx, fy, fr, 0.16 * Math.PI, 0.84 * Math.PI, true); ctx.stroke();
+        ctx.fillStyle = "#78716c"; ctx.fillRect(fx - 17, fy + 82, 34, 24);
+        ctx.fillStyle = "rgba(255,255,255,0.88)"; ctx.fillRect(fx - 5, fy + 45, 10, 282);
+        if (tubeLv > 0) { var ch = tubeLv * 282; ctx.fillStyle = phase >= 2 ? "#dc2626" : "#facc15"; ctx.fillRect(fx - 4, 327 - ch, 8, ch); }
+        ctx.strokeStyle = "#475569"; ctx.lineWidth = 1.6; ctx.strokeRect(fx - 5, fy + 45, 10, 282);
 
         ctx.strokeStyle = opened ? "#0f766e" : "#b91c1c"; ctx.lineWidth = 4;
-        if (!opened) { ctx.beginPath(); ctx.moveTo(fx-26,256); ctx.lineTo(fx+26,256); ctx.stroke(); ctx.fillStyle = "#b91c1c"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "left"; ctx.fillText("Pince fermée", fx+34, 260); }
-        else { ctx.beginPath(); ctx.moveTo(fx-28,249); ctx.lineTo(fx-10,256); ctx.moveTo(fx+10,256); ctx.lineTo(fx+28,249); ctx.stroke(); ctx.fillStyle = "#0f766e"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "left"; ctx.fillText("Pince ouverte", fx+34, 260); }
+        if (!opened) { ctx.beginPath(); ctx.moveTo(fx - 26, 256); ctx.lineTo(fx + 26, 256); ctx.stroke(); ctx.fillStyle = "#b91c1c"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "left"; ctx.fillText("Pince fermée", fx + 34, 260); }
+        else { ctx.beginPath(); ctx.moveTo(fx - 28, 249); ctx.lineTo(fx - 10, 256); ctx.moveTo(fx + 10, 256); ctx.lineTo(fx + 28, 249); ctx.stroke(); ctx.fillStyle = "#0f766e"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "left"; ctx.fillText("Pince ouverte", fx + 34, 260); }
 
         ctx.fillStyle = phase >= 2 ? "#b91c1c" : "#1b365d"; ctx.font = "bold 13px " + FONT_SERIF; ctx.textAlign = "left";
         ctx.fillText(phase >= 2 ? "Acide chlorhydrique" : "Gaz HCl(g) sec", 492, 94);
@@ -2022,16 +2577,16 @@ const Sim4 = (function() {
 
         ctxT.clearRect(0, 0, WT, HT);
         ctxT.textBaseline = "alphabetic";
-        ctxT.fillStyle = fill > 0.15 ? "#dc2626" : (indAdded ? "#facc15" : "rgba(186,230,253,0.45)"); ctxT.fillRect(86,56,36,74);
+        ctxT.fillStyle = fill > 0.15 ? "#dc2626" : (indAdded ? "#facc15" : "rgba(186,230,253,0.45)"); ctxT.fillRect(86, 56, 36, 74);
         ctxT.strokeStyle = "#334155"; ctxT.lineWidth = 2.2;
-        ctxT.beginPath(); ctxT.moveTo(86,26); ctxT.lineTo(86,120); ctxT.arc(104,120,18,Math.PI,0,true); ctxT.lineTo(122,26); ctxT.stroke();
+        ctxT.beginPath(); ctxT.moveTo(86, 26); ctxT.lineTo(86, 120); ctxT.arc(104, 120, 18, Math.PI, 0, true); ctxT.lineTo(122, 26); ctxT.stroke();
         ctxT.fillStyle = "#1e293b"; ctxT.font = "bold 12px " + FONT_SANS; ctxT.textAlign = "center"; ctxT.fillText("Test Hélianthine", 104, 155);
         ctxT.fillStyle = fill > 0.15 ? "#b91c1c" : "#64748b"; ctxT.fillText(fill > 0.15 ? "Rouge → Ions H₃O⁺" : "En attente", 104, 16);
 
-        ctxT.fillStyle = "rgba(186,230,253,0.48)"; ctxT.fillRect(286,56,36,74);
-        if (agDone) { prec = Math.min(1, prec + 0.03 * dt); ctxT.fillStyle = "rgba(255,255,255," + (0.95*prec) + ")"; ctxT.beginPath(); ctxT.arc(304,102,15*prec,0,Math.PI*2); ctxT.fill(); ctxT.fillRect(288,114-22*prec,32,22*prec+12); }
+        ctxT.fillStyle = "rgba(186,230,253,0.48)"; ctxT.fillRect(286, 56, 36, 74);
+        if (agDone) { prec = Math.min(1, prec + 0.03 * dt); ctxT.fillStyle = "rgba(255,255,255," + (0.95 * prec) + ")"; ctxT.beginPath(); ctxT.arc(304, 102, 15 * prec, 0, Math.PI * 2); ctxT.fill(); ctxT.fillRect(288, 114 - 22 * prec, 32, 22 * prec + 12); }
         ctxT.strokeStyle = "#334155"; ctxT.lineWidth = 2.2;
-        ctxT.beginPath(); ctxT.moveTo(286,26); ctxT.lineTo(286,120); ctxT.arc(304,120,18,Math.PI,0,true); ctxT.lineTo(322,26); ctxT.stroke();
+        ctxT.beginPath(); ctxT.moveTo(286, 26); ctxT.lineTo(286, 120); ctxT.arc(304, 120, 18, Math.PI, 0, true); ctxT.lineTo(322, 26); ctxT.stroke();
         ctxT.fillStyle = "#1e293b"; ctxT.font = "bold 12px " + FONT_SANS; ctxT.fillText("Ajout de AgNO₃", 304, 155);
         ctxT.fillStyle = agDone ? "#0f766e" : "#64748b"; ctxT.fillText(agDone ? "Précipité blanc → Cl⁻" : "En attente", 304, 16);
     }
@@ -2042,20 +2597,20 @@ const Sim4 = (function() {
 // ============================================================================
 // 5. ACTIVITÉ 5 : ÉCHELLE DE TEINTES (KMnO4) & SIMULATEUR CONCENTRATIONS
 // ============================================================================
-const Sim5 = (function() {
-    const WD = 1180, HD = 285, WI = 540, HI = 230;
-    const cDil = document.getElementById('cv-5-dil'), ctxD = setupCanvas(cDil, WD, HD);
-    const cIon = document.getElementById('cv-5-ions'), ctxI = setupCanvas(cIon, WI, HI);
-    const M_KMNO4 = 158.0;
-    let mode = 'dil', mass = 2.0, targetStep = 0, curStep = 0, simIons = [];
+var Sim5 = (function() {
+    var WD = 1180, HD = 285, WI = 540, HI = 230;
+    var cDil = byId('cv-5-dil'), ctxD = setupCanvas(cDil, WD, HD);
+    var cIon = byId('cv-5-ions'), ctxI = setupCanvas(cIon, WI, HI);
+    var M_KMNO4 = 158.0;
+    var mode = 'dil', mass = 2.0, targetStep = 0, curStep = 0, simIons = [];
 
-    const mkIons = function(n) {
-        return Array.from({length: n}, function() {
-            return { x:Math.random(), y:Math.random(), vx:(Math.random()-0.5)*0.008, vy:(Math.random()-0.5)*0.008 };
+    function mkIons(n) {
+        return makeArray(n, function() {
+            return { x: Math.random(), y: Math.random(), vx: (Math.random() - 0.5) * 0.008, vy: (Math.random() - 0.5) * 0.008 };
         });
-    };
-    const ions1 = mkIons(62), ions2 = mkIons(14), ions3 = mkIons(4);
-    const solutes = {
+    }
+    var ions1 = mkIons(62), ions2 = mkIons(14), ions3 = mkIons(4);
+    var solutes = {
         NaCl:    { M: 58.5,  cat: "Na⁺",  an: "Cl⁻",   a: 1, b: 1, eq: "NaCl(s) → Na⁺(aq) + Cl⁻(aq)" },
         KMnO4:   { M: 158.0, cat: "K⁺",   an: "MnO₄⁻", a: 1, b: 1, eq: "KMnO₄(s) → K⁺(aq) + MnO₄⁻(aq)" },
         CaF2:    { M: 78.1,  cat: "Ca²⁺", an: "F⁻",    a: 1, b: 2, eq: "CaF₂(s) → Ca²⁺(aq) + 2 F⁻(aq)" },
@@ -2065,87 +2620,98 @@ const Sim5 = (function() {
 
     function setMode(m) {
         mode = m;
-        document.getElementById('v5-s1').className = 'step-chip' + (m === 'dil' ? ' active' : ' done');
-        document.getElementById('v5-s2').className = 'step-chip' + (m === 'calc' ? ' active' : '');
-        document.getElementById('v5-pane-dil').style.display = m === 'dil' ? 'block' : 'none';
-        document.getElementById('v5-pane-calc').style.display = m === 'calc' ? 'block' : 'none';
+        byId('v5-s1').className = 'step-chip' + (m === 'dil' ? ' active' : ' done');
+        byId('v5-s2').className = 'step-chip' + (m === 'calc' ? ' active' : '');
+        setClass(byId('v5-pane-dil'), 'pane-hidden', m !== 'dil');
+        setClass(byId('v5-pane-calc'), 'pane-hidden', m !== 'calc');
     }
-    function onMass(v) { mass = Number(v); document.getElementById('v5-m-lbl').textContent = fmtFR(mass,1) + " g"; renderTable(); }
-    function runStep(n) { targetStep = Math.max(targetStep, n); [1,2,3].forEach(function(i) { document.getElementById('v5-st'+i).classList.toggle('solid', i === n); }); renderTable(); }
-    function resetDil() { targetStep = 0; curStep = 0; [1,2,3].forEach(function(i) { document.getElementById('v5-st'+i).classList.toggle('solid', i === 1); }); renderTable(); }
-    function fmtSci(v) { const e = Math.floor(Math.log10(v)); return fmtFR(v/Math.pow(10,e), 2) + " × 10<sup>" + e + "</sup>"; }
+    function onMass(v) { mass = Number(v); byId('v5-m-lbl').textContent = fmtFR(mass, 1) + " g"; renderTable(); }
+    function runStep(n) {
+        targetStep = Math.max(targetStep, n);
+        for (var i = 1; i <= 3; i++) setClass(byId('v5-st' + i), 'solid', i === n);
+        renderTable();
+    }
+    function resetDil() {
+        targetStep = 0; curStep = 0;
+        for (var i = 1; i <= 3; i++) setClass(byId('v5-st' + i), 'solid', i === 1);
+        renderTable();
+    }
+    function fmtSci(v) { var e = Math.floor(log10(v)); return fmtFR(v / Math.pow(10, e), 2) + " × 10<sup>" + e + "</sup>"; }
 
     function renderTable() {
-        const show = document.getElementById('v5-show-tbl').checked;
-        const n0 = mass / M_KMNO4, n1 = n0/2, n2 = n1/10, n3 = n2/10;
-        const rows = [
-            { s:"S₁", prot:"100 mL de S₀", v:"100 mL", n:n1, c:n1/0.1, teinte:"Violet foncé", req:1 },
-            { s:"S₂", prot:"10 mL de S₁ → 100 mL", v:"100 mL", n:n2, c:n2/0.1, teinte:"Violet moyen", req:2 },
-            { s:"S₃", prot:"10 mL de S₂ → 100 mL", v:"100 mL", n:n3, c:n3/0.1, teinte:"Violet clair", req:3 }
+        var show = byId('v5-show-tbl').checked;
+        var n0 = mass / M_KMNO4, n1 = n0 / 2, n2 = n1 / 10, n3 = n2 / 10;
+        var rows = [
+            { s: "S₁", prot: "100 mL de S₀", v: "100 mL", n: n1, c: n1 / 0.1, teinte: "Violet foncé", req: 1 },
+            { s: "S₂", prot: "10 mL de S₁ → 100 mL", v: "100 mL", n: n2, c: n2 / 0.1, teinte: "Violet moyen", req: 2 },
+            { s: "S₃", prot: "10 mL de S₂ → 100 mL", v: "100 mL", n: n3, c: n3 / 0.1, teinte: "Violet clair", req: 3 }
         ];
-        document.getElementById('v5-tbody').innerHTML = rows.map(function(r) {
-            const ok = targetStep >= r.req;
-            return '<tr class="' + (targetStep === r.req ? 'row-hl' : '') + '"><td><strong>' + r.s + '</strong></td><td>' + r.prot + '</td><td>' + r.v + '</td><td>' + ((show&&ok)?fmtSci(r.n):"—") + '</td><td><strong>' + ((show&&ok)?fmtSci(r.c):"—") + '</strong></td><td>' + ((show&&ok)?fmtSci(r.c)+" mol·L⁻¹":"—") + '</td><td>' + (ok?r.teinte:"Non préparée") + '</td></tr>';
-        }).join('');
-        const msg = document.getElementById('v5-dil-msg');
-        if (targetStep === 0) msg.innerHTML = "<strong>Solution mère S₀ prête :</strong> " + fmtFR(mass,1) + " g de KMnO₄ dans 200 mL d'eau distillée (n₀ = " + fmtSci(n0) + " mol). Lancez l'<strong>Étape 1</strong>.";
+        var html = "";
+        for (var i = 0; i < rows.length; i++) {
+            var r = rows[i], ok = targetStep >= r.req;
+            html += '<tr class="' + (targetStep === r.req ? 'row-hl' : '') + '"><td><strong>' + r.s + '</strong></td><td>' + r.prot + '</td><td>' + r.v + '</td><td>' + ((show && ok) ? fmtSci(r.n) : "—") + '</td><td><strong>' + ((show && ok) ? fmtSci(r.c) : "—") + '</strong></td><td>' + ((show && ok) ? fmtSci(r.c) + " mol·L⁻¹" : "—") + '</td><td>' + (ok ? r.teinte : "Non préparée") + '</td></tr>';
+        }
+        byId('v5-tbody').innerHTML = html;
+        var msg = byId('v5-dil-msg');
+        if (targetStep === 0) msg.innerHTML = "<strong>Solution mère S₀ prête :</strong> " + fmtFR(mass, 1) + " g de KMnO₄ dans 200 mL d'eau distillée (n₀ = " + fmtSci(n0) + " mol). Lancez l'<strong>Étape 1</strong>.";
         else if (targetStep === 1) msg.innerHTML = "<strong>Étape 1 (S₁) :</strong> 100 mL de S₀ versés dans le bécher 1 (violet foncé). Passez à l'<strong>Étape 2</strong> (dilution ×10).";
         else if (targetStep === 2) msg.innerHTML = "<strong>Étape 2 (S₂) :</strong> La concentration est divisée par 10. La teinte violette s'éclaircit nettement. Passez à l'<strong>Étape 3</strong>.";
         else msg.innerHTML = "<strong>Échelle de teintes complète :</strong> De S₁ à S₃, la concentration en ions MnO₄⁻ est divisée par 10 à chaque étape et la couleur s'éclaircit proportionnellement.";
     }
     function updateCalc() {
-        const s = solutes[document.getElementById('v5-sol').value];
-        const C = Number(document.getElementById('v5-c-sl').value), VmL = Number(document.getElementById('v5-v-sl').value);
-        const n = C*(VmL/1000), m = n*s.M, Cm = C*s.M;
-        document.getElementById('v5-c-lbl').textContent = fmtFR(C,2) + " mol·L⁻¹";
-        document.getElementById('v5-v-lbl').textContent = VmL + " mL";
-        document.getElementById('v5-eq-box').innerHTML = "<strong>Équation :</strong> " + s.eq + "<br><strong>Relation :</strong> C = [" + s.cat + "]/" + s.a + " = [" + s.an + "]/" + s.b + " = C<sub>m</sub> / M";
-        document.getElementById('v5-k-m').textContent = fmtFR(m,2) + " g";
-        document.getElementById('v5-k-n').textContent = "n = " + fmtFR(n,3) + " mol";
-        document.getElementById('v5-k-cm').textContent = fmtFR(Cm,2) + " g·L⁻¹";
-        document.getElementById('v5-k-M').textContent = "M = " + fmtFR(s.M,1) + " g·mol⁻¹";
-        document.getElementById('v5-k-cat-t').textContent = "[" + s.cat + "] = " + s.a + " · C";
-        document.getElementById('v5-k-cat').textContent = fmtFR(s.a*C,2) + " mol·L⁻¹";
-        document.getElementById('v5-k-an-t').textContent = "[" + s.an + "] = " + s.b + " · C";
-        document.getElementById('v5-k-an').textContent = fmtFR(s.b*C,2) + " mol·L⁻¹";
-        document.getElementById('v5-ion-leg').innerHTML = '<span><span class="swatch" style="background:#b91c1c"></span>Cation ' + s.cat + ' (α = ' + s.a + ')</span><span><span class="swatch" style="background:#0f766e"></span>Anion ' + s.an + ' (β = ' + s.b + ')</span>';
-        const packs = Math.max(2, Math.min(12, Math.round(C*7)));
+        var s = solutes[byId('v5-sol').value];
+        var C = Number(byId('v5-c-sl').value), VmL = Number(byId('v5-v-sl').value);
+        var n = C * (VmL / 1000), m = n * s.M, Cm = C * s.M;
+        byId('v5-c-lbl').textContent = fmtFR(C, 2) + " mol·L⁻¹";
+        byId('v5-v-lbl').textContent = VmL + " mL";
+        byId('v5-eq-box').innerHTML = "<strong>Équation :</strong> " + s.eq + "<br><strong>Relation :</strong> C = [" + s.cat + "]/" + s.a + " = [" + s.an + "]/" + s.b + " = C<sub>m</sub> / M";
+        byId('v5-k-m').textContent = fmtFR(m, 2) + " g";
+        byId('v5-k-n').textContent = "n = " + fmtFR(n, 3) + " mol";
+        byId('v5-k-cm').textContent = fmtFR(Cm, 2) + " g·L⁻¹";
+        byId('v5-k-M').textContent = "M = " + fmtFR(s.M, 1) + " g·mol⁻¹";
+        byId('v5-k-cat-t').textContent = "[" + s.cat + "] = " + s.a + " · C";
+        byId('v5-k-cat').textContent = fmtFR(s.a * C, 2) + " mol·L⁻¹";
+        byId('v5-k-an-t').textContent = "[" + s.an + "] = " + s.b + " · C";
+        byId('v5-k-an').textContent = fmtFR(s.b * C, 2) + " mol·L⁻¹";
+        byId('v5-ion-leg').innerHTML = '<span><span class="swatch" style="background:#b91c1c"></span>Cation ' + s.cat + ' (α = ' + s.a + ')</span><span><span class="swatch" style="background:#0f766e"></span>Anion ' + s.an + ' (β = ' + s.b + ')</span>';
+        var packs = Math.max(2, Math.min(12, Math.round(C * 7)));
         simIons = [];
-        for (let k = 0; k < packs; k++) {
-            for (let i = 0; i < s.a; i++) simIons.push({ x:30+Math.random()*480, y:26+Math.random()*178, vx:(Math.random()-0.5)*1.5, vy:(Math.random()-0.5)*1.5, cat:true, lbl:s.cat });
-            for (let j = 0; j < s.b; j++) simIons.push({ x:30+Math.random()*480, y:26+Math.random()*178, vx:(Math.random()-0.5)*1.5, vy:(Math.random()-0.5)*1.5, cat:false, lbl:s.an });
+        for (var k = 0; k < packs; k++) {
+            for (var i = 0; i < s.a; i++) simIons.push({ x: 30 + Math.random() * 480, y: 26 + Math.random() * 178, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, cat: true, lbl: s.cat });
+            for (var j = 0; j < s.b; j++) simIons.push({ x: 30 + Math.random() * 480, y: 26 + Math.random() * 178, vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5, cat: false, lbl: s.an });
         }
     }
     function drawBeaker(x, y, f, alpha, ions, title, sub, dt) {
-        const w = 155, h = 150, liqH = (h-22)*f;
+        var w = 155, h = 150, liqH = (h - 22) * f;
         if (f > 0.01) {
-            ctxD.fillStyle = "rgba(109,40,217," + Math.min(0.94,alpha) + ")"; ctxD.fillRect(x+3, y+h-liqH, w-6, liqH);
+            ctxD.fillStyle = "rgba(109,40,217," + Math.min(0.94, alpha) + ")"; ctxD.fillRect(x + 3, y + h - liqH, w - 6, liqH);
             ctxD.fillStyle = "rgba(255,255,255,0.65)";
-            ions.forEach(function(p) {
+            for (var i = 0; i < ions.length; i++) {
+                var p = ions[i];
                 p.x += p.vx * dt; p.y += p.vy * dt;
                 if (p.x < 0.06) { p.x = 0.06; p.vx = Math.abs(p.vx); }
                 else if (p.x > 0.94) { p.x = 0.94; p.vx = -Math.abs(p.vx); }
                 if (p.y < 0.08) { p.y = 0.08; p.vy = Math.abs(p.vy); }
                 else if (p.y > 0.92) { p.y = 0.92; p.vy = -Math.abs(p.vy); }
-                ctxD.beginPath(); ctxD.arc(x+7+p.x*(w-14), y+h-liqH+p.y*liqH, 2.5, 0, Math.PI*2); ctxD.fill();
-            });
+                ctxD.beginPath(); ctxD.arc(x + 7 + p.x * (w - 14), y + h - liqH + p.y * liqH, 2.5, 0, Math.PI * 2); ctxD.fill();
+            }
         }
         ctxD.strokeStyle = "#334155"; ctxD.lineWidth = 2.8;
-        ctxD.beginPath(); ctxD.moveTo(x-5,y-4); ctxD.lineTo(x,y); ctxD.lineTo(x,y+h); ctxD.lineTo(x+w,y+h); ctxD.lineTo(x+w,y); ctxD.stroke();
-        ctxD.fillStyle = "#1b365d"; ctxD.font = "bold 15px " + FONT_SERIF; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText(title, x+w/2, y+h+22);
-        ctxD.fillStyle = "#52606d"; ctxD.font = "12px " + FONT_SANS; ctxD.fillText(sub, x+w/2, y+h+40);
+        ctxD.beginPath(); ctxD.moveTo(x - 5, y - 4); ctxD.lineTo(x, y); ctxD.lineTo(x, y + h); ctxD.lineTo(x + w, y + h); ctxD.lineTo(x + w, y); ctxD.stroke();
+        ctxD.fillStyle = "#1b365d"; ctxD.font = "bold 15px " + FONT_SERIF; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText(title, x + w / 2, y + h + 22);
+        ctxD.fillStyle = "#52606d"; ctxD.font = "12px " + FONT_SANS; ctxD.fillText(sub, x + w / 2, y + h + 40);
     }
     function drawArr(x1, x2, y, top, bot, act, frac) {
         ctxD.save(); ctxD.strokeStyle = act ? "#6d28d9" : "#94a3b8"; ctxD.fillStyle = ctxD.strokeStyle; ctxD.lineWidth = 2.6;
-        ctxD.beginPath(); ctxD.moveTo(x1,y); ctxD.lineTo(x2-10,y); ctxD.stroke();
-        ctxD.beginPath(); ctxD.moveTo(x2,y); ctxD.lineTo(x2-12,y-6); ctxD.lineTo(x2-12,y+6); ctxD.closePath(); ctxD.fill();
-        ctxD.font = "bold 12px " + FONT_SANS; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText(top, (x1+x2)/2, y-12);
-        ctxD.font = "11px " + FONT_SANS; ctxD.fillText(bot, (x1+x2)/2, y+18);
+        ctxD.beginPath(); ctxD.moveTo(x1, y); ctxD.lineTo(x2 - 10, y); ctxD.stroke();
+        ctxD.beginPath(); ctxD.moveTo(x2, y); ctxD.lineTo(x2 - 12, y - 6); ctxD.lineTo(x2 - 12, y + 6); ctxD.closePath(); ctxD.fill();
+        ctxD.font = "bold 12px " + FONT_SANS; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText(top, (x1 + x2) / 2, y - 12);
+        ctxD.font = "11px " + FONT_SANS; ctxD.fillText(bot, (x1 + x2) / 2, y + 18);
         if (frac > 0.02 && frac < 0.98) {
-            const px = x1 + (x2-x1)*frac;
+            var px = x1 + (x2 - x1) * frac;
             ctxD.fillStyle = "#e2e8f0"; ctxD.strokeStyle = "#334155"; ctxD.lineWidth = 1.5;
-            ctxD.fillRect(px-4,y-62,8,44); ctxD.strokeRect(px-4,y-62,8,44);
-            ctxD.fillStyle = "#6d28d9"; ctxD.fillRect(px-3,y-42,6,23);
+            ctxD.fillRect(px - 4, y - 62, 8, 44); ctxD.strokeRect(px - 4, y - 62, 8, 44);
+            ctxD.fillStyle = "#6d28d9"; ctxD.fillRect(px - 3, y - 42, 6, 23);
         }
         ctxD.restore();
     }
@@ -2153,38 +2719,39 @@ const Sim5 = (function() {
         if (mode === 'dil') {
             if (curStep < targetStep) curStep = Math.min(targetStep, curStep + 0.018 * dt);
             ctxD.clearRect(0, 0, WD, HD);
-            const fx = 105, fy = 178;
+            var fx = 105, fy = 178;
             ctxD.fillStyle = "#1b365d"; ctxD.font = "bold 13.5px " + FONT_SERIF; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText("Solution mère S₀", fx, 34);
-            ctxD.fillStyle = "#52606d"; ctxD.font = "12px " + FONT_SANS; ctxD.fillText(fmtFR(mass,1) + " g / 200 mL", fx, 51);
-            ctxD.fillStyle = "rgba(109,40,217," + Math.min(0.95, 0.55+mass*0.12) + ")";
-            ctxD.beginPath(); ctxD.arc(fx,fy,46,0,Math.PI*2); ctxD.fill(); ctxD.fillRect(fx-10,fy-88,20,44);
+            ctxD.fillStyle = "#52606d"; ctxD.font = "12px " + FONT_SANS; ctxD.fillText(fmtFR(mass, 1) + " g / 200 mL", fx, 51);
+            ctxD.fillStyle = "rgba(109,40,217," + Math.min(0.95, 0.55 + mass * 0.12) + ")";
+            ctxD.beginPath(); ctxD.arc(fx, fy, 46, 0, Math.PI * 2); ctxD.fill(); ctxD.fillRect(fx - 10, fy - 88, 20, 44);
             ctxD.strokeStyle = "#334155"; ctxD.lineWidth = 2.6;
-            ctxD.beginPath(); ctxD.arc(fx,fy,46,-0.35*Math.PI,1.35*Math.PI); ctxD.stroke();
-            ctxD.beginPath(); ctxD.moveTo(fx-10,fy-108); ctxD.lineTo(fx-10,fy-42); ctxD.moveTo(fx+10,fy-108); ctxD.lineTo(fx+10,fy-42); ctxD.stroke();
-            ctxD.strokeStyle = "#b91c1c"; ctxD.lineWidth = 2; ctxD.beginPath(); ctxD.moveTo(fx-14,fy-85); ctxD.lineTo(fx+14,fy-85); ctxD.stroke();
-            ctxD.fillStyle = "#fff"; ctxD.font = "bold 16px " + FONT_SERIF; ctxD.fillText("S₀", fx, fy+6);
+            ctxD.beginPath(); ctxD.arc(fx, fy, 46, -0.35 * Math.PI, 1.35 * Math.PI); ctxD.stroke();
+            ctxD.beginPath(); ctxD.moveTo(fx - 10, fy - 108); ctxD.lineTo(fx - 10, fy - 42); ctxD.moveTo(fx + 10, fy - 108); ctxD.lineTo(fx + 10, fy - 42); ctxD.stroke();
+            ctxD.strokeStyle = "#b91c1c"; ctxD.lineWidth = 2; ctxD.beginPath(); ctxD.moveTo(fx - 14, fy - 85); ctxD.lineTo(fx + 14, fy - 85); ctxD.stroke();
+            ctxD.fillStyle = "#fff"; ctxD.font = "bold 16px " + FONT_SERIF; ctxD.fillText("S₀", fx, fy + 6);
 
-            const f1 = Math.min(1,Math.max(0,curStep)), f2 = Math.min(1,Math.max(0,curStep-1)), f3 = Math.min(1,Math.max(0,curStep-2)), fac = mass/2.0;
-            drawArr(175,295,155,"Prélèvement","100 mL",targetStep>=1,f1);
-            drawBeaker(310,76,f1,Math.min(0.92,0.80*fac),ions1,"Solution S₁","Violet foncé",dt);
-            drawArr(482,622,155,"Dilution × 10","10 mL → 100 mL",targetStep>=2,f2);
-            drawBeaker(638,76,f2,Math.min(0.75,0.36*fac),ions2,"Solution S₂","Violet moyen",dt);
-            drawArr(810,950,155,"Dilution × 10","10 mL → 100 mL",targetStep>=3,f3);
-            drawBeaker(966,76,f3,Math.min(0.45,0.14*fac),ions3,"Solution S₃","Violet clair",dt);
+            var f1 = Math.min(1, Math.max(0, curStep)), f2 = Math.min(1, Math.max(0, curStep - 1)), f3 = Math.min(1, Math.max(0, curStep - 2)), fac = mass / 2.0;
+            drawArr(175, 295, 155, "Prélèvement", "100 mL", targetStep >= 1, f1);
+            drawBeaker(310, 76, f1, Math.min(0.92, 0.80 * fac), ions1, "Solution S₁", "Violet foncé", dt);
+            drawArr(482, 622, 155, "Dilution × 10", "10 mL → 100 mL", targetStep >= 2, f2);
+            drawBeaker(638, 76, f2, Math.min(0.75, 0.36 * fac), ions2, "Solution S₂", "Violet moyen", dt);
+            drawArr(810, 950, 155, "Dilution × 10", "10 mL → 100 mL", targetStep >= 3, f3);
+            drawBeaker(966, 76, f3, Math.min(0.45, 0.14 * fac), ions3, "Solution S₃", "Violet clair", dt);
         } else {
             ctxI.clearRect(0, 0, WI, HI);
-            simIons.forEach(function(p) {
+            for (var i = 0; i < simIons.length; i++) {
+                var p = simIons[i];
                 p.x += p.vx * dt; p.y += p.vy * dt;
                 if (p.x < 18) { p.x = 18; p.vx = Math.abs(p.vx); }
-                else if (p.x > WI-18) { p.x = WI-18; p.vx = -Math.abs(p.vx); }
+                else if (p.x > WI - 18) { p.x = WI - 18; p.vx = -Math.abs(p.vx); }
                 if (p.y < 18) { p.y = 18; p.vy = Math.abs(p.vy); }
-                else if (p.y > HI-18) { p.y = HI-18; p.vy = -Math.abs(p.vy); }
-                ctxI.beginPath(); ctxI.arc(p.x,p.y,13.5,0,Math.PI*2);
+                else if (p.y > HI - 18) { p.y = HI - 18; p.vy = -Math.abs(p.vy); }
+                ctxI.beginPath(); ctxI.arc(p.x, p.y, 13.5, 0, Math.PI * 2);
                 ctxI.fillStyle = p.cat ? "#fee2e2" : "#d1fae5"; ctxI.fill();
                 ctxI.strokeStyle = p.cat ? "#b91c1c" : "#0f766e"; ctxI.lineWidth = 2; ctxI.stroke();
                 ctxI.fillStyle = p.cat ? "#991b1b" : "#065f46";
                 ctxI.font = "bold 9.5px " + FONT_SANS; ctxI.textAlign = "center"; ctxI.textBaseline = "middle"; ctxI.fillText(p.lbl, p.x, p.y);
-            });
+            }
         }
     }
     renderTable(); updateCalc();
@@ -2192,16 +2759,17 @@ const Sim5 = (function() {
 })();
 
 // ============================================================================
-// BOUCLE D'ANIMATION PRINCIPALE (Normalisée 60 / 90 / 120 / 144 Hz)
+// BOUCLE D'ANIMATION UNIVERSELLE (Normalisée 60 / 90 / 120 / 144 Hz)
 // ============================================================================
-const SIMS = [Sim0, Sim1, Sim2, Sim3, Sim4, Sim5];
-const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { return setTimeout(function() { cb(Date.now()); }, 16); };
-let lastFrameTime = 0;
-function animateAll(now) {
+var SIMS = [Sim0, Sim1, Sim2, Sim3, Sim4, Sim5];
+var rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(cb) { return setTimeout(cb, 16); };
+var lastFrameTime = 0;
+function animateAll() {
     rAF(animateAll);
     if (document.hidden) { lastFrameTime = 0; return; }
+    var now = Date.now();
     if (!lastFrameTime) lastFrameTime = now;
-    const dt = Math.max(0.25, Math.min(2.5, (now - lastFrameTime) / 16.6667));
+    var dt = Math.max(0.25, Math.min(2.5, (now - lastFrameTime) / 16.6667));
     lastFrameTime = now;
     SIMS[ACTIVE_VIEW].step(dt);
 }
