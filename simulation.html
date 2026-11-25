@@ -2,9 +2,12 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#1b365d">
 <title>Chapitre 3 : Concentration et solutions électrolytiques</title>
 <style>
 :root {
@@ -20,25 +23,39 @@
     --card: #ffffff;
     --border: #cbd5e1;
     --soft: #f8fafc;
+    --app-height: 100vh;
 }
 *, *::before, *::after {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
-html, body {
+html {
+    height: 100%;
+    height: -webkit-fill-available;
+    background: var(--bg);
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+body {
     margin: 0;
     padding: 0;
     height: 100%;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
     background: var(--bg);
     color: #1e293b;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    -webkit-text-size-adjust: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    overscroll-behavior: none;
 }
 .shell {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
+    height: var(--app-height, 100vh);
     height: 100dvh;
+    max-height: 100%;
     overflow: hidden;
     padding-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -48,7 +65,7 @@ html, body {
 .topbar {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
     color: #fff;
-    padding: calc(10px + env(safe-area-inset-top, 0px)) 18px 10px 18px;
+    padding: calc(10px + env(safe-area-inset-top, 0px)) calc(18px + env(safe-area-inset-right, 0px)) 10px calc(18px + env(safe-area-inset-left, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -59,6 +76,8 @@ html, body {
 .topbar .meta { font-size: 11.8px; color: #cbd5e1; letter-spacing: 0.2px; margin-bottom: 2px; }
 .topbar h1 { margin: 0; font-size: 18px; font-family: Georgia, "Times New Roman", serif; font-weight: 700; }
 .fs-btn {
+    -webkit-appearance: none;
+    appearance: none;
     background: rgba(255,255,255,0.14);
     color: #fff;
     border: 1.5px solid rgba(255,255,255,0.45);
@@ -66,9 +85,11 @@ html, body {
     padding: 7px 12px;
     font-size: 12.5px;
     font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
     flex-shrink: 0;
     white-space: nowrap;
+    touch-action: manipulation;
 }
 .fs-btn:hover { background: rgba(255,255,255,0.25); }
 
@@ -85,6 +106,8 @@ html, body {
     align-items: center;
 }
 .tab-btn {
+    -webkit-appearance: none;
+    appearance: none;
     padding: 7px 12px;
     border: 1.5px solid var(--border);
     border-radius: 7px;
@@ -92,12 +115,16 @@ html, body {
     color: var(--slate);
     font-weight: 600;
     font-size: 12.6px;
+    font-family: inherit;
     cursor: pointer;
+    touch-action: manipulation;
     transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .tab-btn:hover { background: #e6eef7; border-color: var(--navy); color: var(--navy); }
 .tab-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
 .tab-fs-exit {
+    -webkit-appearance: none;
+    appearance: none;
     display: none;
     margin-left: auto;
     padding: 6px 10px;
@@ -107,16 +134,23 @@ html, body {
     color: var(--navy);
     font-size: 12px;
     font-weight: 700;
+    font-family: inherit;
     cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
+    touch-action: manipulation;
 }
 .shell.compact-fs .tab-fs-exit { display: inline-block; }
 
 /* Zone principale */
 .stage {
-    flex: 1;
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding: 12px 16px 24px;
+    overscroll-behavior-y: contain;
+    padding: 12px calc(16px + env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) calc(16px + env(safe-area-inset-left, 0px));
 }
 .view { display: none; max-width: 1280px; margin: 0 auto; }
 .view.active { display: block; }
@@ -128,11 +162,13 @@ html, body {
     padding: 6px 12px; border-radius: 20px; font-size: 12.6px; font-weight: 600;
     background: #fff; border: 1.5px solid var(--border); color: var(--muted);
     cursor: pointer; user-select: none; -webkit-user-select: none;
+    touch-action: manipulation;
 }
 .step-chip .num {
     width: 20px; height: 20px; border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
     font-size: 11.5px; font-weight: 700; background: #e2e8f0; color: var(--slate);
+    flex-shrink: 0;
 }
 .step-chip.active { background: #ebf3fb; border-color: var(--navy); color: var(--navy); }
 .step-chip.active .num { background: var(--navy); color: #fff; }
@@ -157,12 +193,15 @@ html, body {
 .grid-main { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; align-items: start; }
 .grid-half { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+.grid-main > *, .grid-half > *, .grid-4 > * { min-width: 0; }
 
 /* Boutons & contrôles */
 .toolbar { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 10px; }
 .push-right { margin-left: auto; }
 .tb-sep { width: 1px; height: 22px; background: var(--border); margin: 0 4px; }
 .btn {
+    -webkit-appearance: none;
+    appearance: none;
     padding: 6.5px 12px;
     border: 1.6px solid var(--navy);
     border-radius: 7px;
@@ -170,9 +209,11 @@ html, body {
     color: var(--navy);
     font-weight: 600;
     font-size: 12.6px;
+    font-family: inherit;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
+    touch-action: manipulation;
     transition: background 0.15s, color 0.15s;
 }
 .btn:hover:not(:disabled) { background: #e8f0f8; }
@@ -196,6 +237,7 @@ canvas {
     background: var(--soft);
     user-select: none;
     -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 .interactive-cv { touch-action: none; cursor: grab; }
 .interactive-cv:active { cursor: grabbing; }
@@ -211,10 +253,29 @@ canvas {
     display: flex; justify-content: space-between; gap: 8px;
     font-size: 12.5px; font-weight: 700; color: var(--slate); margin-bottom: 4px;
 }
-input[type="range"] { width: 100%; accent-color: var(--navy); cursor: pointer; }
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--navy);
+    cursor: pointer;
+    touch-action: pan-y;
+}
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    accent-color: var(--navy);
+    cursor: pointer;
+}
 select {
-    width: 100%; padding: 8px 10px; border-radius: 7px; border: 1.5px solid var(--border);
-    font-size: 14px; font-weight: 600; color: #1e293b; background: #fff;
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1.5px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #1e293b;
+    background: #fff;
 }
 
 .note-box {
@@ -249,7 +310,7 @@ tr.row-hl { background: #fef9c3; font-weight: 700; }
 }
 .meter-box { background: #1e334a; border-radius: 7px; padding: 8px; text-align: center; color: #fff; }
 .meter-lbl { font-size: 10.5px; color: #9fb3c8; text-transform: uppercase; letter-spacing: 0.4px; }
-.meter-val { font-size: 20px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin-top: 2px; }
+.meter-val { font-size: 20px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; margin-top: 2px; }
 .meter-sub { font-size: 11px; color: #cbd5e1; margin-top: 1px; }
 
 /* Cartes KPI */
@@ -269,9 +330,15 @@ details.synthesis {
 details.synthesis summary {
     cursor: pointer; font-weight: 700; font-size: 13.5px; color: var(--teal);
     font-family: Georgia, "Times New Roman", serif; user-select: none; -webkit-user-select: none;
+    touch-action: manipulation;
 }
 details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55; color: #134e4a; }
 .mobile-hint { display: none; font-size: 11.5px; color: var(--muted); text-align: center; margin: 2px 0 6px; }
+
+/* Repli flex-gap pour anciens iOS (< 14.5) et anciens navigateurs Android */
+@supports not (gap: 6px) {
+    .tabs > *, .toolbar > *, .stepper > *, .legend > * { margin: 3px; }
+}
 
 /* Tablettes & écrans moyens */
 @media (max-width: 980px) {
@@ -281,22 +348,29 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
 
 /* Smartphones iOS & Android */
 @media (max-width: 768px) {
-    .shell { height: auto; min-height: 100vh; min-height: 100dvh; overflow: visible; }
-    .stage { overflow: visible; padding: 10px 10px calc(24px + env(safe-area-inset-bottom, 0px)); }
     .topbar { padding: calc(8px + env(safe-area-inset-top, 0px)) 12px 8px; }
     .topbar .meta { font-size: 10.5px; }
     .topbar h1 { font-size: 15px; line-height: 1.25; }
     .fs-btn { padding: 6px 10px; font-size: 11.8px; }
 
     .tabs {
-        position: sticky; top: 0; z-index: 50;
-        flex-wrap: nowrap; justify-content: flex-start;
-        overflow-x: auto; -webkit-overflow-scrolling: touch;
-        padding: 7px 10px; scrollbar-width: none;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 7px 10px;
+        scrollbar-width: none;
     }
     .tabs::-webkit-scrollbar { display: none; }
-    .tab-btn { flex-shrink: 0; white-space: nowrap; min-height: 36px; font-size: 12.4px; }
+    .tab-btn { flex-shrink: 0; white-space: nowrap; min-height: 38px; font-size: 12.4px; }
 
+    .stage {
+        padding: 10px 10px calc(28px + env(safe-area-inset-bottom, 0px));
+    }
     .stepper {
         flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
         padding-bottom: 3px; scrollbar-width: none;
@@ -307,11 +381,11 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
     .card { padding: 10px; border-radius: 9px; }
     .card-title { font-size: 14px; }
     .toolbar { gap: 6px; }
-    .btn { min-height: 38px; padding: 7px 10px; font-size: 12.4px; }
+    .btn { min-height: 40px; padding: 7px 11px; font-size: 12.4px; }
     .push-right { margin-left: 0; }
     .tb-sep { display: none; }
-    select { font-size: 16px; } /* Évite le zoom automatique iOS Safari */
-    input[type="range"] { height: 28px; }
+    select { font-size: 16px; min-height: 42px; } /* Évite le zoom automatique iOS Safari */
+    input[type="range"] { height: 32px; }
 
     table { font-size: 12px; }
     th, td { padding: 5px 6px; white-space: nowrap; }
@@ -332,21 +406,21 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
             <div class="meta">Lycée Qualifiant Hassan II — Kceibya &nbsp;|&nbsp; 1<sup>ère</sup> Année Bac Sciences &nbsp;|&nbsp; Prof. BOUZID Anas</div>
             <h1>Chapitre 3 : Concentration et solutions électrolytiques</h1>
         </div>
-        <button class="fs-btn" id="fsBtn" onclick="toggleFullscreen()"><span>Plein écran</span></button>
+        <button type="button" class="fs-btn" id="fsBtn" onclick="toggleFullscreen()"><span>Plein écran</span></button>
     </header>
 
     <!-- NAVIGATION -->
     <nav class="tabs" id="tabBar">
-        <button class="tab-btn active" data-v="0" onclick="openView(0)">Situation de départ</button>
-        <button class="tab-btn" data-v="1" onclick="openView(1)">Activité 1 : Cristaux ioniques</button>
-        <button class="tab-btn" data-v="2" onclick="openView(2)">Activité 2 : Filet d'eau &amp; Polarité</button>
-        <button class="tab-btn" data-v="3" onclick="openView(3)">Activité 3 : Dissolution (NaCl / Sucre)</button>
-        <button class="tab-btn" data-v="4" onclick="openView(4)">Activité 4 : Jet d'eau (HCl)</button>
-        <button class="tab-btn" data-v="5" onclick="openView(5)">Activité 5 : Teintes &amp; Concentrations</button>
-        <button class="tab-fs-exit" onclick="toggleFullscreen()">Quitter plein écran</button>
+        <button type="button" class="tab-btn active" data-v="0" onclick="openView(0)">Situation de départ</button>
+        <button type="button" class="tab-btn" data-v="1" onclick="openView(1)">Activité 1 : Cristaux ioniques</button>
+        <button type="button" class="tab-btn" data-v="2" onclick="openView(2)">Activité 2 : Filet d'eau &amp; Polarité</button>
+        <button type="button" class="tab-btn" data-v="3" onclick="openView(3)">Activité 3 : Dissolution (NaCl / Sucre)</button>
+        <button type="button" class="tab-btn" data-v="4" onclick="openView(4)">Activité 4 : Jet d'eau (HCl)</button>
+        <button type="button" class="tab-btn" data-v="5" onclick="openView(5)">Activité 5 : Teintes &amp; Concentrations</button>
+        <button type="button" class="tab-fs-exit" onclick="toggleFullscreen()">Quitter plein écran</button>
     </nav>
 
-    <main class="stage">
+    <main class="stage" id="mainStage">
 
         <!-- ============================================================
              0. SITUATION DE DÉPART
@@ -360,11 +434,11 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
 
             <div class="card">
                 <div class="toolbar">
-                    <button class="btn active" id="v0-b-pure" onclick="Sim0.selectBeaker('pure')">Bécher 1 : Eau pure</button>
-                    <button class="btn" id="v0-b-sugar" onclick="Sim0.selectBeaker('sugar')">Bécher 2 : Eau + Sucre</button>
-                    <button class="btn" id="v0-b-salt" onclick="Sim0.selectBeaker('salt')">Bécher 3 : Eau + Sel (NaCl)</button>
-                    <button class="btn amber" id="v0-add" onclick="Sim0.addSolute()">Ajouter le solide et agiter</button>
-                    <button class="btn crimson push-right" id="v0-sw" onclick="Sim0.toggleSwitch()">Interrupteur : Ouvert</button>
+                    <button type="button" class="btn active" id="v0-b-pure" onclick="Sim0.selectBeaker('pure')">Bécher 1 : Eau pure</button>
+                    <button type="button" class="btn" id="v0-b-sugar" onclick="Sim0.selectBeaker('sugar')">Bécher 2 : Eau + Sucre</button>
+                    <button type="button" class="btn" id="v0-b-salt" onclick="Sim0.selectBeaker('salt')">Bécher 3 : Eau + Sel (NaCl)</button>
+                    <button type="button" class="btn amber" id="v0-add" onclick="Sim0.addSolute()">Ajouter le solide et agiter</button>
+                    <button type="button" class="btn crimson push-right" id="v0-sw" onclick="Sim0.toggleSwitch()">Interrupteur : Ouvert</button>
                 </div>
 
                 <div class="grid-main">
@@ -429,14 +503,14 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                                 <span>Échelle d'observation (Macro → Micro)</span>
                                 <span id="v1-scale-lbl">1 × à 20 ×</span>
                             </div>
-                            <input id="v1-zoom-slider" type="range" min="0" max="100" value="0" oninput="Sim1.onZoom(this.value)">
+                            <input id="v1-zoom-slider" type="range" min="0" max="100" value="0" oninput="Sim1.onZoom(this.value)" onchange="Sim1.onZoom(this.value)">
                         </div>
 
                         <div id="v1-3d-controls" style="transition:opacity 0.2s;">
                             <div class="toolbar">
-                                <button class="btn active" id="v1-m-compact" onclick="Sim1.setModel('compact')">Modèle compact</button>
-                                <button class="btn" id="v1-m-eclate" onclick="Sim1.setModel('eclate')">Modèle éclaté</button>
-                                <button class="btn" id="v1-m-maille" onclick="Sim1.setModel('maille')">Maille élémentaire</button>
+                                <button type="button" class="btn active" id="v1-m-compact" onclick="Sim1.setModel('compact')">Modèle compact</button>
+                                <button type="button" class="btn" id="v1-m-eclate" onclick="Sim1.setModel('eclate')">Modèle éclaté</button>
+                                <button type="button" class="btn" id="v1-m-maille" onclick="Sim1.setModel('maille')">Maille élémentaire</button>
                             </div>
 
                             <div class="slider-group">
@@ -444,7 +518,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                                     <span>Écartement des ions (Compact ↔ Éclaté)</span>
                                     <span id="v1-sep-lbl">0 %</span>
                                 </div>
-                                <input id="v1-sep-slider" type="range" min="0" max="100" value="0" oninput="Sim1.onSep(this.value)">
+                                <input id="v1-sep-slider" type="range" min="0" max="100" value="0" oninput="Sim1.onSep(this.value)" onchange="Sim1.onSep(this.value)">
                             </div>
 
                             <div class="slider-group">
@@ -452,23 +526,23 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                                     <span>Coupe du cristal (plans affichés)</span>
                                     <span id="v1-layer-lbl">3 / 3 plans</span>
                                 </div>
-                                <input id="v1-layer-slider" type="range" min="1" max="3" step="1" value="3" oninput="Sim1.onLayers(this.value)">
+                                <input id="v1-layer-slider" type="range" min="1" max="3" step="1" value="3" oninput="Sim1.onLayers(this.value)" onchange="Sim1.onLayers(this.value)">
                             </div>
 
                             <div class="toolbar">
-                                <button class="btn crimson" id="v1-btn-forces" onclick="Sim1.toggleForces()">Attraction (6 voisins) : OFF</button>
-                                <button class="btn teal active" id="v1-btn-rot" onclick="Sim1.toggleRot()">Rotation auto : ON</button>
-                                <button class="btn" onclick="Sim1.zoom3D(0.15)">Zoom +</button>
-                                <button class="btn" onclick="Sim1.zoom3D(-0.15)">Zoom −</button>
-                                <button class="btn" onclick="Sim1.resetView()">Réinitialiser</button>
+                                <button type="button" class="btn crimson" id="v1-btn-forces" onclick="Sim1.toggleForces()">Attraction (6 voisins) : OFF</button>
+                                <button type="button" class="btn teal active" id="v1-btn-rot" onclick="Sim1.toggleRot()">Rotation auto : ON</button>
+                                <button type="button" class="btn" onclick="Sim1.zoom3D(0.15)">Zoom +</button>
+                                <button type="button" class="btn" onclick="Sim1.zoom3D(-0.15)">Zoom −</button>
+                                <button type="button" class="btn" onclick="Sim1.resetView()">Réinitialiser</button>
                             </div>
                         </div>
 
                         <div class="toolbar" style="margin-top:6px;">
                             <span style="font-size:12.5px;font-weight:700;color:var(--slate);">Cristal étudié :</span>
-                            <button class="btn active" id="v1-cr-NaCl" onclick="Sim1.setCrystal('NaCl')">NaCl</button>
-                            <button class="btn" id="v1-cr-CaF2" onclick="Sim1.setCrystal('CaF2')">CaF₂</button>
-                            <button class="btn" id="v1-cr-Al2S3" onclick="Sim1.setCrystal('Al2S3')">Al₂S₃</button>
+                            <button type="button" class="btn active" id="v1-cr-NaCl" onclick="Sim1.setCrystal('NaCl')">NaCl</button>
+                            <button type="button" class="btn" id="v1-cr-CaF2" onclick="Sim1.setCrystal('CaF2')">CaF₂</button>
+                            <button type="button" class="btn" id="v1-cr-Al2S3" onclick="Sim1.setCrystal('Al2S3')">Al₂S₃</button>
                         </div>
 
                         <div class="table-wrap">
@@ -528,9 +602,9 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                             </div>
                         </div>
                         <div class="toolbar">
-                            <button class="btn amber solid" onclick="Sim2.autoRub()">Simuler le frottement</button>
-                            <button class="btn" onclick="Sim2.resetCharge()">Décharger</button>
-                            <button class="btn teal solid" onclick="Sim2.setStep(2)">Passer à l'étape 2 →</button>
+                            <button type="button" class="btn amber solid" onclick="Sim2.autoRub()">Simuler le frottement</button>
+                            <button type="button" class="btn" onclick="Sim2.resetCharge()">Décharger</button>
+                            <button type="button" class="btn teal solid" onclick="Sim2.setStep(2)">Passer à l'étape 2 →</button>
                         </div>
                         <div class="note-box" id="v2-rub-msg"></div>
                     </div>
@@ -557,18 +631,18 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                         </div>
                         <div class="slider-group">
                             <div class="slider-head"><span>Ajuster la charge du ballon</span><span id="v2-q-sl-lbl">0 %</span></div>
-                            <input id="v2-q-slider" type="range" min="0" max="100" value="0" oninput="Sim2.setChargeManual(this.value)">
+                            <input id="v2-q-slider" type="range" min="0" max="100" value="0" oninput="Sim2.setChargeManual(this.value)" onchange="Sim2.setChargeManual(this.value)">
                         </div>
                         <div class="toolbar">
-                            <button class="btn active" id="v2-tap-btn" onclick="Sim2.toggleTap()">Robinet : Ouvert (mince filet)</button>
-                            <label class="push-right" style="font-size:12.5px;font-weight:600;">
+                            <button type="button" class="btn active" id="v2-tap-btn" onclick="Sim2.toggleTap()">Robinet : Ouvert (mince filet)</button>
+                            <label class="push-right" style="font-size:12.5px;font-weight:600;cursor:pointer;">
                                 <input type="checkbox" id="v2-zoom-chk" checked> Zoom dipôles H₂O
                             </label>
                         </div>
                         <div class="note-box" id="v2-water-msg"></div>
                         <div class="toolbar" style="margin-top:10px;">
-                            <button class="btn" onclick="Sim2.setStep(1)">← Revenir au frottement</button>
-                            <button class="btn teal solid" onclick="Sim2.setStep(3)">Expliquer avec la polarité →</button>
+                            <button type="button" class="btn" onclick="Sim2.setStep(1)">← Revenir au frottement</button>
+                            <button type="button" class="btn teal solid" onclick="Sim2.setStep(3)">Expliquer avec la polarité →</button>
                         </div>
                     </div>
                 </div>
@@ -577,20 +651,20 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                 <div id="v2-pane-3" class="grid-main" style="display:none;">
                     <div>
                         <div class="toolbar">
-                            <button class="btn" id="v2-m-Cl2" onclick="Sim2.setMol('Cl2')">Cl₂</button>
-                            <button class="btn" id="v2-m-HCl" onclick="Sim2.setMol('HCl')">HCl</button>
-                            <button class="btn active" id="v2-m-H2O" onclick="Sim2.setMol('H2O')">H₂O</button>
-                            <button class="btn" id="v2-m-H2S" onclick="Sim2.setMol('H2S')">H₂S</button>
-                            <button class="btn" id="v2-m-CO2" onclick="Sim2.setMol('CO2')">CO₂</button>
+                            <button type="button" class="btn" id="v2-m-Cl2" onclick="Sim2.setMol('Cl2')">Cl₂</button>
+                            <button type="button" class="btn" id="v2-m-HCl" onclick="Sim2.setMol('HCl')">HCl</button>
+                            <button type="button" class="btn active" id="v2-m-H2O" onclick="Sim2.setMol('H2O')">H₂O</button>
+                            <button type="button" class="btn" id="v2-m-H2S" onclick="Sim2.setMol('H2S')">H₂S</button>
+                            <button type="button" class="btn" id="v2-m-CO2" onclick="Sim2.setMol('CO2')">CO₂</button>
                         </div>
                         <canvas id="cv-2c" width="760" height="315" style="background:#fff;"></canvas>
                     </div>
                     <div>
                         <h3 class="card-title">Construction étape par étape</h3>
                         <div class="slider-group" style="display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;">
-                            <label><input type="checkbox" id="v2-chk-lewis" checked> 1. Doublets non liants (géométrie)</label>
-                            <label><input type="checkbox" id="v2-chk-pol" checked> 2. Polarisation des liaisons (δ⁺ / δ⁻)</label>
-                            <label><input type="checkbox" id="v2-chk-bary" checked> 3. Barycentres des charges (⊕ / ⊖)</label>
+                            <label style="cursor:pointer;"><input type="checkbox" id="v2-chk-lewis" checked> 1. Doublets non liants (géométrie)</label>
+                            <label style="cursor:pointer;"><input type="checkbox" id="v2-chk-pol" checked> 2. Polarisation des liaisons (δ⁺ / δ⁻)</label>
+                            <label style="cursor:pointer;"><input type="checkbox" id="v2-chk-bary" checked> 3. Barycentres des charges (⊕ / ⊖)</label>
                         </div>
                         <div class="table-wrap">
                             <table>
@@ -625,13 +699,13 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
 
             <div class="card">
                 <div class="toolbar">
-                    <button class="btn active" id="v3-sol-nacl" onclick="Sim3.setSolute('nacl')">Chlorure de sodium NaCl(s)</button>
-                    <button class="btn" id="v3-sol-sugar" onclick="Sim3.setSolute('sugar')">Saccharose C₁₂H₂₂O₁₁(s)</button>
-                    <button class="btn" id="v3-sol-pure" onclick="Sim3.setSolute('pure')">Eau distillée seule</button>
+                    <button type="button" class="btn active" id="v3-sol-nacl" onclick="Sim3.setSolute('nacl')">Chlorure de sodium NaCl(s)</button>
+                    <button type="button" class="btn" id="v3-sol-sugar" onclick="Sim3.setSolute('sugar')">Saccharose C₁₂H₂₂O₁₁(s)</button>
+                    <button type="button" class="btn" id="v3-sol-pure" onclick="Sim3.setSolute('pure')">Eau distillée seule</button>
                     <span class="tb-sep"></span>
-                    <button class="btn amber" id="v3-btn-weigh" onclick="Sim3.addSpoon()">Ajouter 0,50 g (Spatule)</button>
-                    <button class="btn solid" id="v3-btn-pour" onclick="Sim3.pour()">Verser dans les 50 mL d'eau</button>
-                    <button class="btn crimson push-right" id="v3-btn-gen" onclick="Sim3.toggleGen()">Générateur 4,5 V : OFF</button>
+                    <button type="button" class="btn amber" id="v3-btn-weigh" onclick="Sim3.addSpoon()">Ajouter 0,50 g (Spatule)</button>
+                    <button type="button" class="btn solid" id="v3-btn-pour" onclick="Sim3.pour()">Verser dans les 50 mL d'eau</button>
+                    <button type="button" class="btn crimson push-right" id="v3-btn-gen" onclick="Sim3.toggleGen()">Générateur 4,5 V : OFF</button>
                 </div>
 
                 <div class="grid-half">
@@ -642,10 +716,10 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                     <div>
                         <div class="toolbar" style="margin-bottom:6px;">
                             <span style="font-size:12.5px;font-weight:700;color:var(--navy);">Étape microscopique :</span>
-                            <button class="btn active" id="v3-ph-0" onclick="Sim3.setPhase(0)">0. Cristal</button>
-                            <button class="btn" id="v3-ph-1" onclick="Sim3.setPhase(1)">1. Dissociation</button>
-                            <button class="btn" id="v3-ph-2" onclick="Sim3.setPhase(2)">2. Hydratation</button>
-                            <button class="btn" id="v3-ph-3" onclick="Sim3.setPhase(3)">3. Dispersion</button>
+                            <button type="button" class="btn active" id="v3-ph-0" onclick="Sim3.setPhase(0)">0. Cristal</button>
+                            <button type="button" class="btn" id="v3-ph-1" onclick="Sim3.setPhase(1)">1. Dissociation</button>
+                            <button type="button" class="btn" id="v3-ph-2" onclick="Sim3.setPhase(2)">2. Hydratation</button>
+                            <button type="button" class="btn" id="v3-ph-3" onclick="Sim3.setPhase(3)">3. Dispersion</button>
                         </div>
                         <canvas id="cv-3-micro" width="580" height="322"></canvas>
                     </div>
@@ -675,10 +749,10 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
 
             <div class="card">
                 <div class="toolbar">
-                    <button class="btn amber solid" id="v4-btn-ind" onclick="Sim4.addInd()">1. Ajouter l'hélianthine (jaune)</button>
-                    <button class="btn crimson" id="v4-btn-clamp" onclick="Sim4.openClamp()" disabled>2. Ouvrir la pince</button>
-                    <button class="btn teal" id="v4-btn-ag" onclick="Sim4.runAg()" disabled>3. Test au nitrate d'argent (AgNO₃)</button>
-                    <button class="btn push-right" onclick="Sim4.reset()">Réinitialiser</button>
+                    <button type="button" class="btn amber solid" id="v4-btn-ind" onclick="Sim4.addInd()">1. Ajouter l'hélianthine (jaune)</button>
+                    <button type="button" class="btn crimson" id="v4-btn-clamp" onclick="Sim4.openClamp()" disabled>2. Ouvrir la pince</button>
+                    <button type="button" class="btn teal" id="v4-btn-ag" onclick="Sim4.runAg()" disabled>3. Test au nitrate d'argent (AgNO₃)</button>
+                    <button type="button" class="btn push-right" onclick="Sim4.reset()">Réinitialiser</button>
                 </div>
 
                 <div class="grid-main">
@@ -689,7 +763,7 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                                 <div class="meter-box">
                                     <div class="meter-lbl">Pression dans l'ampoule</div>
                                     <div class="meter-val" id="v4-p" style="color:#38bdf8;">1013 hPa</div>
-                                    <div class="meter-sub">P<sub>atm</sub> = 1013 hPa</div>
+                                    <div class="meter-sub" id="v4-p-sub">P<sub>atm</sub> = 1013 hPa</div>
                                 </div>
                                 <div class="meter-box">
                                     <div class="meter-lbl">Température (Exothermique)</div>
@@ -729,15 +803,15 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
             <!-- MODE 5A : ÉCHELLE DE TEINTES -->
             <div id="v5-pane-dil" class="card">
                 <div class="toolbar">
-                    <button class="btn violet solid" id="v5-st1" onclick="Sim5.runStep(1)">Étape 1 : Prélever S₁ (100 mL)</button>
-                    <button class="btn violet" id="v5-st2" onclick="Sim5.runStep(2)">Étape 2 : Diluer S₁ → S₂ (×10)</button>
-                    <button class="btn violet" id="v5-st3" onclick="Sim5.runStep(3)">Étape 3 : Diluer S₂ → S₃ (×10)</button>
-                    <button class="btn" onclick="Sim5.resetDil()">Réinitialiser</button>
+                    <button type="button" class="btn violet solid" id="v5-st1" onclick="Sim5.runStep(1)">Étape 1 : Prélever S₁ (100 mL)</button>
+                    <button type="button" class="btn violet" id="v5-st2" onclick="Sim5.runStep(2)">Étape 2 : Diluer S₁ → S₂ (×10)</button>
+                    <button type="button" class="btn violet" id="v5-st3" onclick="Sim5.runStep(3)">Étape 3 : Diluer S₂ → S₃ (×10)</button>
+                    <button type="button" class="btn" onclick="Sim5.resetDil()">Réinitialiser</button>
                     <span class="push-right" style="font-size:12.8px;font-weight:700;color:var(--slate);">
                         Masse m(KMnO₄) : <strong id="v5-m-lbl" style="color:var(--violet);">2,0 g</strong>
                     </span>
-                    <input id="v5-m-slider" type="range" min="0.5" max="4.0" step="0.1" value="2.0" oninput="Sim5.onMass(this.value)" style="width:120px;accent-color:var(--violet);">
-                    <label style="font-size:12.5px;font-weight:600;">
+                    <input id="v5-m-slider" type="range" min="0.5" max="4.0" step="0.1" value="2.0" oninput="Sim5.onMass(this.value)" onchange="Sim5.onMass(this.value)" style="width:120px;accent-color:var(--violet);">
+                    <label style="font-size:12.5px;font-weight:600;cursor:pointer;">
                         <input type="checkbox" id="v5-show-tbl" checked onchange="Sim5.renderTable()"> Afficher les calculs
                     </label>
                 </div>
@@ -783,11 +857,11 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
                         </div>
                         <div class="slider-group">
                             <div class="slider-head"><span>Concentration molaire en soluté apporté C</span><span id="v5-c-lbl">0,50 mol·L⁻¹</span></div>
-                            <input id="v5-c-sl" type="range" min="0.05" max="2.00" step="0.05" value="0.50" oninput="Sim5.updateCalc()">
+                            <input id="v5-c-sl" type="range" min="0.05" max="2.00" step="0.05" value="0.50" oninput="Sim5.updateCalc()" onchange="Sim5.updateCalc()">
                         </div>
                         <div class="slider-group">
                             <div class="slider-head"><span>Volume de la solution V</span><span id="v5-v-lbl">500 mL</span></div>
-                            <input id="v5-v-sl" type="range" min="50" max="1000" step="50" value="500" oninput="Sim5.updateCalc()">
+                            <input id="v5-v-sl" type="range" min="50" max="1000" step="50" value="500" oninput="Sim5.updateCalc()" onchange="Sim5.updateCalc()">
                         </div>
                         <div class="note-box" id="v5-eq-box"></div>
                     </div>
@@ -837,60 +911,118 @@ details.synthesis .body { margin-top: 7px; font-size: 13.3px; line-height: 1.55;
 
 <script>
 // ============================================================================
-// UTILITAIRES GÉNÉRAUX (iOS / Android / macOS / Windows)
+// UTILITAIRES MULTI-PLATEFORMES (iOS 12-18+, Android, macOS, Windows)
 // ============================================================================
 let ACTIVE_VIEW = 0;
+let LAST_TOUCH_TS = 0;
 
-function openView(idx) {
-    ACTIVE_VIEW = idx;
-    document.querySelectorAll('.view').forEach((v, i) => v.classList.toggle('active', i === idx));
-    document.querySelectorAll('.tab-btn').forEach(b => {
-        const act = Number(b.dataset.v) === idx;
-        b.classList.toggle('active', act);
-        if (act && window.innerWidth <= 768) {
-            b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        }
+const FONT_SANS  = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+const FONT_SERIF = 'Georgia, "Times New Roman", serif';
+const FONT_MONO  = 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
+
+// Hauteur dynamique réelle (fixe les barres d'adresse iOS Safari / Android Chrome)
+function syncAppHeight() {
+    const h = (window.visualViewport && window.visualViewport.height) || window.innerHeight || document.documentElement.clientHeight;
+    document.documentElement.style.setProperty('--app-height', h + 'px');
+}
+syncAppHeight();
+window.addEventListener('resize', syncAppHeight);
+window.addEventListener('orientationchange', function() { setTimeout(syncAppHeight, 120); });
+if (window.visualViewport) window.visualViewport.addEventListener('resize', syncAppHeight);
+
+// Configuration HiDPI / Retina (Mac, iPhone, iPad, Android, Windows 125%-200%)
+function setupCanvas(cv, logicalW, logicalH) {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv._lw = logicalW;
+    cv._lh = logicalH;
+    cv.width = Math.round(logicalW * dpr);
+    cv.height = Math.round(logicalH * dpr);
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return ctx;
+}
+
+// Bloque le zoom gestuel natif iOS Safari sur les canvas interactifs
+function preventIOSGesture(el) {
+    ['gesturestart', 'gesturechange', 'gestureend'].forEach(function(ev) {
+        el.addEventListener(ev, function(e) { if (e.cancelable) e.preventDefault(); }, { passive: false });
     });
 }
 
-function toggleFullscreen() {
-    const el = document.documentElement;
-    const shell = document.getElementById('appShell');
-    const fsElem = document.fullscreenElement || document.webkitFullscreenElement;
-    if (!fsElem && !shell.classList.contains('compact-fs')) {
-        if (el.requestFullscreen) {
-            el.requestFullscreen().catch(() => shell.classList.add('compact-fs'));
-        } else if (el.webkitRequestFullscreen) {
-            el.webkitRequestFullscreen();
-        } else {
-            // Repli propre sur iPhone Safari (où requestFullscreen n'existe pas)
-            shell.classList.add('compact-fs');
+function openView(idx) {
+    ACTIVE_VIEW = idx;
+    document.querySelectorAll('.view').forEach(function(v, i) { v.classList.toggle('active', i === idx); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+        const act = Number(b.dataset.v) === idx;
+        b.classList.toggle('active', act);
+        if (act && window.innerWidth <= 768 && b.scrollIntoView) {
+            try { b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+            catch (err) { b.scrollIntoView(false); }
         }
-    } else {
-        shell.classList.remove('compact-fs');
-        if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
-        else if (document.webkitExitFullscreen && document.webkitFullscreenElement) document.webkitExitFullscreen();
-    }
+    });
+    const stage = document.getElementById('mainStage');
+    if (stage) stage.scrollTop = 0;
+}
+
+function getFsElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
 }
 function syncFsLabel() {
     const span = document.querySelector('#fsBtn span');
-    const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement || document.getElementById('appShell').classList.contains('compact-fs'));
+    const isFs = Boolean(getFsElement() || document.getElementById('appShell').classList.contains('compact-fs'));
     if (span) span.textContent = isFs ? 'Quitter' : 'Plein écran';
 }
-document.addEventListener('fullscreenchange', syncFsLabel);
-document.addEventListener('webkitfullscreenchange', syncFsLabel);
+function toggleFullscreen() {
+    const el = document.documentElement;
+    const shell = document.getElementById('appShell');
+    const fsElem = getFsElement();
+    if (!fsElem && !shell.classList.contains('compact-fs')) {
+        const req = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+        if (req) {
+            try {
+                const res = req.call(el);
+                if (res && typeof res.catch === 'function') {
+                    res.catch(function() { shell.classList.add('compact-fs'); syncFsLabel(); });
+                }
+            } catch (e) {
+                shell.classList.add('compact-fs');
+                syncFsLabel();
+            }
+        } else {
+            // Repli fiable sur iPhone Safari et iframes restreintes
+            shell.classList.add('compact-fs');
+            syncFsLabel();
+        }
+    } else {
+        shell.classList.remove('compact-fs');
+        const ex = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        if (fsElem && ex) {
+            try { ex.call(document); } catch (e) {}
+        }
+        syncFsLabel();
+    }
+}
+['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(function(ev) {
+    document.addEventListener(ev, syncFsLabel);
+});
 
 function getCanvasPos(canvas, evt) {
     const rect = canvas.getBoundingClientRect();
-    const pt = evt.touches ? evt.touches[0] : evt;
+    const pt = (evt.touches && evt.touches[0]) || (evt.changedTouches && evt.changedTouches[0]) || evt;
+    const lw = canvas._lw || canvas.width;
+    const lh = canvas._lh || canvas.height;
     return {
-        x: (pt.clientX - rect.left) * (canvas.width / rect.width),
-        y: (pt.clientY - rect.top) * (canvas.height / rect.height)
+        x: (pt.clientX - rect.left) * (lw / (rect.width || 1)),
+        y: (pt.clientY - rect.top) * (lh / (rect.height || 1))
     };
 }
-function fmtFR(val, dec = 2) { return val.toFixed(dec).replace('.', ','); }
+function fmtFR(val, dec) {
+    if (typeof dec === 'undefined') dec = 2;
+    return val.toFixed(dec).replace('.', ',');
+}
 
-function drawWaterDipole(ctx, x, y, ang, scale = 1) {
+function drawWaterDipole(ctx, x, y, ang, scale) {
+    if (typeof scale === 'undefined') scale = 1;
     ctx.save();
     ctx.translate(x, y); ctx.rotate(ang); ctx.scale(scale, scale);
     ctx.fillStyle = "#dc2626";
@@ -904,8 +1036,9 @@ function drawWaterDipole(ctx, x, y, ang, scale = 1) {
 // ============================================================================
 // 0. SITUATION DE DÉPART
 // ============================================================================
-const Sim0 = (() => {
-    const cv = document.getElementById('cv-0'), ctx = cv.getContext('2d');
+const Sim0 = (function() {
+    const W = 760, H = 370;
+    const cv = document.getElementById('cv-0'), ctx = setupCanvas(cv, W, H);
     let selected = 'pure', sw = false, grains = [];
     const state = {
         pure:  { added: true,  diss: 1, tested: false },
@@ -914,7 +1047,7 @@ const Sim0 = (() => {
     };
 
     function syncButtons() {
-        ['pure','sugar','salt'].forEach(k => document.getElementById('v0-b-'+k).classList.toggle('active', k === selected));
+        ['pure','sugar','salt'].forEach(function(k) { document.getElementById('v0-b-'+k).classList.toggle('active', k === selected); });
         const btnAdd = document.getElementById('v0-add');
         btnAdd.disabled = (selected === 'pure' || state[selected].added);
         btnAdd.textContent = selected === 'pure' ? "Eau pure (pas de soluté)" : (state[selected].added ? "Solide dissous" : "Ajouter le solide et agiter");
@@ -930,10 +1063,10 @@ const Sim0 = (() => {
             document.getElementById('v0-lmp-'+k).innerHTML = cond ? "<strong style='color:#0f766e'>Allumée</strong>" : "Éteinte";
             document.getElementById('v0-amp-'+k).innerHTML = cond ? "<strong style='color:#0f766e'>185 mA</strong>" : "0,0 mA";
         }
-        ['pure','sugar','salt'].forEach(x => document.getElementById('v0-r-'+x).classList.toggle('row-hl', x === selected));
+        ['pure','sugar','salt'].forEach(function(x) { document.getElementById('v0-r-'+x).classList.toggle('row-hl', x === selected); });
     }
     function setStep(n) {
-        [1,2,3].forEach(i => document.getElementById('v0-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')));
+        [1,2,3].forEach(function(i) { document.getElementById('v0-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')); });
         if (n === 1) {
             sw = false; syncButtons();
             document.getElementById('v0-msg').innerHTML = "<strong>Étape 1 :</strong> Sélectionnez le bécher 2 (Sucre) ou 3 (Sel), puis cliquez sur <em>Ajouter le solide et agiter</em>.";
@@ -942,7 +1075,7 @@ const Sim0 = (() => {
         } else {
             state.sugar.added = true; state.sugar.diss = 1;
             state.salt.added = true; state.salt.diss = 1; sw = true;
-            ['pure','sugar','salt'].forEach(k => { state[k].tested = true; updateRow(k); });
+            ['pure','sugar','salt'].forEach(function(k) { state[k].tested = true; updateRow(k); });
             syncButtons();
             document.getElementById('v0-msg').innerHTML = "<strong>Comparaison :</strong> Seul le bécher d'<strong>Eau + Sel (NaCl)</strong> conduit le courant (185 mA). Formulez vos hypothèses avant l'Activité 1.";
         }
@@ -959,7 +1092,9 @@ const Sim0 = (() => {
     function addSolute() {
         if (selected === 'pure' || state[selected].added) return;
         state[selected].added = true; state[selected].diss = 0.05;
-        grains = Array.from({length: 26}, () => ({ x: 345+(Math.random()-0.5)*44, y: 120+Math.random()*40, vy: 2.2+Math.random()*1.4 }));
+        grains = Array.from({length: 26}, function() {
+            return { x: 345+(Math.random()-0.5)*44, y: 120+Math.random()*40, vy: 2.2+Math.random()*1.4 };
+        });
         if (sw) state[selected].tested = true;
         syncButtons(); updateRow(selected);
         document.getElementById('v0-msg').innerHTML = selected === 'salt'
@@ -970,15 +1105,16 @@ const Sim0 = (() => {
         sw = !sw;
         if (sw) {
             state[selected].tested = true; updateRow(selected);
-            [1,2,3].forEach(i => document.getElementById('v0-s'+i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : '')));
+            [1,2,3].forEach(function(i) { document.getElementById('v0-s'+i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : '')); });
         }
         syncButtons(); selectBeaker(selected);
     }
-    function step() {
-        if (state[selected].added && state[selected].diss < 1) state[selected].diss = Math.min(1, state[selected].diss + 0.015);
-        ctx.clearRect(0, 0, cv.width, cv.height);
-        ctx.fillStyle = "#e2e8f0"; ctx.fillRect(0, 315, cv.width, 55);
-        ctx.strokeStyle = "#cbd5e1"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0,315); ctx.lineTo(cv.width,315); ctx.stroke();
+    function step(dt) {
+        if (state[selected].added && state[selected].diss < 1) state[selected].diss = Math.min(1, state[selected].diss + 0.015 * dt);
+        ctx.clearRect(0, 0, W, H);
+        ctx.textBaseline = "alphabetic";
+        ctx.fillStyle = "#e2e8f0"; ctx.fillRect(0, 315, W, 55);
+        ctx.strokeStyle = "#cbd5e1"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0,315); ctx.lineTo(W,315); ctx.stroke();
 
         const st = state[selected], cond = sw && selected === 'salt' && st.added && st.diss > 0.35, mA = cond ? Math.round(185*st.diss) : 0;
         const bx = 265, by = 180, bw = 190, bh = 135;
@@ -986,7 +1122,7 @@ const Sim0 = (() => {
         ctx.fillRect(bx+3, by+26, bw-6, bh-28);
         if (grains.length > 0 && st.diss < 0.75) {
             ctx.fillStyle = selected === 'salt' ? "#ffffff" : "#fef3c7";
-            grains.forEach(g => { g.y = Math.min(by+bh-8, g.y+g.vy); ctx.fillRect(g.x, g.y, 4, 4); });
+            grains.forEach(function(g) { g.y = Math.min(by+bh-8, g.y+g.vy*dt); ctx.fillRect(g.x, g.y, 4, 4); });
         }
         ctx.strokeStyle = "#334155"; ctx.lineWidth = 2.8;
         ctx.beginPath(); ctx.moveTo(bx-6,by-4); ctx.lineTo(bx,by); ctx.lineTo(bx,by+bh); ctx.lineTo(bx+bw,by+bh); ctx.lineTo(bx+bw,by); ctx.stroke();
@@ -1001,15 +1137,15 @@ const Sim0 = (() => {
 
         ctx.fillStyle = "#1e293b"; ctx.fillRect(92,118,116,62);
         ctx.fillStyle = "#334e68"; ctx.fillRect(96,122,108,20);
-        ctx.fillStyle = "#ffffff"; ctx.font = "bold 11px Arial"; ctx.textAlign = "center"; ctx.fillText("GÉNÉRATEUR CC", 150, 136);
-        ctx.fillStyle = "#fbbf24"; ctx.font = "bold 17px monospace"; ctx.fillText("4,5 V", 150, 166);
+        ctx.fillStyle = "#ffffff"; ctx.font = "bold 11px " + FONT_SANS; ctx.textAlign = "center"; ctx.fillText("GÉNÉRATEUR CC", 150, 136);
+        ctx.fillStyle = "#fbbf24"; ctx.font = "bold 17px " + FONT_MONO; ctx.fillText("4,5 V", 150, 166);
 
         ctx.fillStyle = "#ffffff"; ctx.fillRect(380,326,90,28);
         ctx.strokeStyle = "#64748b"; ctx.lineWidth = 1.5; ctx.strokeRect(380,326,90,28);
         ctx.fillStyle = "#1e293b"; ctx.beginPath(); ctx.arc(400,340,4,0,Math.PI*2); ctx.arc(450,340,4,0,Math.PI*2); ctx.fill();
         ctx.strokeStyle = sw ? "#0f766e" : "#b91c1c"; ctx.lineWidth = 3.5;
         ctx.beginPath(); ctx.moveTo(400,340); if (sw) ctx.lineTo(450,340); else ctx.lineTo(442,322); ctx.stroke();
-        ctx.fillStyle = "#475569"; ctx.font = "bold 11px Arial"; ctx.fillText(sw ? "Interrupteur fermé" : "Interrupteur ouvert", 425, 366);
+        ctx.fillStyle = "#475569"; ctx.font = "bold 11px " + FONT_SANS; ctx.fillText(sw ? "Interrupteur fermé" : "Interrupteur ouvert", 425, 366);
 
         const lx = 576, ly = 70;
         if (cond) {
@@ -1022,26 +1158,28 @@ const Sim0 = (() => {
         ctx.strokeStyle = cond ? "#ca8a04" : "#475569"; ctx.lineWidth = 2.2; ctx.stroke();
         ctx.beginPath(); ctx.moveTo(lx-10,ly+10); ctx.lineTo(lx-5,ly-7); ctx.lineTo(lx,ly+2); ctx.lineTo(lx+5,ly-7); ctx.lineTo(lx+10,ly+10);
         ctx.strokeStyle = cond ? "#ea580c" : "#64748b"; ctx.stroke();
-        ctx.fillStyle = "#334155"; ctx.font = "bold 12px Arial"; ctx.fillText(cond ? "Lampe allumée" : "Lampe éteinte", lx, ly+42);
+        ctx.fillStyle = "#334155"; ctx.font = "bold 12px " + FONT_SANS; ctx.fillText(cond ? "Lampe allumée" : "Lampe éteinte", lx, ly+42);
 
         ctx.fillStyle = "#102033"; ctx.fillRect(512,194,128,60);
         ctx.strokeStyle = "#475569"; ctx.lineWidth = 2; ctx.strokeRect(512,194,128,60);
-        ctx.fillStyle = "#9fb3c8"; ctx.font = "bold 10px Arial"; ctx.fillText("AMPÈREMÈTRE", 576, 210);
-        ctx.fillStyle = cond ? "#34d399" : "#94a3b8"; ctx.font = "bold 20px monospace"; ctx.fillText(fmtFR(mA, 1) + " mA", 576, 238);
+        ctx.fillStyle = "#9fb3c8"; ctx.font = "bold 10px " + FONT_SANS; ctx.fillText("AMPÈREMÈTRE", 576, 210);
+        ctx.fillStyle = cond ? "#34d399" : "#94a3b8"; ctx.font = "bold 20px " + FONT_MONO; ctx.fillText(fmtFR(mA, 1) + " mA", 576, 238);
 
         const titles = { pure: "Bécher 1 : Eau distillée", sugar: "Bécher 2 : Eau + Saccharose", salt: "Bécher 3 : Eau + Sel (NaCl)" };
-        ctx.fillStyle = "#1b365d"; ctx.font = "bold 14px Georgia"; ctx.fillText(titles[selected], bx+bw/2, by+bh-14);
+        ctx.fillStyle = "#1b365d"; ctx.font = "bold 14px " + FONT_SERIF; ctx.fillText(titles[selected], bx+bw/2, by+bh-14);
     }
 
     syncButtons(); updateRow('pure');
-    return { setStep, selectBeaker, addSolute, toggleSwitch, step };
+    return { setStep: setStep, selectBeaker: selectBeaker, addSolute: addSolute, toggleSwitch: toggleSwitch, step: step };
 })();
 
 // ============================================================================
 // 1. ACTIVITÉ 1 : ÉTAT SOLIDE -> ZOOM -> MODÈLES 3D LIBRES
 // ============================================================================
-const Sim1 = (() => {
-    const cv = document.getElementById('cv-1'), ctx = cv.getContext('2d');
+const Sim1 = (function() {
+    const W = 760, H = 410;
+    const cv = document.getElementById('cv-1'), ctx = setupCanvas(cv, W, H);
+    preventIOSGesture(cv);
     let zoomVal = 0, sepVal = 0, layers = 3, modelMode = 'compact', crystal = 'NaCl';
     let showForces = false, autoRot = true, rotX = -0.36, rotY = 0.56, camScale = 1.0;
     let dragging = false, lastX = 0, lastY = 0, loupeX = 380, loupeY = 205, pinchDist = 0;
@@ -1051,19 +1189,21 @@ const Sim1 = (() => {
         CaF2:  { name: "fluorure de calcium (CaF₂)", cat: "Ca²⁺", an: "F⁻", catCol: "#64748b", anCol: "#d97706", grainCol: "#fef3c7", catR: 0.85, anR: 0.92 },
         Al2S3: { name: "sulfure d'aluminium (Al₂S₃)", cat: "Al³⁺", an: "S²⁻", catCol: "#2563eb", anCol: "#ca8a04", grainCol: "#fef9c3", catR: 0.70, anR: 1.0 }
     };
-    const grains = Array.from({length: 36}, () => {
+    const grains = Array.from({length: 36}, function() {
         const a = Math.random()*Math.PI*2, r = Math.sqrt(Math.random())*115;
         return { x: 380+Math.cos(a)*r, y: 215+Math.sin(a)*r*0.62, s: 11+Math.random()*12, ang: (Math.random()-0.5)*0.6 };
     });
 
     function startDrag(e) {
+        if (e.type === 'mousedown' && (Date.now() - LAST_TOUCH_TS < 450)) return;
+        if (e.type === 'touchstart') LAST_TOUCH_TS = Date.now();
         if (e.touches && e.touches.length === 2) {
             if (e.cancelable) e.preventDefault();
             pinchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
             dragging = false; return;
         }
         if (e.cancelable) e.preventDefault();
-        const p = getCanvasPos(cv, e), pt = e.touches ? e.touches[0] : e;
+        const p = getCanvasPos(cv, e), pt = (e.touches && e.touches[0]) || e;
         dragging = true; lastX = pt.clientX; lastY = pt.clientY;
         if (zoomVal >= 60) { autoRot = false; syncControls(); } else { loupeX = p.x; loupeY = p.y; }
     }
@@ -1076,7 +1216,7 @@ const Sim1 = (() => {
         }
         if (!dragging) return;
         if (e.cancelable) e.preventDefault();
-        const pt = e.touches ? e.touches[0] : e;
+        const pt = (e.touches && e.touches[0]) || e;
         if (zoomVal >= 60) {
             rotY += (pt.clientX - lastX) * 0.01; rotX += (pt.clientY - lastY) * 0.01;
             lastX = pt.clientX; lastY = pt.clientY;
@@ -1085,13 +1225,15 @@ const Sim1 = (() => {
             loupeX = Math.max(110, Math.min(650, p.x)); loupeY = Math.max(85, Math.min(325, p.y));
         }
     }
+    function endDrag() { dragging = false; pinchDist = 0; }
     cv.addEventListener('mousedown', startDrag);
     cv.addEventListener('touchstart', startDrag, { passive: false });
-    cv.addEventListener('touchmove', moveDrag, { passive: false });
+    window.addEventListener('touchmove', moveDrag, { passive: false });
     window.addEventListener('mousemove', moveDrag);
-    window.addEventListener('mouseup', () => { dragging = false; pinchDist = 0; });
-    window.addEventListener('touchend', () => { dragging = false; pinchDist = 0; });
-    cv.addEventListener('wheel', e => {
+    window.addEventListener('mouseup', endDrag);
+    window.addEventListener('touchend', endDrag);
+    window.addEventListener('touchcancel', endDrag);
+    cv.addEventListener('wheel', function(e) {
         e.preventDefault();
         if (zoomVal >= 68) camScale = Math.max(0.65, Math.min(1.55, camScale - e.deltaY * 0.0008));
         else { zoomVal = Math.max(0, Math.min(100, zoomVal - e.deltaY * 0.05)); document.getElementById('v1-zoom-slider').value = zoomVal; syncStageUI(); }
@@ -1115,7 +1257,7 @@ const Sim1 = (() => {
     }
     function setCrystal(cr) {
         crystal = cr;
-        ['NaCl','CaF2','Al2S3'].forEach(k => {
+        ['NaCl','CaF2','Al2S3'].forEach(function(k) {
             document.getElementById('v1-cr-'+k).classList.toggle('active', k === cr);
             document.getElementById('v1-r-'+k).classList.toggle('row-hl', k === cr);
         });
@@ -1127,7 +1269,7 @@ const Sim1 = (() => {
 
     function syncControls() {
         document.getElementById('v1-sep-lbl').textContent = Math.round(sepVal) + " %";
-        ['compact','eclate','maille'].forEach(k => document.getElementById('v1-m-'+k).classList.toggle('active', k === modelMode));
+        ['compact','eclate','maille'].forEach(function(k) { document.getElementById('v1-m-'+k).classList.toggle('active', k === modelMode); });
         const bf = document.getElementById('v1-btn-forces'); bf.classList.toggle('solid', showForces);
         bf.textContent = showForces ? "Attraction (6 voisins) : ON" : "Attraction (6 voisins) : OFF";
         const br = document.getElementById('v1-btn-rot'); br.classList.toggle('active', autoRot);
@@ -1143,23 +1285,23 @@ const Sim1 = (() => {
         const titleEl = document.getElementById('v1-stage-title'), msgEl = document.getElementById('v1-msg'), scaleEl = document.getElementById('v1-scale-lbl');
         if (stage === 'macro') {
             scaleEl.textContent = "1 × à 20 × (Loupe)";
-            titleEl.textContent = `Étape 1 : État solide macroscopique — Cristaux de ${d.name}`;
+            titleEl.textContent = "Étape 1 : État solide macroscopique — Cristaux de " + d.name;
             msgEl.innerHTML = "<strong>État solide :</strong> Déplacez la loupe au doigt ou à la souris. Les grains ont naturellement des <strong>faces planes cubiques</strong>. Glissez le curseur d'échelle pour zoomer.";
         } else if (stage === 'zoom') {
-            scaleEl.textContent = `10^${Math.round(2+(zoomVal-30)/38*6)} × (Zoom interne)`;
-            titleEl.textContent = `Étape 2 : Zoom progressif vers l'échelle ionique (${crystal})`;
+            scaleEl.textContent = "10^" + Math.round(2+(zoomVal-30)/38*6) + " × (Zoom interne)";
+            titleEl.textContent = "Étape 2 : Zoom progressif vers l'échelle ionique (" + crystal + ")";
             msgEl.innerHTML = "<strong>Changement d'échelle :</strong> En grossissant plusieurs millions de fois, la géométrie cubique du cristal s'explique par l'empilement régulier de cations et d'anions.";
         } else {
             scaleEl.textContent = "10⁸ × (Échelle ionique 3D)";
             const mLbl = modelMode === 'compact' ? "Modèle compact" : (modelMode === 'eclate' ? "Modèle éclaté (assemblage de mailles)" : "Maille élémentaire (6 voisins)");
-            titleEl.textContent = `Étape 3 : Modèles 3D libres — ${mLbl} (${crystal})`;
+            titleEl.textContent = "Étape 3 : Modèles 3D libres — " + mLbl + " (" + crystal + ")";
             msgEl.innerHTML = "<strong>Manipulation libre :</strong> Glissez pour tourner en 3D, pincez (ou <em>Zoom + / −</em>), ajustez l'<em>Écartement</em> et la <em>Coupe du cristal</em>.";
         }
-        document.getElementById('v1-legend').innerHTML = `
-            <span><span class="swatch" style="background:${d.anCol}"></span>Anion ${d.an}</span>
-            <span><span class="swatch" style="background:${d.catCol}"></span>Cation ${d.cat}</span>
-            <span><span style="display:inline-block;width:16px;height:2.5px;background:#1b365d;vertical-align:middle;margin-right:5px;"></span>Maille cubique</span>
-            <span><span style="display:inline-block;width:16px;height:2.5px;background:#b91c1c;vertical-align:middle;margin-right:5px;"></span>Attraction coulombienne</span>`;
+        document.getElementById('v1-legend').innerHTML =
+            '<span><span class="swatch" style="background:' + d.anCol + '"></span>Anion ' + d.an + '</span>' +
+            '<span><span class="swatch" style="background:' + d.catCol + '"></span>Cation ' + d.cat + '</span>' +
+            '<span><span style="display:inline-block;width:16px;height:2.5px;background:#1b365d;vertical-align:middle;margin-right:5px;"></span>Maille cubique</span>' +
+            '<span><span style="display:inline-block;width:16px;height:2.5px;background:#b91c1c;vertical-align:middle;margin-right:5px;"></span>Attraction coulombienne</span>';
     }
 
     function drawGrain(x, y, s, a, fill) {
@@ -1174,12 +1316,12 @@ const Sim1 = (() => {
     }
     function drawMacro() {
         const d = crystals[crystal];
-        ctx.fillStyle = "#e8eef5"; ctx.fillRect(0, 0, cv.width, cv.height);
+        ctx.fillStyle = "#e8eef5"; ctx.fillRect(0, 0, W, H);
         const cx = 380, cy = 215, dg = ctx.createRadialGradient(cx,cy,40,cx,cy,175);
         dg.addColorStop(0,"#cbd5e1"); dg.addColorStop(0.85,"#dbe4ee"); dg.addColorStop(1,"#94a3b8");
         ctx.fillStyle = dg; ctx.beginPath(); ctx.ellipse(cx,cy,175,112,0,0,Math.PI*2); ctx.fill();
         ctx.strokeStyle = "#64748b"; ctx.lineWidth = 2.4; ctx.stroke();
-        grains.forEach(g => drawGrain(g.x, g.y, g.s, g.ang, d.grainCol));
+        grains.forEach(function(g) { drawGrain(g.x, g.y, g.s, g.ang, d.grainCol); });
 
         ctx.save(); ctx.beginPath(); ctx.arc(loupeX, loupeY, 64, 0, Math.PI*2); ctx.clip();
         ctx.fillStyle = "#102033"; ctx.fillRect(loupeX-64, loupeY-64, 128, 128);
@@ -1191,14 +1333,14 @@ const Sim1 = (() => {
         ctx.strokeStyle = "#334e68"; ctx.lineWidth = 8; ctx.lineCap = "round";
         ctx.beginPath(); ctx.moveTo(loupeX+46, loupeY+46); ctx.lineTo(loupeX+90, loupeY+90); ctx.stroke();
 
-        ctx.fillStyle = "#1b365d"; ctx.font = "bold 14px Georgia"; ctx.textAlign = "left";
-        ctx.fillText(`État solide : cristaux cubiques de ${crystal}`, 18, 28);
-        ctx.fillStyle = "#52606d"; ctx.font = "12.5px Arial";
+        ctx.fillStyle = "#1b365d"; ctx.font = "bold 14px " + FONT_SERIF; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+        ctx.fillText("État solide : cristaux cubiques de " + crystal, 18, 28);
+        ctx.fillStyle = "#52606d"; ctx.font = "12.5px " + FONT_SANS;
         ctx.fillText("Déplacez la loupe sur la coupelle ou glissez le curseur d'échelle.", 18, 48);
     }
     function drawZoom() {
         const d = crystals[crystal], frac = (zoomVal - 30) / 38;
-        ctx.fillStyle = "#102033"; ctx.fillRect(0, 0, cv.width, cv.height);
+        ctx.fillStyle = "#102033"; ctx.fillRect(0, 0, W, H);
         const cx = 380, cy = 205, sz = 120 + frac * 165;
         ctx.save(); ctx.globalAlpha = Math.min(1, frac * 1.35);
         const stp = sz / 4, sx0 = cx - sz/2 + stp/2, sy0 = cy - sz/2 + stp/2;
@@ -1211,22 +1353,22 @@ const Sim1 = (() => {
         ctx.restore();
         ctx.save(); ctx.globalAlpha = Math.max(0.08, 0.78*(1-frac)); ctx.fillStyle = d.grainCol; ctx.fillRect(cx-sz/2, cy-sz/2, sz, sz); ctx.restore();
         ctx.strokeStyle = "rgba(255,255,255,0.65)"; ctx.lineWidth = 2; ctx.strokeRect(cx-sz/2, cy-sz/2, sz, sz);
-        ctx.fillStyle = "#fff"; ctx.font = "bold 13.5px monospace"; ctx.textAlign = "left";
-        ctx.fillText(`GROSSISSEMENT : × 10^${fmtFR(2+frac*6, 1)}`, 18, 28);
-        ctx.fillStyle = "#cbd5e1"; ctx.font = "12.5px Arial";
+        ctx.fillStyle = "#fff"; ctx.font = "bold 13.5px " + FONT_MONO; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+        ctx.fillText("GROSSISSEMENT : × 10^" + fmtFR(2+frac*6, 1), 18, 28);
+        ctx.fillStyle = "#cbd5e1"; ctx.font = "12.5px " + FONT_SANS;
         ctx.fillText("Continuez le zoom vers 100 % pour manipuler le réseau en 3D.", 18, 48);
     }
     function project3D(x, y, z, scale) {
         const x1 = x*Math.cos(rotY) - z*Math.sin(rotY), z1 = x*Math.sin(rotY) + z*Math.cos(rotY);
         const y2 = y*Math.cos(rotX) - z1*Math.sin(rotX), z2 = y*Math.sin(rotX) + z1*Math.cos(rotX);
         const p = 740 / (740 + z2 * scale);
-        return { sx: cv.width/2 + x1*scale*p, sy: cv.height/2 - y2*scale*p, z: z2, p };
+        return { sx: W/2 + x1*scale*p, sy: H/2 - y2*scale*p, z: z2, p: p };
     }
     function draw3D() {
         const d = crystals[crystal];
-        const bg = ctx.createRadialGradient(cv.width/2, cv.height/2, 40, cv.width/2, cv.height/2, 440);
+        const bg = ctx.createRadialGradient(W/2, H/2, 40, W/2, H/2, 440);
         bg.addColorStop(0,"#fff"); bg.addColorStop(1,"#e2e8f0");
-        ctx.fillStyle = bg; ctx.fillRect(0, 0, cv.width, cv.height);
+        ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
         const sep = sepVal/100, nodes = [], edges = [], redEdges = [];
         if (crystal === 'NaCl') {
@@ -1234,7 +1376,7 @@ const Sim1 = (() => {
             const zMin = layers === 1 ? 0 : -1, zMax = layers === 3 ? 1 : 0, sp = xMax === 2 ? 0.78 : 1.0;
             for (let x = -xMax; x <= xMax; x++) for (let y = -1; y <= 1; y++) for (let z = zMin; z <= zMax; z++) {
                 const isAn = ((x+y+z+12)%2 === 0);
-                nodes.push({ x:x*sp, y:y*sp, z:z*sp, isAn, label: isAn?'Cl⁻':'Na⁺' });
+                nodes.push({ x:x*sp, y:y*sp, z:z*sp, isAn:isAn, label: isAn?'Cl⁻':'Na⁺' });
                 if (sep > 0.18 || modelMode === 'maille') {
                     if (x < xMax) edges.push([[x*sp,y*sp,z*sp],[(x+1)*sp,y*sp,z*sp]]);
                     if (y < 1) edges.push([[x*sp,y*sp,z*sp],[x*sp,(y+1)*sp,z*sp]]);
@@ -1243,18 +1385,24 @@ const Sim1 = (() => {
             }
             if (showForces) { redEdges.push([[-sp,0,0],[sp,0,0]], [[0,-sp,0],[0,sp,0]]); if (layers === 3) redEdges.push([[0,0,-sp],[0,0,sp]]); }
         } else if (crystal === 'CaF2') {
-            [[-1,-1,-1],[1,-1,-1],[-1,1,-1],[1,1,-1],[-1,-1,1],[1,-1,1],[-1,1,1],[1,1,1],[0,0,-1],[0,0,1],[0,-1,0],[0,1,0],[-1,0,0],[1,0,0]].forEach(p => {
+            [[-1,-1,-1],[1,-1,-1],[-1,1,-1],[1,1,-1],[-1,-1,1],[1,-1,1],[-1,1,1],[1,1,1],[0,0,-1],[0,0,1],[0,-1,0],[0,1,0],[-1,0,0],[1,0,0]].forEach(function(p) {
                 if ((layers < 3 && p[2] > 0.2) || (layers === 1 && Math.abs(p[2]) > 0.2)) return;
                 nodes.push({ x:p[0], y:p[1], z:p[2], isAn:false, label:'Ca²⁺' });
             });
-            [[-0.5,-0.5,-0.5],[0.5,-0.5,-0.5],[-0.5,0.5,-0.5],[0.5,0.5,-0.5],[-0.5,-0.5,0.5],[0.5,-0.5,0.5],[-0.5,0.5,0.5],[0.5,0.5,0.5]].forEach(p => {
+            [[-0.5,-0.5,-0.5],[0.5,-0.5,-0.5],[-0.5,0.5,-0.5],[0.5,0.5,-0.5],[-0.5,-0.5,0.5],[0.5,-0.5,0.5],[-0.5,0.5,0.5],[0.5,0.5,0.5]].forEach(function(p) {
                 if (layers < 3 && p[2] > 0) return;
                 nodes.push({ x:p[0], y:p[1], z:p[2], isAn:true, label:'F⁻' });
             });
-            if (sep > 0.18 || modelMode === 'maille') for (let a of [-1,1]) for (let b of [-1,1]) edges.push([[-1,a,b],[1,a,b]], [[a,-1,b],[a,1,b]], [[a,b,-1],[a,b,1]]);
+            if (sep > 0.18 || modelMode === 'maille') {
+                [-1,1].forEach(function(a) {
+                    [-1,1].forEach(function(b) {
+                        edges.push([[-1,a,b],[1,a,b]], [[a,-1,b],[a,1,b]], [[a,b,-1],[a,b,1]]);
+                    });
+                });
+            }
             if (showForces) redEdges.push([[-0.5,-0.5,-0.5],[-1,-1,-1]], [[-0.5,-0.5,-0.5],[0,0,-1]], [[-0.5,-0.5,-0.5],[-1,0,0]], [[-0.5,-0.5,-0.5],[0,-1,0]]);
         } else {
-            [[-1,-0.8,-0.8,true],[1,-0.8,-0.8,true],[0,0.8,-0.8,true],[-1,0.8,0.8,true],[1,0.8,0.8,true],[0,-0.8,0.8,true],[-0.55,0,0,false],[0.55,0,0,false],[0,0,-0.8,false],[0,0,0.8,false]].forEach(p => {
+            [[-1,-0.8,-0.8,true],[1,-0.8,-0.8,true],[0,0.8,-0.8,true],[-1,0.8,0.8,true],[1,0.8,0.8,true],[0,-0.8,0.8,true],[-0.55,0,0,false],[0.55,0,0,false],[0,0,-0.8,false],[0,0,0.8,false]].forEach(function(p) {
                 if (layers === 1 && Math.abs(p[2]) > 0.2) return;
                 nodes.push({ x:p[0], y:p[1], z:p[2], isAn:p[3], label: p[3]?'S²⁻':'Al³⁺' });
             });
@@ -1264,51 +1412,67 @@ const Sim1 = (() => {
 
         const scale = 104 * camScale, baseR = (49 - sep*31) * camScale;
         ctx.lineWidth = modelMode === 'eclate' ? 1.15 : 1.9; ctx.strokeStyle = "rgba(27,54,93,0.45)";
-        edges.forEach(e => { const p1 = project3D(...e[0], scale), p2 = project3D(...e[1], scale); ctx.beginPath(); ctx.moveTo(p1.sx,p1.sy); ctx.lineTo(p2.sx,p2.sy); ctx.stroke(); });
+        edges.forEach(function(e) {
+            const p1 = project3D(e[0][0],e[0][1],e[0][2], scale), p2 = project3D(e[1][0],e[1][1],e[1][2], scale);
+            ctx.beginPath(); ctx.moveTo(p1.sx,p1.sy); ctx.lineTo(p2.sx,p2.sy); ctx.stroke();
+        });
         ctx.lineWidth = 3.2; ctx.strokeStyle = "#b91c1c";
-        redEdges.forEach(e => { const p1 = project3D(...e[0], scale), p2 = project3D(...e[1], scale); ctx.beginPath(); ctx.moveTo(p1.sx,p1.sy); ctx.lineTo(p2.sx,p2.sy); ctx.stroke(); });
+        redEdges.forEach(function(e) {
+            const p1 = project3D(e[0][0],e[0][1],e[0][2], scale), p2 = project3D(e[1][0],e[1][1],e[1][2], scale);
+            ctx.beginPath(); ctx.moveTo(p1.sx,p1.sy); ctx.lineTo(p2.sx,p2.sy); ctx.stroke();
+        });
 
-        nodes.map(n => ({ ...n, ...project3D(n.x, n.y, n.z, scale) })).sort((a,b) => b.z - a.z).forEach(n => {
+        nodes.map(function(n) {
+            return Object.assign({}, n, project3D(n.x, n.y, n.z, scale));
+        }).sort(function(a,b) { return b.z - a.z; }).forEach(function(n) {
             const r = Math.max(5, baseR * (n.isAn ? d.anR : d.catR) * n.p);
             const g = ctx.createRadialGradient(n.sx-r*0.32, n.sy-r*0.32, Math.max(1,r*0.1), n.sx, n.sy, r);
             g.addColorStop(0,"#fff"); g.addColorStop(0.32, n.isAn ? d.anCol : d.catCol); g.addColorStop(1,"#0f172a");
             ctx.beginPath(); ctx.arc(n.sx, n.sy, r, 0, Math.PI*2); ctx.fillStyle = g; ctx.fill();
             if (r > 17) {
-                ctx.fillStyle = "#fff"; ctx.font = `bold ${Math.max(10, Math.round(r*0.42))}px Arial`;
+                ctx.fillStyle = "#fff"; ctx.font = "bold " + Math.max(10, Math.round(r*0.42)) + "px " + FONT_SANS;
                 ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(n.label, n.sx, n.sy);
             }
         });
-        ctx.fillStyle = "#52606d"; ctx.font = "12px Arial"; ctx.textAlign = "left"; ctx.textBaseline = "bottom";
-        ctx.fillText("Glisser : rotation 3D  |  Pincer / Molette / Zoom + −", 14, cv.height - 10);
+        ctx.fillStyle = "#52606d"; ctx.font = "12px " + FONT_SANS; ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+        ctx.fillText("Glisser : rotation 3D  |  Pincer / Molette / Zoom + −", 14, H - 10);
     }
 
-    function step() {
+    function step(dt) {
         if (zoomVal < 30) drawMacro();
         else if (zoomVal < 68) drawZoom();
-        else { if (autoRot) rotY += 0.007; draw3D(); }
+        else { if (autoRot) rotY += 0.007 * dt; draw3D(); }
     }
     syncStageUI(); syncControls();
-    return { goStage, onZoom, onSep, onLayers, zoom3D, setModel, setCrystal, toggleForces, toggleRot, resetView, step };
+    return { goStage: goStage, onZoom: onZoom, onSep: onSep, onLayers: onLayers, zoom3D: zoom3D, setModel: setModel, setCrystal: setCrystal, toggleForces: toggleForces, toggleRot: toggleRot, resetView: resetView, step: step };
 })();
 
 // ============================================================================
 // 2. ACTIVITÉ 2 : FROTTEMENT DU BALLON -> FILET D'EAU -> POLARITÉ
 // ============================================================================
-const Sim2 = (() => {
-    const cvA = document.getElementById('cv-2a'), ctxA = cvA.getContext('2d');
-    const cvB = document.getElementById('cv-2b'), ctxB = cvB.getContext('2d');
-    const cvC = document.getElementById('cv-2c'), ctxC = cvC.getContext('2d');
+const Sim2 = (function() {
+    const WA = 760, HA = 365, WB = 760, HB = 365, WC = 760, HC = 315;
+    const cvA = document.getElementById('cv-2a'), ctxA = setupCanvas(cvA, WA, HA);
+    const cvB = document.getElementById('cv-2b'), ctxB = setupCanvas(cvB, WB, HB);
+    const cvC = document.getElementById('cv-2c'), ctxC = setupCanvas(cvC, WC, HC);
+    preventIOSGesture(cvA);
+    preventIOSGesture(cvB);
+
     let activeStep = 1, charge = 0, rubCount = 0, autoRubbing = false, autoT = 0;
     let tapOpen = true, curMol = 'H2O', animT = 0;
     let b1x = 520, b1y = 185, drag1 = false, lastRubDir = 0, lastB1x = 520, sparks = [];
     let b2x = 460, b2y = 195, drag2 = false;
 
     function startA(e) {
-        const p = getCanvasPos(cvA, e), rad = e.touches ? 105 : 80;
+        if (e.type === 'mousedown' && (Date.now() - LAST_TOUCH_TS < 450)) return;
+        if (e.type === 'touchstart') LAST_TOUCH_TS = Date.now();
+        const p = getCanvasPos(cvA, e), rad = e.touches ? 110 : 80;
         if (Math.hypot(p.x-b1x, p.y-b1y) < rad) { if (e.cancelable) e.preventDefault(); drag1 = true; autoRubbing = false; lastB1x = p.x; }
     }
     function startB(e) {
-        const p = getCanvasPos(cvB, e), rad = e.touches ? 105 : 80;
+        if (e.type === 'mousedown' && (Date.now() - LAST_TOUCH_TS < 450)) return;
+        if (e.type === 'touchstart') LAST_TOUCH_TS = Date.now();
+        const p = getCanvasPos(cvB, e), rad = e.touches ? 110 : 80;
         if (Math.hypot(p.x-b2x, p.y-b2y) < rad) { if (e.cancelable) e.preventDefault(); drag2 = true; }
     }
     function moveA(e) {
@@ -1324,15 +1488,17 @@ const Sim2 = (() => {
         const p = getCanvasPos(cvB, e);
         b2x = Math.max(245, Math.min(680, p.x)); b2y = Math.max(95, Math.min(285, p.y));
     }
+    function endAllDrag() { drag1 = false; drag2 = false; }
+
     cvA.addEventListener('mousedown', startA);
     cvA.addEventListener('touchstart', startA, { passive: false });
-    cvA.addEventListener('touchmove', moveA, { passive: false });
     cvB.addEventListener('mousedown', startB);
     cvB.addEventListener('touchstart', startB, { passive: false });
-    cvB.addEventListener('touchmove', moveB, { passive: false });
-    window.addEventListener('mouseup', () => { drag1 = false; drag2 = false; });
-    window.addEventListener('touchend', () => { drag1 = false; drag2 = false; });
-    window.addEventListener('mousemove', e => { moveA(e); moveB(e); });
+    window.addEventListener('touchmove', function(e) { moveA(e); moveB(e); }, { passive: false });
+    window.addEventListener('mousemove', function(e) { moveA(e); moveB(e); });
+    window.addEventListener('mouseup', endAllDrag);
+    window.addEventListener('touchend', endAllDrag);
+    window.addEventListener('touchcancel', endAllDrag);
 
     function checkRub(dx) {
         if (b1x > 80 && b1x < 355 && b1y > 100 && b1y < 280 && Math.abs(dx) > 1.5) {
@@ -1353,7 +1519,7 @@ const Sim2 = (() => {
         document.getElementById('v2-q-state').textContent = q === 0 ? "Électriquement neutre" : (q < 60 ? "Partiellement chargé (−)" : "Fortement chargé (−)");
         const msg = document.getElementById('v2-rub-msg');
         if (q === 0) msg.innerHTML = "<strong>Manipulation :</strong> Faites glisser le ballon sur le tissu de laine (ou cliquez sur <em>Simuler le frottement</em>) pour le charger négativement.";
-        else if (q < 95) msg.innerHTML = `<strong>Transfert en cours (${q} %) :</strong> Des électrons quittent la laine pour s'accumuler sur le ballon. Continuez ou passez à l'étape 2.`;
+        else if (q < 95) msg.innerHTML = "<strong>Transfert en cours (" + q + " %) :</strong> Des électrons quittent la laine pour s'accumuler sur le ballon. Continuez ou passez à l'étape 2.";
         else msg.innerHTML = "<strong>Ballon chargé à 100 % :</strong> Le ballon porte un fort excès de charges négatives (−). Passez à l'<strong>étape 2</strong> pour l'approcher du mince filet d'eau.";
     }
     function autoRub() { autoRubbing = true; autoT = 0; }
@@ -1366,7 +1532,7 @@ const Sim2 = (() => {
     }
     function setStep(n) {
         activeStep = n;
-        [1,2,3].forEach(i => {
+        [1,2,3].forEach(function(i) {
             document.getElementById('v2-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : ''));
             document.getElementById('v2-pane-'+i).style.display = (i === n) ? 'grid' : 'none';
         });
@@ -1381,7 +1547,7 @@ const Sim2 = (() => {
     };
     function setMol(m) {
         curMol = m;
-        ['Cl2','HCl','H2O','H2S','CO2'].forEach(k => document.getElementById('v2-m-'+k).classList.toggle('active', k === m));
+        ['Cl2','HCl','H2O','H2S','CO2'].forEach(function(k) { document.getElementById('v2-m-'+k).classList.toggle('active', k === m); });
         document.getElementById('v2-mol-msg').innerHTML = molDesc[m];
     }
 
@@ -1395,46 +1561,50 @@ const Sim2 = (() => {
         ctx.strokeStyle = "#7c2d12"; ctx.lineWidth = 2; ctx.stroke();
         ctx.fillStyle = "#9a3412"; ctx.beginPath(); ctx.moveTo(-6,59); ctx.lineTo(6,59); ctx.lineTo(0,67); ctx.closePath(); ctx.fill();
         const nb = Math.round(qPct/12), pts = [[-30,-20],[-34,4],[-26,28],[-12,-34],[-14,34],[0,-16],[10,12],[-10,6],[18,-22]];
-        ctx.fillStyle = "#fff"; ctx.font = "bold 17px Arial"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.fillStyle = "#fff"; ctx.font = "bold 17px " + FONT_SANS; ctx.textAlign = "center"; ctx.textBaseline = "middle";
         for (let i = 0; i < Math.min(nb, pts.length); i++) ctx.fillText("−", pts[i][0], pts[i][1]);
-        ctx.fillStyle = "#7c2d12"; ctx.font = "bold 12px Arial"; ctx.textBaseline = "top";
+        ctx.fillStyle = "#7c2d12"; ctx.font = "bold 12px " + FONT_SANS; ctx.textBaseline = "top";
         ctx.fillText(qPct > 5 ? "Ballon chargé (−)" : "Ballon neutre", 0, 74);
         ctx.restore();
     }
-    function drawStep1() {
+    function drawStep1(dt) {
         if (autoRubbing) {
-            autoT += 0.14; const nx = 240 + Math.sin(autoT)*75; b1y = 188 + Math.cos(autoT*2)*14;
+            autoT += 0.14 * dt; const nx = 240 + Math.sin(autoT)*75; b1y = 188 + Math.cos(autoT*2)*14;
             checkRub(nx - b1x); b1x = nx;
             if (charge >= 100) { autoRubbing = false; b1x = 490; b1y = 185; }
         }
-        ctxA.clearRect(0, 0, cvA.width, cvA.height);
-        ctxA.fillStyle = "#f8fafc"; ctxA.fillRect(0, 0, cvA.width, cvA.height);
+        ctxA.clearRect(0, 0, WA, HA);
+        ctxA.fillStyle = "#f8fafc"; ctxA.fillRect(0, 0, WA, HA);
         const wx = 70, wy = 105, ww = 250, wh = 165;
         ctxA.fillStyle = "#e2e8f0"; ctxA.fillRect(wx, wy, ww, wh);
         ctxA.strokeStyle = "rgba(100,116,139,0.28)"; ctxA.lineWidth = 1.5;
         for (let x = wx+12; x < wx+ww; x += 14) { ctxA.beginPath(); ctxA.moveTo(x,wy); ctxA.lineTo(x,wy+wh); ctxA.stroke(); }
         for (let y = wy+12; y < wy+wh; y += 14) { ctxA.beginPath(); ctxA.moveTo(wx,y); ctxA.lineTo(wx+ww,y); ctxA.stroke(); }
         ctxA.strokeStyle = "#334e68"; ctxA.lineWidth = 2.2; ctxA.strokeRect(wx, wy, ww, wh);
-        ctxA.fillStyle = "#1b365d"; ctxA.font = "bold 13.5px Georgia"; ctxA.textAlign = "center"; ctxA.fillText("Tissu de laine", wx+ww/2, wy-12);
+        ctxA.fillStyle = "#1b365d"; ctxA.font = "bold 13.5px " + FONT_SERIF; ctxA.textAlign = "center"; ctxA.textBaseline = "alphabetic"; ctxA.fillText("Tissu de laine", wx+ww/2, wy-12);
         const nbPos = Math.round(charge/14), posPts = [[110,145],[165,135],[220,150],[275,140],[125,215],[190,225],[260,210],[150,180]];
-        ctxA.fillStyle = "#b91c1c"; ctxA.font = "bold 17px Arial";
+        ctxA.fillStyle = "#b91c1c"; ctxA.font = "bold 17px " + FONT_SANS;
         for (let i = 0; i < Math.min(nbPos, posPts.length); i++) ctxA.fillText("+", posPts[i][0], posPts[i][1]);
         if (charge < 15 && !autoRubbing) {
             ctxA.strokeStyle = "#b45309"; ctxA.lineWidth = 2.2; ctxA.setLineDash([6,5]);
             ctxA.beginPath(); ctxA.moveTo(455,185); ctxA.lineTo(340,185); ctxA.stroke(); ctxA.setLineDash([]);
-            ctxA.fillStyle = "#b45309"; ctxA.font = "bold 12px Arial"; ctxA.fillText("Glisser ici pour frotter", 398, 170);
+            ctxA.fillStyle = "#b45309"; ctxA.font = "bold 12px " + FONT_SANS; ctxA.fillText("Glisser ici pour frotter", 398, 170);
         }
-        sparks.forEach(s => { s.x += s.vx; s.y += s.vy; s.life--; ctxA.fillStyle = `rgba(27,54,93,${s.life/22})`; ctxA.font = "bold 14px Arial"; ctxA.fillText("e⁻", s.x, s.y); });
-        sparks = sparks.filter(s => s.life > 0);
+        sparks.forEach(function(s) {
+            s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt;
+            ctxA.fillStyle = "rgba(27,54,93," + Math.max(0, s.life/22) + ")";
+            ctxA.font = "bold 14px " + FONT_SANS; ctxA.fillText("e⁻", s.x, s.y);
+        });
+        sparks = sparks.filter(function(s) { return s.life > 0; });
         drawBalloon(ctxA, b1x, b1y, charge);
     }
     function drawStep2() {
-        ctxB.clearRect(0, 0, cvB.width, cvB.height);
-        ctxB.fillStyle = "#f8fafc"; ctxB.fillRect(0, 0, cvB.width, cvB.height);
+        ctxB.clearRect(0, 0, WB, HB);
+        ctxB.fillStyle = "#f8fafc"; ctxB.fillRect(0, 0, WB, HB);
         const fx = 165, distPx = Math.max(22, b2x - 50 - fx);
         const bend = (tapOpen && charge > 0) ? Math.min(115, (charge/100)*(5800/(distPx+26))) : 0;
-        document.getElementById('v2-dist-val').textContent = `Distance : ${fmtFR(distPx/18, 1)} cm`;
-        document.getElementById('v2-def-val').textContent = `${fmtFR(bend/18, 1)} cm`;
+        document.getElementById('v2-dist-val').textContent = "Distance : " + fmtFR(distPx/18, 1) + " cm";
+        document.getElementById('v2-def-val').textContent = fmtFR(bend/18, 1) + " cm";
 
         ctxB.fillStyle = "#64748b"; ctxB.fillRect(72,24,108,22); ctxB.fillRect(154,46,22,26);
         ctxB.fillStyle = "#94a3b8"; ctxB.fillRect(72,28,108,6);
@@ -1459,15 +1629,15 @@ const Sim2 = (() => {
             const zx = 548, zy = 14, zw = 196, zh = 122, aligned = (charge > 15 && distPx < 250);
             ctxB.fillStyle = "#edf5fc"; ctxB.strokeStyle = "#1b365d"; ctxB.lineWidth = 1.8;
             ctxB.fillRect(zx,zy,zw,zh); ctxB.strokeRect(zx,zy,zw,zh);
-            ctxB.fillStyle = "#1b365d"; ctxB.font = "bold 11.5px Georgia"; ctxB.textAlign = "center"; ctxB.fillText("Zoom : Dipôles H₂O", zx+zw/2, zy+16);
-            [[zx+50,zy+58],[zx+136,zy+52],[zx+94,zy+94]].forEach((p, idx) => {
+            ctxB.fillStyle = "#1b365d"; ctxB.font = "bold 11.5px " + FONT_SERIF; ctxB.textAlign = "center"; ctxB.textBaseline = "alphabetic"; ctxB.fillText("Zoom : Dipôles H₂O", zx+zw/2, zy+16);
+            [[zx+50,zy+58],[zx+136,zy+52],[zx+94,zy+94]].forEach(function(p, idx) {
                 ctxB.save(); ctxB.translate(p[0], p[1]);
                 ctxB.rotate(aligned ? Math.sin(animT+idx)*0.1 : (animT*0.6*(idx%2?1:-1)+idx));
                 ctxB.fillStyle = "#dc2626"; ctxB.beginPath(); ctxB.arc(-8,0,10,0,Math.PI*2); ctxB.fill();
                 ctxB.fillStyle = "#e0f2fe"; ctxB.strokeStyle = "#1b365d"; ctxB.lineWidth = 1.4;
                 ctxB.beginPath(); ctxB.arc(6,-8,6,0,Math.PI*2); ctxB.fill(); ctxB.stroke();
                 ctxB.beginPath(); ctxB.arc(6,8,6,0,Math.PI*2); ctxB.fill(); ctxB.stroke();
-                ctxB.fillStyle = "#fff"; ctxB.font = "bold 9px Arial"; ctxB.textAlign = "center"; ctxB.fillText("−", -8, 3);
+                ctxB.fillStyle = "#fff"; ctxB.font = "bold 9px " + FONT_SANS; ctxB.textAlign = "center"; ctxB.fillText("−", -8, 3);
                 ctxB.fillStyle = "#1b365d"; ctxB.fillText("+", 6, -5); ctxB.fillText("+", 6, 11); ctxB.restore();
             });
         }
@@ -1479,7 +1649,7 @@ const Sim2 = (() => {
     function drawBary(c, x, y, s) {
         c.save(); c.beginPath(); c.arc(x,y,12,0,Math.PI*2); c.fillStyle = "#fff"; c.fill();
         c.lineWidth = 2.4; c.strokeStyle = s === '+' ? "#b91c1c" : "#1b365d"; c.stroke();
-        c.fillStyle = c.strokeStyle; c.font = "bold 16px Arial"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(s, x, y+0.5); c.restore();
+        c.fillStyle = c.strokeStyle; c.font = "bold 16px " + FONT_SANS; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(s, x, y+0.5); c.restore();
     }
     function drawLP(c, x1, y1, x2, y2) {
         c.save(); c.strokeStyle = "#6d28d9"; c.lineWidth = 4; c.lineCap = "round"; c.beginPath(); c.moveTo(x1,y1); c.lineTo(x2,y2); c.stroke(); c.restore();
@@ -1488,16 +1658,17 @@ const Sim2 = (() => {
         c.save(); const g = c.createRadialGradient(x-r*0.3,y-r*0.3,2,x,y,r);
         g.addColorStop(0,"#fff"); g.addColorStop(0.55,fill); g.addColorStop(1,str);
         c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fillStyle = g; c.fill(); c.strokeStyle = str; c.lineWidth = 2; c.stroke();
-        c.fillStyle = "#0f172a"; c.font = "bold 19px Georgia"; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(lbl, x, y); c.restore();
+        c.fillStyle = "#0f172a"; c.font = "bold 19px " + FONT_SERIF; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(lbl, x, y); c.restore();
     }
     function drawPolArr(c, x1, y1, x2, y2) {
         c.save(); c.translate((x1+x2)/2, (y1+y2)/2); c.rotate(Math.atan2(y2-y1, x2-x1)); c.fillStyle = "#b91c1c";
         c.beginPath(); c.moveTo(10,0); c.lineTo(-6,-6.5); c.lineTo(-6,6.5); c.closePath(); c.fill(); c.restore();
     }
     function drawStep3() {
-        ctxC.clearRect(0, 0, cvC.width, cvC.height);
+        ctxC.clearRect(0, 0, WC, HC);
         const showLP = document.getElementById('v2-chk-lewis').checked, showPol = document.getElementById('v2-chk-pol').checked, showBary = document.getElementById('v2-chk-bary').checked;
         const cx = 380, cy = 145, pulse = Math.sin(animT*1.2)*3;
+        ctxC.textBaseline = "alphabetic";
         if (curMol === 'Cl2') {
             ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx-95,cy); ctxC.lineTo(cx+95,cy); ctxC.stroke();
             if (showPol) { ctxC.fillStyle = "#1b365d"; ctxC.beginPath(); ctxC.arc(cx-6,cy-12,4.5,0,Math.PI*2); ctxC.arc(cx+6,cy-12,4.5,0,Math.PI*2); ctxC.fill(); }
@@ -1506,15 +1677,15 @@ const Sim2 = (() => {
                 drawLP(ctxC, cx-114,cy-42,cx-76,cy-42); drawLP(ctxC, cx-114,cy+42,cx-76,cy+42); drawLP(ctxC, cx-136,cy-18,cx-136,cy+18);
                 drawLP(ctxC, cx+76,cy-42,cx+114,cy-42); drawLP(ctxC, cx+76,cy+42,cx+114,cy+42); drawLP(ctxC, cx+136,cy-18,cx+136,cy+18);
             }
-            if (showBary) { ctxC.fillStyle = "#475569"; ctxC.font = "bold 14px Georgia"; ctxC.textAlign = "center"; ctxC.fillText("Liaison non polarisée — Molécule apolaire", cx, 248); }
+            if (showBary) { ctxC.fillStyle = "#475569"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillText("Liaison non polarisée — Molécule apolaire", cx, 248); }
         } else if (curMol === 'HCl') {
             if (showPol) { const cld = ctxC.createRadialGradient(cx+78,cy,10,cx+55,cy,125); cld.addColorStop(0,"rgba(27,54,93,0.22)"); cld.addColorStop(1,"rgba(27,54,93,0)"); ctxC.fillStyle = cld; ctxC.beginPath(); ctxC.ellipse(cx+45,cy,145,65,0,0,Math.PI*2); ctxC.fill(); }
             ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx-95,cy); ctxC.lineTo(cx+95,cy); ctxC.stroke();
             if (showPol) drawPolArr(ctxC, cx-45, cy, cx+50+pulse, cy);
             drawAtom(ctxC, cx-95, cy, 24, "H", "#fee2e2", "#b91c1c"); drawAtom(ctxC, cx+95, cy, 32, "Cl", "#bbf7d0", "#15803d");
             if (showLP) { drawLP(ctxC, cx+76,cy-44,cx+114,cy-44); drawLP(ctxC, cx+76,cy+44,cx+114,cy+44); drawLP(ctxC, cx+138,cy-18,cx+138,cy+18); }
-            if (showPol) { ctxC.font = "bold 17px Georgia"; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx-95, cy-38); ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx+95, cy-60); }
-            if (showBary) { drawBary(ctxC, cx-95, cy+48, '+'); drawBary(ctxC, cx+95, cy+66, '−'); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px Georgia"; ctxC.fillText("Barycentres ⊕ et ⊖ distincts → Molécule polaire", cx, 266); }
+            if (showPol) { ctxC.font = "bold 17px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx-95, cy-38); ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx+95, cy-60); }
+            if (showBary) { drawBary(ctxC, cx-95, cy+48, '+'); drawBary(ctxC, cx+95, cy+66, '−'); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Barycentres ⊕ et ⊖ distincts → Molécule polaire", cx, 266); }
         } else if (curMol === 'H2O' || curMol === 'H2S') {
             const isO = curMol === 'H2O', oy = cy-36, hy = cy+56;
             ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 4; ctxC.beginPath(); ctxC.moveTo(cx,oy); ctxC.lineTo(cx-100,hy); ctxC.moveTo(cx,oy); ctxC.lineTo(cx+100,hy); ctxC.stroke();
@@ -1523,34 +1694,37 @@ const Sim2 = (() => {
             if (showLP) { drawLP(ctxC, cx-50, oy-24, cx-20, oy-46); drawLP(ctxC, cx+50, oy-24, cx+20, oy-46); }
             drawAtom(ctxC, cx, oy, 30, isO?"O":"S", isO?"#fecaca":"#fef08a", isO?"#b91c1c":"#b45309");
             drawAtom(ctxC, cx-100, hy, 23, "H", "#e0f2fe", "#1b365d"); drawAtom(ctxC, cx+100, hy, 23, "H", "#e0f2fe", "#1b365d");
-            if (showPol) { ctxC.font = "bold 16px Georgia"; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx-138, hy+5); ctxC.fillText("δ⁺", cx+138, hy+5); ctxC.fillStyle = "#1b365d"; ctxC.fillText("2δ⁻", cx+56, oy-58); }
-            if (showBary) { drawBary(ctxC, cx, hy, '+'); drawBary(ctxC, cx, oy-58, '−'); ctxC.fillStyle = "#b91c1c"; ctxC.font = "bold 15px Georgia"; ctxC.fillText("2δ⁺", cx, hy+28); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px Georgia"; ctxC.fillText("Géométrie coudée : ⊕ et ⊖ distincts → Molécule polaire", cx, 282); }
+            if (showPol) { ctxC.font = "bold 16px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#b91c1c"; ctxC.fillText("δ⁺", cx-138, hy+5); ctxC.fillText("δ⁺", cx+138, hy+5); ctxC.fillStyle = "#1b365d"; ctxC.fillText("2δ⁻", cx+56, oy-58); }
+            if (showBary) { drawBary(ctxC, cx, hy, '+'); drawBary(ctxC, cx, oy-58, '−'); ctxC.fillStyle = "#b91c1c"; ctxC.font = "bold 15px " + FONT_SERIF; ctxC.fillText("2δ⁺", cx, hy+28); ctxC.fillStyle = "#0f766e"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Géométrie coudée : ⊕ et ⊖ distincts → Molécule polaire", cx, 282); }
         } else {
             ctxC.strokeStyle = "#1e293b"; ctxC.lineWidth = 3.5; ctxC.beginPath(); ctxC.moveTo(cx-145,cy-5.5); ctxC.lineTo(cx+145,cy-5.5); ctxC.moveTo(cx-145,cy+5.5); ctxC.lineTo(cx+145,cy+5.5); ctxC.stroke();
             if (showPol) { drawPolArr(ctxC, cx-32, cy, cx-105-pulse, cy); drawPolArr(ctxC, cx+32, cy, cx+105+pulse, cy); }
             if (showLP) { drawLP(ctxC, cx-185,cy-22,cx-158,cy-42); drawLP(ctxC, cx-185,cy+22,cx-158,cy+42); drawLP(ctxC, cx+185,cy-22,cx+158,cy-42); drawLP(ctxC, cx+185,cy+22,cx+158,cy+42); }
             drawAtom(ctxC, cx-145, cy, 28, "O", "#fecaca", "#1b365d"); drawAtom(ctxC, cx, cy, 28, "C", "#e2e8f0", "#b91c1c"); drawAtom(ctxC, cx+145, cy, 28, "O", "#fecaca", "#1b365d");
-            if (showPol) { ctxC.font = "bold 16px Georgia"; ctxC.textAlign = "center"; ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx-145, cy-44); ctxC.fillText("δ⁻", cx+145, cy-44); ctxC.fillStyle = "#b91c1c"; ctxC.fillText("2δ⁺", cx, cy-44); }
-            if (showBary) { drawBary(ctxC, cx-14, cy+52, '+'); drawBary(ctxC, cx+14, cy+52, '−'); ctxC.fillStyle = "#475569"; ctxC.font = "bold 14px Georgia"; ctxC.fillText("Géométrie linéaire symétrique : ⊕ et ⊖ confondus sur C → Apolaire", cx, 266); }
+            if (showPol) { ctxC.font = "bold 16px " + FONT_SERIF; ctxC.textAlign = "center"; ctxC.fillStyle = "#1b365d"; ctxC.fillText("δ⁻", cx-145, cy-44); ctxC.fillText("δ⁻", cx+145, cy-44); ctxC.fillStyle = "#b91c1c"; ctxC.fillText("2δ⁺", cx, cy-44); }
+            if (showBary) { drawBary(ctxC, cx-14, cy+52, '+'); drawBary(ctxC, cx+14, cy+52, '−'); ctxC.fillStyle = "#475569"; ctxC.font = "bold 14px " + FONT_SERIF; ctxC.fillText("Géométrie linéaire symétrique : ⊕ et ⊖ confondus sur C → Apolaire", cx, 266); }
         }
-        if (showLP) { drawLP(ctxC, 22, 296, 52, 296); ctxC.fillStyle = "#6d28d9"; ctxC.font = "bold 12px Arial"; ctxC.textAlign = "left"; ctxC.fillText("Doublet non liant (libre)", 60, 300); }
+        if (showLP) { drawLP(ctxC, 22, 296, 52, 296); ctxC.fillStyle = "#6d28d9"; ctxC.font = "bold 12px " + FONT_SANS; ctxC.textAlign = "left"; ctxC.fillText("Doublet non liant (libre)", 60, 300); }
     }
-    function step() { animT += 0.055; if (activeStep === 1) drawStep1(); else if (activeStep === 2) drawStep2(); else drawStep3(); }
+    function step(dt) { animT += 0.055 * dt; if (activeStep === 1) drawStep1(dt); else if (activeStep === 2) drawStep2(); else drawStep3(); }
     setMol('H2O'); syncCharge();
-    return { setStep, autoRub, resetCharge, setChargeManual, toggleTap, setMol, step };
+    return { setStep: setStep, autoRub: autoRub, resetCharge: resetCharge, setChargeManual: setChargeManual, toggleTap: toggleTap, setMol: setMol, step: step };
 })();
 
 // ============================================================================
 // 3. ACTIVITÉ 3 : PESÉE -> DISSOLUTION 3 ÉTAPES -> CONDUCTIVITÉ
 // ============================================================================
-const Sim3 = (() => {
-    const cMac = document.getElementById('cv-3-macro'), ctxMac = cMac.getContext('2d');
-    const cMic = document.getElementById('cv-3-micro'), ctxMic = cMic.getContext('2d');
+const Sim3 = (function() {
+    const WM = 520, HM = 360, WMI = 580, HMI = 322;
+    const cMac = document.getElementById('cv-3-macro'), ctxMac = setupCanvas(cMac, WM, HM);
+    const cMic = document.getElementById('cv-3-micro'), ctxMic = setupCanvas(cMic, WMI, HMI);
     let solute = 'nacl', weighed = 0.0, poured = false, genOn = false, microPhase = 0, t = 0, particles = [], waters = [];
 
     function initMicro() {
         particles = [];
-        waters = Array.from({length: 30}, () => ({ x: 34+Math.random()*512, y: 40+Math.random()*250, vx: (Math.random()-0.5)*1.4, vy: (Math.random()-0.5)*1.4, ang: Math.random()*Math.PI*2 }));
+        waters = Array.from({length: 30}, function() {
+            return { x: 34+Math.random()*512, y: 40+Math.random()*250, vx: (Math.random()-0.5)*1.4, vy: (Math.random()-0.5)*1.4, ang: Math.random()*Math.PI*2 };
+        });
         if (solute === 'nacl') {
             for (let r = 0; r < 3; r++) for (let c = 0; c < 4; c++) {
                 const isCl = (r+c)%2 === 0;
@@ -1562,16 +1736,16 @@ const Sim3 = (() => {
             }
         }
     }
-    function syncPhase() { [0,1,2,3].forEach(i => document.getElementById('v3-ph-'+i).classList.toggle('active', i === microPhase)); }
+    function syncPhase() { [0,1,2,3].forEach(function(i) { document.getElementById('v3-ph-'+i).classList.toggle('active', i === microPhase); }); }
     function setStep(n) {
-        [1,2,3].forEach(i => document.getElementById('v3-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')));
+        [1,2,3].forEach(function(i) { document.getElementById('v3-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')); });
         if (n === 2 && !poured && solute !== 'pure') { weighed = 2.0; pour(); }
         if (n === 3) { if (solute !== 'pure' && !poured) { weighed = 2.0; pour(); } microPhase = 3; syncPhase(); if (!genOn) toggleGen(); }
         updateMsg();
     }
     function setSolute(s) {
         solute = s; weighed = 0; poured = (s === 'pure'); microPhase = 0; genOn = false;
-        ['nacl','sugar','pure'].forEach(k => document.getElementById('v3-sol-'+k).classList.toggle('active', k === s));
+        ['nacl','sugar','pure'].forEach(function(k) { document.getElementById('v3-sol-'+k).classList.toggle('active', k === s); });
         document.getElementById('v3-btn-weigh').disabled = (s === 'pure');
         document.getElementById('v3-btn-pour').disabled = (s === 'pure');
         document.getElementById('v3-btn-gen').className = "btn crimson push-right";
@@ -1583,7 +1757,7 @@ const Sim3 = (() => {
         if (solute === 'pure') return;
         if (weighed === 0) weighed = 2.0;
         poured = true; microPhase = 1;
-        [1,2,3].forEach(i => document.getElementById('v3-s'+i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : '')));
+        [1,2,3].forEach(function(i) { document.getElementById('v3-s'+i).className = 'step-chip' + (i === 2 ? ' active' : (i < 2 ? ' done' : '')); });
         syncPhase(); updateMsg();
     }
     function setPhase(ph) { if (solute !== 'pure' && ph > 0 && !poured) { weighed = 2.0; poured = true; } microPhase = ph; syncPhase(); updateMsg(); }
@@ -1597,7 +1771,7 @@ const Sim3 = (() => {
     function updateMsg() {
         const m = document.getElementById('v3-msg');
         if (solute === 'pure') { m.innerHTML = "<strong>Eau distillée :</strong> Aucun ion mobile. Sous 4,5 V, I = 0,0 mA et la lampe reste éteinte."; return; }
-        if (!poured) { m.innerHTML = `<strong>Étape 1 (Pesée) :</strong> Masse sur la balance : <strong>${fmtFR(weighed,2)} g</strong> (objectif : 2,00 g). Cliquez ensuite sur <em>Verser dans les 50 mL d'eau</em>.`; return; }
+        if (!poured) { m.innerHTML = "<strong>Étape 1 (Pesée) :</strong> Masse sur la balance : <strong>" + fmtFR(weighed,2) + " g</strong> (objectif : 2,00 g). Cliquez ensuite sur <em>Verser dans les 50 mL d'eau</em>."; return; }
         if (solute === 'nacl') {
             if (microPhase === 0) m.innerHTML = "<strong>État initial :</strong> Cristal ionique NaCl au contact de l'eau distillée.";
             else if (microPhase === 1) m.innerHTML = "<strong>Étape 1 — Dissociation :</strong> Les molécules d'eau polaires arrachent les ions Na⁺ (vers O) et Cl⁻ (vers H) du cristal.";
@@ -1611,16 +1785,16 @@ const Sim3 = (() => {
                 : "<strong>Dissolution moléculaire :</strong> Les molécules neutres de saccharose se séparent sans former aucun ion.";
         }
     }
-    function step() {
-        t++;
-        ctxMac.clearRect(0, 0, cMac.width, cMac.height);
-        ctxMac.fillStyle = "#e2e8f0"; ctxMac.fillRect(0, 312, cMac.width, 48);
+    function step(dt) {
+        t += dt;
+        ctxMac.clearRect(0, 0, WM, HM);
+        ctxMac.fillStyle = "#e2e8f0"; ctxMac.fillRect(0, 312, WM, 48);
 
         ctxMac.fillStyle = "#cbd5e1"; ctxMac.fillRect(28,258,155,54);
         ctxMac.strokeStyle = "#475569"; ctxMac.lineWidth = 2; ctxMac.strokeRect(28,258,155,54);
         ctxMac.fillStyle = "#94a3b8"; ctxMac.fillRect(46,246,118,12);
         ctxMac.fillStyle = "#102033"; ctxMac.fillRect(44,272,122,28);
-        ctxMac.fillStyle = "#34d399"; ctxMac.font = "bold 16px monospace"; ctxMac.textAlign = "center";
+        ctxMac.fillStyle = "#34d399"; ctxMac.font = "bold 16px " + FONT_MONO; ctxMac.textAlign = "center"; ctxMac.textBaseline = "alphabetic";
         ctxMac.fillText((poured ? "0,00" : fmtFR(weighed,2)) + " g", 105, 291);
         ctxMac.fillStyle = "#fff"; ctxMac.strokeStyle = "#64748b"; ctxMac.lineWidth = 1.5;
         ctxMac.beginPath(); ctxMac.moveTo(64,246); ctxMac.lineTo(54,232); ctxMac.lineTo(156,232); ctxMac.lineTo(146,246); ctxMac.closePath(); ctxMac.fill(); ctxMac.stroke();
@@ -1628,7 +1802,7 @@ const Sim3 = (() => {
             ctxMac.fillStyle = solute === 'nacl' ? "#f8fafc" : "#fef3c7";
             ctxMac.beginPath(); ctxMac.moveTo(74,232); ctxMac.quadraticCurveTo(105,232-weighed*17.6,136,232); ctxMac.fill(); ctxMac.stroke();
         }
-        ctxMac.fillStyle = "#334e68"; ctxMac.font = "bold 11.5px Arial"; ctxMac.fillText("Balance électronique", 105, 330);
+        ctxMac.fillStyle = "#334e68"; ctxMac.font = "bold 11.5px " + FONT_SANS; ctxMac.fillText("Balance électronique", 105, 330);
 
         const cond = genOn && solute === 'nacl' && poured && microPhase >= 1;
         const mA = cond ? (microPhase === 1 ? 80 : (microPhase === 2 ? 145 : 185)) : 0;
@@ -1642,7 +1816,7 @@ const Sim3 = (() => {
         ctxMac.strokeStyle = "#334155"; ctxMac.lineWidth = 2.6;
         ctxMac.beginPath(); ctxMac.moveTo(bx-5,by-4); ctxMac.lineTo(bx,by); ctxMac.lineTo(bx,by+bh); ctxMac.lineTo(bx+bw,by+bh); ctxMac.lineTo(bx+bw,by); ctxMac.stroke();
         ctxMac.fillStyle = "#475569"; ctxMac.fillRect(bx+36,by-20,12,118); ctxMac.fillRect(bx+bw-48,by-20,12,118);
-        ctxMac.fillStyle = "#b91c1c"; ctxMac.font = "bold 13px Arial"; ctxMac.fillText("+", bx+42, by-26);
+        ctxMac.fillStyle = "#b91c1c"; ctxMac.font = "bold 13px " + FONT_SANS; ctxMac.fillText("+", bx+42, by-26);
         ctxMac.fillStyle = "#1e293b"; ctxMac.fillText("−", bx+bw-42, by-26);
 
         ctxMac.strokeStyle = "#b91c1c"; ctxMac.lineWidth = 2.6;
@@ -1652,7 +1826,7 @@ const Sim3 = (() => {
 
         ctxMac.fillStyle = "#102033"; ctxMac.fillRect(255,48,60,40);
         ctxMac.fillStyle = "#b45309"; ctxMac.fillRect(255,48,60,11);
-        ctxMac.fillStyle = "#fff"; ctxMac.font = "bold 12px monospace"; ctxMac.fillText("4,5 V", 285, 76);
+        ctxMac.fillStyle = "#fff"; ctxMac.font = "bold 12px " + FONT_MONO; ctxMac.fillText("4,5 V", 285, 76);
 
         const lx = 414, ly = 68;
         if (cond) { const g = ctxMac.createRadialGradient(lx,ly,3,lx,ly,42); g.addColorStop(0,"rgba(254,240,138,0.95)"); g.addColorStop(1,"rgba(250,204,21,0)"); ctxMac.fillStyle = g; ctxMac.beginPath(); ctxMac.arc(lx,ly,42,0,Math.PI*2); ctxMac.fill(); }
@@ -1663,74 +1837,85 @@ const Sim3 = (() => {
 
         ctxMac.fillStyle = "#102033"; ctxMac.fillRect(42,42,130,54);
         ctxMac.strokeStyle = "#475569"; ctxMac.lineWidth = 2; ctxMac.strokeRect(42,42,130,54);
-        ctxMac.fillStyle = "#9fb3c8"; ctxMac.font = "bold 10px Arial"; ctxMac.fillText("AMPÈREMÈTRE", 107, 57);
-        ctxMac.fillStyle = cond ? "#34d399" : "#94a3b8"; ctxMac.font = "bold 18px monospace"; ctxMac.fillText(fmtFR(mA,1) + " mA", 107, 82);
-        ctxMac.fillStyle = "#1b365d"; ctxMac.font = "bold 12.5px Georgia";
+        ctxMac.fillStyle = "#9fb3c8"; ctxMac.font = "bold 10px " + FONT_SANS; ctxMac.fillText("AMPÈREMÈTRE", 107, 57);
+        ctxMac.fillStyle = cond ? "#34d399" : "#94a3b8"; ctxMac.font = "bold 18px " + FONT_MONO; ctxMac.fillText(fmtFR(mA,1) + " mA", 107, 82);
+        ctxMac.fillStyle = "#1b365d"; ctxMac.font = "bold 12.5px " + FONT_SERIF;
         ctxMac.fillText(solute === 'nacl' ? "NaCl(s) → Na⁺(aq) + Cl⁻(aq)" : solute === 'sugar' ? "C₁₂H₂₂O₁₁(s) → C₁₂H₂₂O₁₁(aq)" : "Eau distillée : H₂O(l)", bx+bw/2, 332);
 
-        ctxMic.clearRect(0, 0, cMic.width, cMic.height);
-        ctxMic.fillStyle = "#e8f3fc"; ctxMic.fillRect(0, 0, cMic.width, cMic.height);
+        ctxMic.clearRect(0, 0, WMI, HMI);
+        ctxMic.fillStyle = "#e8f3fc"; ctxMic.fillRect(0, 0, WMI, HMI);
         if (genOn) {
-            ctxMic.fillStyle = "rgba(185,28,28,0.14)"; ctxMic.fillRect(0,0,24,cMic.height);
-            ctxMic.fillStyle = "rgba(27,54,93,0.14)"; ctxMic.fillRect(cMic.width-24,0,24,cMic.height);
-            ctxMic.fillStyle = "#b91c1c"; ctxMic.font = "bold 17px Arial"; ctxMic.textAlign = "center"; ctxMic.fillText("+", 12, 165);
-            ctxMic.fillStyle = "#1b365d"; ctxMic.fillText("−", cMic.width-12, 165);
+            ctxMic.fillStyle = "rgba(185,28,28,0.14)"; ctxMic.fillRect(0,0,24,HMI);
+            ctxMic.fillStyle = "rgba(27,54,93,0.14)"; ctxMic.fillRect(WMI-24,0,24,HMI);
+            ctxMic.fillStyle = "#b91c1c"; ctxMic.font = "bold 17px " + FONT_SANS; ctxMic.textAlign = "center"; ctxMic.textBaseline = "alphabetic"; ctxMic.fillText("+", 12, 165);
+            ctxMic.fillStyle = "#1b365d"; ctxMic.fillText("−", WMI-12, 165);
         }
-        waters.forEach(w => {
-            w.x += w.vx; w.y += w.vy; w.ang += 0.025;
-            if (w.x < 30 || w.x > cMic.width-30) w.vx *= -1;
-            if (w.y < 24 || w.y > cMic.height-20) w.vy *= -1;
+        waters.forEach(function(w) {
+            w.x += w.vx * dt; w.y += w.vy * dt; w.ang += 0.025 * dt;
+            if (w.x < 30) { w.x = 30; w.vx = Math.abs(w.vx); }
+            else if (w.x > WMI-30) { w.x = WMI-30; w.vx = -Math.abs(w.vx); }
+            if (w.y < 24) { w.y = 24; w.vy = Math.abs(w.vy); }
+            else if (w.y > HMI-20) { w.y = HMI-20; w.vy = -Math.abs(w.vy); }
             drawWaterDipole(ctxMic, w.x, w.y, w.ang, 0.85);
         });
+        const k1 = 1 - Math.pow(0.94, dt), k2 = 1 - Math.pow(0.95, dt);
         if (poured && solute !== 'pure') {
-            particles.forEach((p, idx) => {
+            particles.forEach(function(p, idx) {
                 if (microPhase === 0) { p.x = p.hx+Math.sin(t*0.2+idx)*0.6; p.y = p.hy+Math.cos(t*0.2+idx)*0.6; }
-                else if (microPhase === 1) { p.x += ((p.hx-289)*1.45+289-p.x)*0.06; p.y += ((p.hy-229)*1.45+205-p.y)*0.06; }
-                else if (microPhase === 2) { p.x += ((p.hx-289)*2.1+289-p.x)*0.05; p.y += ((p.hy-229)*2.1+170-p.y)*0.05; }
+                else if (microPhase === 1) { p.x += ((p.hx-289)*1.45+289-p.x)*k1; p.y += ((p.hy-229)*1.45+205-p.y)*k1; }
+                else if (microPhase === 2) { p.x += ((p.hx-289)*2.1+289-p.x)*k2; p.y += ((p.hy-229)*2.1+170-p.y)*k2; }
                 else {
                     const drift = (genOn && p.sign !== 0) ? (p.sign > 0 ? 1.45 : -1.45) : 0;
-                    p.x += p.vx + drift; p.y += p.vy;
-                    if (genOn && p.sign !== 0) { if (p.x > cMic.width-34) p.x = 36; if (p.x < 34) p.x = cMic.width-36; }
-                    else if (p.x < 42 || p.x > cMic.width-42) p.vx *= -1;
-                    if (p.y < 36 || p.y > cMic.height-32) p.vy *= -1;
+                    p.x += (p.vx + drift) * dt; p.y += p.vy * dt;
+                    if (genOn && p.sign !== 0) { if (p.x > WMI-34) p.x = 36; if (p.x < 34) p.x = WMI-36; }
+                    else {
+                        if (p.x < 42) { p.x = 42; p.vx = Math.abs(p.vx); }
+                        else if (p.x > WMI-42) { p.x = WMI-42; p.vx = -Math.abs(p.vx); }
+                    }
+                    if (p.y < 36) { p.y = 36; p.vy = Math.abs(p.vy); }
+                    else if (p.y > HMI-32) { p.y = HMI-32; p.vy = -Math.abs(p.vy); }
                 }
                 if (p.sign !== 0) {
                     const isCl = p.sign < 0, r = isCl ? 17 : 13;
                     if (microPhase >= 2) for (let k = 0; k < 4; k++) { const a = k*Math.PI/2 + t*0.015; drawWaterDipole(ctxMic, p.x+Math.cos(a)*(r+13), p.y+Math.sin(a)*(r+13), isCl ? a+Math.PI : a, 0.78); }
                     ctxMic.beginPath(); ctxMic.arc(p.x,p.y,r,0,Math.PI*2); ctxMic.fillStyle = isCl?"#4ade80":"#cbd5e1"; ctxMic.fill();
                     ctxMic.strokeStyle = isCl?"#15803d":"#334155"; ctxMic.lineWidth = 2; ctxMic.stroke();
-                    ctxMic.fillStyle = "#0f172a"; ctxMic.font = `bold ${isCl?11.5:10}px Arial`; ctxMic.textAlign = "center"; ctxMic.textBaseline = "middle"; ctxMic.fillText(p.lbl, p.x, p.y);
+                    ctxMic.fillStyle = "#0f172a"; ctxMic.font = "bold " + (isCl?11.5:10) + "px " + FONT_SANS; ctxMic.textAlign = "center"; ctxMic.textBaseline = "middle"; ctxMic.fillText(p.lbl, p.x, p.y);
                 } else {
                     ctxMic.save(); ctxMic.translate(p.x, p.y);
                     ctxMic.fillStyle = "#fde68a"; ctxMic.strokeStyle = "#b45309"; ctxMic.lineWidth = 2;
                     ctxMic.beginPath(); ctxMic.arc(-7,0,11,0,Math.PI*2); ctxMic.arc(9,0,9,0,Math.PI*2); ctxMic.fill(); ctxMic.stroke();
-                    ctxMic.fillStyle = "#78350f"; ctxMic.font = "bold 9px Arial"; ctxMic.textAlign = "center"; ctxMic.textBaseline = "middle"; ctxMic.fillText("Sucre", 1, 0); ctxMic.restore();
+                    ctxMic.fillStyle = "#78350f"; ctxMic.font = "bold 9px " + FONT_SANS; ctxMic.textAlign = "center"; ctxMic.textBaseline = "middle"; ctxMic.fillText("Sucre", 1, 0); ctxMic.restore();
                 }
             });
         }
     }
     initMicro(); updateMsg();
-    return { setStep, setSolute, addSpoon, pour, setPhase, toggleGen, step };
+    return { setStep: setStep, setSolute: setSolute, addSpoon: addSpoon, pour: pour, setPhase: setPhase, toggleGen: toggleGen, step: step };
 })();
 
 // ============================================================================
 // 4. ACTIVITÉ 4 : JET D'EAU (GAZ POLAIRE HCl)
 // ============================================================================
-const Sim4 = (() => {
-    const cv = document.getElementById('cv-4-main'), ctx = cv.getContext('2d');
-    const cT = document.getElementById('cv-4-tubes'), ctxT = cT.getContext('2d');
+const Sim4 = (function() {
+    const W = 760, H = 390, WT = 420, HT = 168;
+    const cv = document.getElementById('cv-4-main'), ctx = setupCanvas(cv, W, H);
+    const cT = document.getElementById('cv-4-tubes'), ctxT = setupCanvas(cT, WT, HT);
     let indAdded = false, opened = false, phase = 0, tubeLv = 0, fill = 0, P = 1013, T = 20.0, agDone = false, prec = 0;
-    let gas = [], spray = [], drops = [];
+    let gas = [], spray = [], drops = [], sprayAcc = 0;
 
     function initGas() {
-        gas = Array.from({length: 36}, () => { const a = Math.random()*Math.PI*2, r = Math.random()*78; return { x: 380+Math.cos(a)*r, y: 118+Math.sin(a)*r, vx: (Math.random()-0.5)*2.4, vy: (Math.random()-0.5)*2.4, alive: true }; });
-        spray = []; drops = [];
+        gas = Array.from({length: 36}, function() {
+            const a = Math.random()*Math.PI*2, r = Math.random()*78;
+            return { x: 380+Math.cos(a)*r, y: 118+Math.sin(a)*r, vx: (Math.random()-0.5)*2.4, vy: (Math.random()-0.5)*2.4, alive: true };
+        });
+        spray = []; drops = []; sprayAcc = 0;
     }
-    function setStepper(n) { [1,2,3].forEach(i => document.getElementById('v4-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : ''))); }
+    function setStepper(n) { [1,2,3].forEach(function(i) { document.getElementById('v4-s'+i).className = 'step-chip' + (i === n ? ' active' : (i < n ? ' done' : '')); }); }
     function goStep(n) {
         if (n === 1) reset();
         else if (n === 2) { if (!indAdded) addInd(); openClamp(); }
-        else { if (!indAdded) addInd(); if (!opened) openClamp(); fill = 0.76; phase = 3; tubeLv = 1; P = 1013; T = 32.5; gas.forEach(g => g.alive = false); document.getElementById('v4-btn-ag').disabled = false; runAg(); }
+        else { if (!indAdded) addInd(); if (!opened) openClamp(); fill = 0.76; phase = 3; tubeLv = 1; P = 290; T = 32.5; gas.forEach(function(g) { g.alive = false; }); document.getElementById('v4-btn-ag').disabled = false; runAg(); }
     }
     function addInd() {
         indAdded = true; drops = [{x:440,y:240,vy:2.5},{x:440,y:262,vy:2.5}];
@@ -1759,20 +1944,35 @@ const Sim4 = (() => {
         document.getElementById('v4-msg').innerHTML = "<strong>Étape 1 :</strong> L'ampoule contient du gaz HCl(g) sec. Ajoutez d'abord l'hélianthine dans l'eau distillée du cristallisoir.";
         initGas();
     }
-    function step() {
+    function step(dt) {
         if (phase === 1) {
-            tubeLv = Math.min(1, tubeLv+0.024);
+            tubeLv = Math.min(1, tubeLv + 0.024 * dt);
+            P = Math.max(850, 1013 - tubeLv * 163);
             if (tubeLv >= 1) { phase = 2; document.getElementById('v4-msg').innerHTML = "<strong>Jet d'eau rouge :</strong> HCl se dissout brutalement (P &lt; P<sub>atm</sub>). L'eau aspirée vire au rouge (acide) et s'échauffe."; }
         } else if (phase === 2) {
-            fill = Math.min(0.76, fill+0.0042); P = Math.max(260, 1013 - fill*950); T = Math.min(32.5, 20.0 + fill*16.5);
-            const target = Math.max(0, Math.round(36*(1 - fill/0.76)));
-            if (gas.filter(g => g.alive).length > target) { const i = gas.findIndex(g => g.alive); if (i >= 0) gas[i].alive = false; }
-            if (fill >= 0.76) { phase = 3; P = 1013; document.getElementById('v4-btn-ag').disabled = false; document.getElementById('v4-msg').innerHTML = "<strong>Dissolution achevée :</strong> HCl(g) + H₂O(l) → H₃O⁺(aq) + Cl⁻(aq). Lancez le <em>test au nitrate d'argent</em>."; }
+            fill = Math.min(0.76, fill + 0.0042 * dt);
+            P = Math.max(290, 850 - (fill / 0.76) * 560);
+            T = Math.min(32.5, 20.0 + fill * 16.5);
+            const target = Math.max(0, Math.round(36 * (1 - fill / 0.76)));
+            if (gas.filter(function(g) { return g.alive; }).length > target) {
+                const i = gas.findIndex(function(g) { return g.alive; });
+                if (i >= 0) gas[i].alive = false;
+            }
+            if (fill >= 0.76) { phase = 3; P = 290; document.getElementById('v4-btn-ag').disabled = false; document.getElementById('v4-msg').innerHTML = "<strong>Dissolution achevée :</strong> HCl(g) + H₂O(l) → H₃O⁺(aq) + Cl⁻(aq). La dépression (P &lt; P<sub>atm</sub>) a aspiré l'eau dans l'ampoule. Lancez le <em>test au nitrate d'argent</em>."; }
         }
-        document.getElementById('v4-p').textContent = Math.round(P) + " hPa";
+        const pEl = document.getElementById('v4-p');
+        const pSub = document.getElementById('v4-p-sub');
+        pEl.textContent = Math.round(P) + " hPa";
+        if (P < 1010) {
+            pEl.style.color = "#f87171";
+            if (pSub) pSub.innerHTML = "Dépression : P &lt; P<sub>atm</sub> (1013 hPa)";
+        } else {
+            pEl.style.color = "#38bdf8";
+            if (pSub) pSub.innerHTML = "P<sub>atm</sub> = 1013 hPa";
+        }
         document.getElementById('v4-t').textContent = fmtFR(T, 1) + " °C";
 
-        ctx.clearRect(0, 0, cv.width, cv.height);
+        ctx.clearRect(0, 0, W, H);
         const fx = 380, fy = 118, fr = 90;
         ctx.fillStyle = "#475569"; ctx.fillRect(150,348,125,12); ctx.fillRect(178,38,10,312);
         ctx.fillStyle = "#64748b"; ctx.fillRect(184,214,178,10);
@@ -1781,24 +1981,30 @@ const Sim4 = (() => {
         ctx.fillStyle = indAdded ? "#facc15" : "rgba(186,230,253,0.55)"; ctx.fillRect(272, 350-wH, 216, wH);
         ctx.strokeStyle = "#334155"; ctx.lineWidth = 2.8;
         ctx.beginPath(); ctx.moveTo(270,280); ctx.lineTo(270,350); ctx.lineTo(490,350); ctx.lineTo(490,280); ctx.stroke();
-        ctx.fillStyle = "#334e68"; ctx.font = "bold 12px Arial"; ctx.textAlign = "center";
+        ctx.fillStyle = "#334e68"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
         ctx.fillText(indAdded ? "Eau distillée + Hélianthine (jaune)" : "Eau distillée (incolore)", fx, 374);
 
-        drops.forEach(d => { d.y += d.vy; ctx.fillStyle = "#eab308"; ctx.beginPath(); ctx.arc(d.x,d.y,4,0,Math.PI*2); ctx.fill(); });
-        drops = drops.filter(d => d.y < 305);
+        drops.forEach(function(d) { d.y += d.vy * dt; ctx.fillStyle = "#eab308"; ctx.beginPath(); ctx.arc(d.x,d.y,4,0,Math.PI*2); ctx.fill(); });
+        drops = drops.filter(function(d) { return d.y < 305; });
 
         ctx.save(); ctx.beginPath(); ctx.arc(fx,fy,fr,0,Math.PI*2); ctx.clip();
         ctx.fillStyle = "#f1f5f9"; ctx.fillRect(fx-fr,fy-fr,fr*2,fr*2);
         if (fill > 0) { const ly = fy+fr - fill*(fr*1.42); ctx.fillStyle = "rgba(185,28,28,0.72)"; ctx.fillRect(fx-fr,ly,fr*2,fr*2); }
-        gas.forEach(g => {
+        gas.forEach(function(g) {
             if (!g.alive) return;
-            g.x += g.vx; g.y += g.vy; if (Math.hypot(g.x-fx, g.y-fy) > fr-10) { g.vx *= -1; g.vy *= -1; }
+            g.x += g.vx * dt; g.y += g.vy * dt; if (Math.hypot(g.x-fx, g.y-fy) > fr-10) { g.vx *= -1; g.vy *= -1; }
             ctx.fillStyle = "#15803d"; ctx.beginPath(); ctx.arc(g.x,g.y,4.4,0,Math.PI*2); ctx.fill();
             ctx.fillStyle = "#e2e8f0"; ctx.strokeStyle = "#475569"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(g.x+5,g.y,3,0,Math.PI*2); ctx.fill(); ctx.stroke();
         });
-        if (phase === 2) for (let i = 0; i < 4; i++) spray.push({ x:fx, y:fy+45, vx:(Math.random()-0.5)*3.8, vy:-5.2-Math.random()*2.3 });
-        spray.forEach(s => { s.x += s.vx; s.y += s.vy; s.vy += 0.22; ctx.fillStyle = "#b91c1c"; ctx.beginPath(); ctx.arc(s.x,s.y,2.6,0,Math.PI*2); ctx.fill(); });
-        spray = spray.filter(s => s.y < fy+fr); ctx.restore();
+        if (phase === 2) {
+            sprayAcc += 4 * dt;
+            while (sprayAcc >= 1) {
+                spray.push({ x:fx, y:fy+45, vx:(Math.random()-0.5)*3.8, vy:-5.2-Math.random()*2.3 });
+                sprayAcc -= 1;
+            }
+        }
+        spray.forEach(function(s) { s.x += s.vx * dt; s.y += s.vy * dt; s.vy += 0.22 * dt; ctx.fillStyle = "#b91c1c"; ctx.beginPath(); ctx.arc(s.x,s.y,2.6,0,Math.PI*2); ctx.fill(); });
+        spray = spray.filter(function(s) { return s.y < fy+fr; }); ctx.restore();
 
         ctx.strokeStyle = "#334155"; ctx.lineWidth = 2.8; ctx.beginPath(); ctx.arc(fx,fy,fr,0.16*Math.PI,0.84*Math.PI,true); ctx.stroke();
         ctx.fillStyle = "#78716c"; ctx.fillRect(fx-17,fy+82,34,24);
@@ -1807,41 +2013,47 @@ const Sim4 = (() => {
         ctx.strokeStyle = "#475569"; ctx.lineWidth = 1.6; ctx.strokeRect(fx-5,fy+45,10,282);
 
         ctx.strokeStyle = opened ? "#0f766e" : "#b91c1c"; ctx.lineWidth = 4;
-        if (!opened) { ctx.beginPath(); ctx.moveTo(fx-26,256); ctx.lineTo(fx+26,256); ctx.stroke(); ctx.fillStyle = "#b91c1c"; ctx.font = "bold 12px Arial"; ctx.textAlign = "left"; ctx.fillText("Pince fermée", fx+34, 260); }
-        else { ctx.beginPath(); ctx.moveTo(fx-28,249); ctx.lineTo(fx-10,256); ctx.moveTo(fx+10,256); ctx.lineTo(fx+28,249); ctx.stroke(); ctx.fillStyle = "#0f766e"; ctx.font = "bold 12px Arial"; ctx.textAlign = "left"; ctx.fillText("Pince ouverte", fx+34, 260); }
+        if (!opened) { ctx.beginPath(); ctx.moveTo(fx-26,256); ctx.lineTo(fx+26,256); ctx.stroke(); ctx.fillStyle = "#b91c1c"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "left"; ctx.fillText("Pince fermée", fx+34, 260); }
+        else { ctx.beginPath(); ctx.moveTo(fx-28,249); ctx.lineTo(fx-10,256); ctx.moveTo(fx+10,256); ctx.lineTo(fx+28,249); ctx.stroke(); ctx.fillStyle = "#0f766e"; ctx.font = "bold 12px " + FONT_SANS; ctx.textAlign = "left"; ctx.fillText("Pince ouverte", fx+34, 260); }
 
-        ctx.fillStyle = phase >= 2 ? "#b91c1c" : "#1b365d"; ctx.font = "bold 13px Georgia"; ctx.textAlign = "left";
+        ctx.fillStyle = phase >= 2 ? "#b91c1c" : "#1b365d"; ctx.font = "bold 13px " + FONT_SERIF; ctx.textAlign = "left";
         ctx.fillText(phase >= 2 ? "Acide chlorhydrique" : "Gaz HCl(g) sec", 492, 94);
-        ctx.font = "12px Arial"; ctx.fillText(phase >= 2 ? "(H₃O⁺ + Cl⁻) — milieu acide" : "Molécule polaire très soluble", 492, 112);
+        ctx.font = "12px " + FONT_SANS; ctx.fillText(phase >= 2 ? "(H₃O⁺ + Cl⁻) — milieu acide" : "Molécule polaire très soluble", 492, 112);
 
-        ctxT.clearRect(0, 0, cT.width, cT.height);
+        ctxT.clearRect(0, 0, WT, HT);
+        ctxT.textBaseline = "alphabetic";
         ctxT.fillStyle = fill > 0.15 ? "#dc2626" : (indAdded ? "#facc15" : "rgba(186,230,253,0.45)"); ctxT.fillRect(86,56,36,74);
         ctxT.strokeStyle = "#334155"; ctxT.lineWidth = 2.2;
         ctxT.beginPath(); ctxT.moveTo(86,26); ctxT.lineTo(86,120); ctxT.arc(104,120,18,Math.PI,0,true); ctxT.lineTo(122,26); ctxT.stroke();
-        ctxT.fillStyle = "#1e293b"; ctxT.font = "bold 12px Arial"; ctxT.textAlign = "center"; ctxT.fillText("Test Hélianthine", 104, 155);
+        ctxT.fillStyle = "#1e293b"; ctxT.font = "bold 12px " + FONT_SANS; ctxT.textAlign = "center"; ctxT.fillText("Test Hélianthine", 104, 155);
         ctxT.fillStyle = fill > 0.15 ? "#b91c1c" : "#64748b"; ctxT.fillText(fill > 0.15 ? "Rouge → Ions H₃O⁺" : "En attente", 104, 16);
 
         ctxT.fillStyle = "rgba(186,230,253,0.48)"; ctxT.fillRect(286,56,36,74);
-        if (agDone) { prec = Math.min(1, prec+0.03); ctxT.fillStyle = `rgba(255,255,255,${0.95*prec})`; ctxT.beginPath(); ctxT.arc(304,102,15*prec,0,Math.PI*2); ctxT.fill(); ctxT.fillRect(288,114-22*prec,32,22*prec+12); }
+        if (agDone) { prec = Math.min(1, prec + 0.03 * dt); ctxT.fillStyle = "rgba(255,255,255," + (0.95*prec) + ")"; ctxT.beginPath(); ctxT.arc(304,102,15*prec,0,Math.PI*2); ctxT.fill(); ctxT.fillRect(288,114-22*prec,32,22*prec+12); }
         ctxT.strokeStyle = "#334155"; ctxT.lineWidth = 2.2;
         ctxT.beginPath(); ctxT.moveTo(286,26); ctxT.lineTo(286,120); ctxT.arc(304,120,18,Math.PI,0,true); ctxT.lineTo(322,26); ctxT.stroke();
-        ctxT.fillStyle = "#1e293b"; ctxT.font = "bold 12px Arial"; ctxT.fillText("Ajout de AgNO₃", 304, 155);
+        ctxT.fillStyle = "#1e293b"; ctxT.font = "bold 12px " + FONT_SANS; ctxT.fillText("Ajout de AgNO₃", 304, 155);
         ctxT.fillStyle = agDone ? "#0f766e" : "#64748b"; ctxT.fillText(agDone ? "Précipité blanc → Cl⁻" : "En attente", 304, 16);
     }
     reset();
-    return { goStep, addInd, openClamp, runAg, reset, step };
+    return { goStep: goStep, addInd: addInd, openClamp: openClamp, runAg: runAg, reset: reset, step: step };
 })();
 
 // ============================================================================
 // 5. ACTIVITÉ 5 : ÉCHELLE DE TEINTES (KMnO4) & SIMULATEUR CONCENTRATIONS
 // ============================================================================
-const Sim5 = (() => {
-    const cDil = document.getElementById('cv-5-dil'), ctxD = cDil.getContext('2d');
-    const cIon = document.getElementById('cv-5-ions'), ctxI = cIon.getContext('2d');
+const Sim5 = (function() {
+    const WD = 1180, HD = 285, WI = 540, HI = 230;
+    const cDil = document.getElementById('cv-5-dil'), ctxD = setupCanvas(cDil, WD, HD);
+    const cIon = document.getElementById('cv-5-ions'), ctxI = setupCanvas(cIon, WI, HI);
     const M_KMNO4 = 158.0;
     let mode = 'dil', mass = 2.0, targetStep = 0, curStep = 0, simIons = [];
 
-    const mkIons = n => Array.from({length: n}, () => ({ x:Math.random(), y:Math.random(), vx:(Math.random()-0.5)*0.008, vy:(Math.random()-0.5)*0.008 }));
+    const mkIons = function(n) {
+        return Array.from({length: n}, function() {
+            return { x:Math.random(), y:Math.random(), vx:(Math.random()-0.5)*0.008, vy:(Math.random()-0.5)*0.008 };
+        });
+    };
     const ions1 = mkIons(62), ions2 = mkIons(14), ions3 = mkIons(4);
     const solutes = {
         NaCl:    { M: 58.5,  cat: "Na⁺",  an: "Cl⁻",   a: 1, b: 1, eq: "NaCl(s) → Na⁺(aq) + Cl⁻(aq)" },
@@ -1859,9 +2071,9 @@ const Sim5 = (() => {
         document.getElementById('v5-pane-calc').style.display = m === 'calc' ? 'block' : 'none';
     }
     function onMass(v) { mass = Number(v); document.getElementById('v5-m-lbl').textContent = fmtFR(mass,1) + " g"; renderTable(); }
-    function runStep(n) { targetStep = Math.max(targetStep, n); [1,2,3].forEach(i => document.getElementById('v5-st'+i).classList.toggle('solid', i === n)); renderTable(); }
-    function resetDil() { targetStep = 0; curStep = 0; [1,2,3].forEach(i => document.getElementById('v5-st'+i).classList.toggle('solid', i === 1)); renderTable(); }
-    function fmtSci(v) { const e = Math.floor(Math.log10(v)); return `${fmtFR(v/Math.pow(10,e), 2)} × 10<sup>${e}</sup>`; }
+    function runStep(n) { targetStep = Math.max(targetStep, n); [1,2,3].forEach(function(i) { document.getElementById('v5-st'+i).classList.toggle('solid', i === n); }); renderTable(); }
+    function resetDil() { targetStep = 0; curStep = 0; [1,2,3].forEach(function(i) { document.getElementById('v5-st'+i).classList.toggle('solid', i === 1); }); renderTable(); }
+    function fmtSci(v) { const e = Math.floor(Math.log10(v)); return fmtFR(v/Math.pow(10,e), 2) + " × 10<sup>" + e + "</sup>"; }
 
     function renderTable() {
         const show = document.getElementById('v5-show-tbl').checked;
@@ -1871,12 +2083,12 @@ const Sim5 = (() => {
             { s:"S₂", prot:"10 mL de S₁ → 100 mL", v:"100 mL", n:n2, c:n2/0.1, teinte:"Violet moyen", req:2 },
             { s:"S₃", prot:"10 mL de S₂ → 100 mL", v:"100 mL", n:n3, c:n3/0.1, teinte:"Violet clair", req:3 }
         ];
-        document.getElementById('v5-tbody').innerHTML = rows.map(r => {
+        document.getElementById('v5-tbody').innerHTML = rows.map(function(r) {
             const ok = targetStep >= r.req;
-            return `<tr class="${targetStep === r.req ? 'row-hl' : ''}"><td><strong>${r.s}</strong></td><td>${r.prot}</td><td>${r.v}</td><td>${(show&&ok)?fmtSci(r.n):"—"}</td><td><strong>${(show&&ok)?fmtSci(r.c):"—"}</strong></td><td>${(show&&ok)?fmtSci(r.c)+" mol·L⁻¹":"—"}</td><td>${ok?r.teinte:"Non préparée"}</td></tr>`;
+            return '<tr class="' + (targetStep === r.req ? 'row-hl' : '') + '"><td><strong>' + r.s + '</strong></td><td>' + r.prot + '</td><td>' + r.v + '</td><td>' + ((show&&ok)?fmtSci(r.n):"—") + '</td><td><strong>' + ((show&&ok)?fmtSci(r.c):"—") + '</strong></td><td>' + ((show&&ok)?fmtSci(r.c)+" mol·L⁻¹":"—") + '</td><td>' + (ok?r.teinte:"Non préparée") + '</td></tr>';
         }).join('');
         const msg = document.getElementById('v5-dil-msg');
-        if (targetStep === 0) msg.innerHTML = `<strong>Solution mère S₀ prête :</strong> ${fmtFR(mass,1)} g de KMnO₄ dans 200 mL d'eau distillée (n₀ = ${fmtSci(n0)} mol). Lancez l'<strong>Étape 1</strong>.`;
+        if (targetStep === 0) msg.innerHTML = "<strong>Solution mère S₀ prête :</strong> " + fmtFR(mass,1) + " g de KMnO₄ dans 200 mL d'eau distillée (n₀ = " + fmtSci(n0) + " mol). Lancez l'<strong>Étape 1</strong>.";
         else if (targetStep === 1) msg.innerHTML = "<strong>Étape 1 (S₁) :</strong> 100 mL de S₀ versés dans le bécher 1 (violet foncé). Passez à l'<strong>Étape 2</strong> (dilution ×10).";
         else if (targetStep === 2) msg.innerHTML = "<strong>Étape 2 (S₂) :</strong> La concentration est divisée par 10. La teinte violette s'éclaircit nettement. Passez à l'<strong>Étape 3</strong>.";
         else msg.innerHTML = "<strong>Échelle de teintes complète :</strong> De S₁ à S₃, la concentration en ions MnO₄⁻ est divisée par 10 à chaque étape et la couleur s'éclaircit proportionnellement.";
@@ -1887,16 +2099,16 @@ const Sim5 = (() => {
         const n = C*(VmL/1000), m = n*s.M, Cm = C*s.M;
         document.getElementById('v5-c-lbl').textContent = fmtFR(C,2) + " mol·L⁻¹";
         document.getElementById('v5-v-lbl').textContent = VmL + " mL";
-        document.getElementById('v5-eq-box').innerHTML = `<strong>Équation :</strong> ${s.eq}<br><strong>Relation :</strong> C = [${s.cat}]/${s.a} = [${s.an}]/${s.b} = C<sub>m</sub> / M`;
+        document.getElementById('v5-eq-box').innerHTML = "<strong>Équation :</strong> " + s.eq + "<br><strong>Relation :</strong> C = [" + s.cat + "]/" + s.a + " = [" + s.an + "]/" + s.b + " = C<sub>m</sub> / M";
         document.getElementById('v5-k-m').textContent = fmtFR(m,2) + " g";
         document.getElementById('v5-k-n').textContent = "n = " + fmtFR(n,3) + " mol";
         document.getElementById('v5-k-cm').textContent = fmtFR(Cm,2) + " g·L⁻¹";
         document.getElementById('v5-k-M').textContent = "M = " + fmtFR(s.M,1) + " g·mol⁻¹";
-        document.getElementById('v5-k-cat-t').textContent = `[${s.cat}] = ${s.a} · C`;
+        document.getElementById('v5-k-cat-t').textContent = "[" + s.cat + "] = " + s.a + " · C";
         document.getElementById('v5-k-cat').textContent = fmtFR(s.a*C,2) + " mol·L⁻¹";
-        document.getElementById('v5-k-an-t').textContent = `[${s.an}] = ${s.b} · C`;
+        document.getElementById('v5-k-an-t').textContent = "[" + s.an + "] = " + s.b + " · C";
         document.getElementById('v5-k-an').textContent = fmtFR(s.b*C,2) + " mol·L⁻¹";
-        document.getElementById('v5-ion-leg').innerHTML = `<span><span class="swatch" style="background:#b91c1c"></span>Cation ${s.cat} (α = ${s.a})</span><span><span class="swatch" style="background:#0f766e"></span>Anion ${s.an} (β = ${s.b})</span>`;
+        document.getElementById('v5-ion-leg').innerHTML = '<span><span class="swatch" style="background:#b91c1c"></span>Cation ' + s.cat + ' (α = ' + s.a + ')</span><span><span class="swatch" style="background:#0f766e"></span>Anion ' + s.an + ' (β = ' + s.b + ')</span>';
         const packs = Math.max(2, Math.min(12, Math.round(C*7)));
         simIons = [];
         for (let k = 0; k < packs; k++) {
@@ -1904,24 +2116,31 @@ const Sim5 = (() => {
             for (let j = 0; j < s.b; j++) simIons.push({ x:30+Math.random()*480, y:26+Math.random()*178, vx:(Math.random()-0.5)*1.5, vy:(Math.random()-0.5)*1.5, cat:false, lbl:s.an });
         }
     }
-    function drawBeaker(x, y, f, alpha, ions, title, sub) {
+    function drawBeaker(x, y, f, alpha, ions, title, sub, dt) {
         const w = 155, h = 150, liqH = (h-22)*f;
         if (f > 0.01) {
-            ctxD.fillStyle = `rgba(109,40,217,${Math.min(0.94,alpha)})`; ctxD.fillRect(x+3, y+h-liqH, w-6, liqH);
+            ctxD.fillStyle = "rgba(109,40,217," + Math.min(0.94,alpha) + ")"; ctxD.fillRect(x+3, y+h-liqH, w-6, liqH);
             ctxD.fillStyle = "rgba(255,255,255,0.65)";
-            ions.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x<0.06||p.x>0.94) p.vx*=-1; if (p.y<0.08||p.y>0.92) p.vy*=-1; ctxD.beginPath(); ctxD.arc(x+7+p.x*(w-14), y+h-liqH+p.y*liqH, 2.5, 0, Math.PI*2); ctxD.fill(); });
+            ions.forEach(function(p) {
+                p.x += p.vx * dt; p.y += p.vy * dt;
+                if (p.x < 0.06) { p.x = 0.06; p.vx = Math.abs(p.vx); }
+                else if (p.x > 0.94) { p.x = 0.94; p.vx = -Math.abs(p.vx); }
+                if (p.y < 0.08) { p.y = 0.08; p.vy = Math.abs(p.vy); }
+                else if (p.y > 0.92) { p.y = 0.92; p.vy = -Math.abs(p.vy); }
+                ctxD.beginPath(); ctxD.arc(x+7+p.x*(w-14), y+h-liqH+p.y*liqH, 2.5, 0, Math.PI*2); ctxD.fill();
+            });
         }
         ctxD.strokeStyle = "#334155"; ctxD.lineWidth = 2.8;
         ctxD.beginPath(); ctxD.moveTo(x-5,y-4); ctxD.lineTo(x,y); ctxD.lineTo(x,y+h); ctxD.lineTo(x+w,y+h); ctxD.lineTo(x+w,y); ctxD.stroke();
-        ctxD.fillStyle = "#1b365d"; ctxD.font = "bold 15px Georgia"; ctxD.textAlign = "center"; ctxD.fillText(title, x+w/2, y+h+22);
-        ctxD.fillStyle = "#52606d"; ctxD.font = "12px Arial"; ctxD.fillText(sub, x+w/2, y+h+40);
+        ctxD.fillStyle = "#1b365d"; ctxD.font = "bold 15px " + FONT_SERIF; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText(title, x+w/2, y+h+22);
+        ctxD.fillStyle = "#52606d"; ctxD.font = "12px " + FONT_SANS; ctxD.fillText(sub, x+w/2, y+h+40);
     }
     function drawArr(x1, x2, y, top, bot, act, frac) {
         ctxD.save(); ctxD.strokeStyle = act ? "#6d28d9" : "#94a3b8"; ctxD.fillStyle = ctxD.strokeStyle; ctxD.lineWidth = 2.6;
         ctxD.beginPath(); ctxD.moveTo(x1,y); ctxD.lineTo(x2-10,y); ctxD.stroke();
         ctxD.beginPath(); ctxD.moveTo(x2,y); ctxD.lineTo(x2-12,y-6); ctxD.lineTo(x2-12,y+6); ctxD.closePath(); ctxD.fill();
-        ctxD.font = "bold 12px Arial"; ctxD.textAlign = "center"; ctxD.fillText(top, (x1+x2)/2, y-12);
-        ctxD.font = "11px Arial"; ctxD.fillText(bot, (x1+x2)/2, y+18);
+        ctxD.font = "bold 12px " + FONT_SANS; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText(top, (x1+x2)/2, y-12);
+        ctxD.font = "11px " + FONT_SANS; ctxD.fillText(bot, (x1+x2)/2, y+18);
         if (frac > 0.02 && frac < 0.98) {
             const px = x1 + (x2-x1)*frac;
             ctxD.fillStyle = "#e2e8f0"; ctxD.strokeStyle = "#334155"; ctxD.lineWidth = 1.5;
@@ -1930,55 +2149,63 @@ const Sim5 = (() => {
         }
         ctxD.restore();
     }
-    function step() {
+    function step(dt) {
         if (mode === 'dil') {
-            if (curStep < targetStep) curStep = Math.min(targetStep, curStep+0.018);
-            ctxD.clearRect(0, 0, cDil.width, cDil.height);
+            if (curStep < targetStep) curStep = Math.min(targetStep, curStep + 0.018 * dt);
+            ctxD.clearRect(0, 0, WD, HD);
             const fx = 105, fy = 178;
-            ctxD.fillStyle = "#1b365d"; ctxD.font = "bold 13.5px Georgia"; ctxD.textAlign = "center"; ctxD.fillText("Solution mère S₀", fx, 34);
-            ctxD.fillStyle = "#52606d"; ctxD.font = "12px Arial"; ctxD.fillText(`${fmtFR(mass,1)} g / 200 mL`, fx, 51);
-            ctxD.fillStyle = `rgba(109,40,217,${Math.min(0.95, 0.55+mass*0.12)})`;
+            ctxD.fillStyle = "#1b365d"; ctxD.font = "bold 13.5px " + FONT_SERIF; ctxD.textAlign = "center"; ctxD.textBaseline = "alphabetic"; ctxD.fillText("Solution mère S₀", fx, 34);
+            ctxD.fillStyle = "#52606d"; ctxD.font = "12px " + FONT_SANS; ctxD.fillText(fmtFR(mass,1) + " g / 200 mL", fx, 51);
+            ctxD.fillStyle = "rgba(109,40,217," + Math.min(0.95, 0.55+mass*0.12) + ")";
             ctxD.beginPath(); ctxD.arc(fx,fy,46,0,Math.PI*2); ctxD.fill(); ctxD.fillRect(fx-10,fy-88,20,44);
             ctxD.strokeStyle = "#334155"; ctxD.lineWidth = 2.6;
             ctxD.beginPath(); ctxD.arc(fx,fy,46,-0.35*Math.PI,1.35*Math.PI); ctxD.stroke();
             ctxD.beginPath(); ctxD.moveTo(fx-10,fy-108); ctxD.lineTo(fx-10,fy-42); ctxD.moveTo(fx+10,fy-108); ctxD.lineTo(fx+10,fy-42); ctxD.stroke();
             ctxD.strokeStyle = "#b91c1c"; ctxD.lineWidth = 2; ctxD.beginPath(); ctxD.moveTo(fx-14,fy-85); ctxD.lineTo(fx+14,fy-85); ctxD.stroke();
-            ctxD.fillStyle = "#fff"; ctxD.font = "bold 16px Georgia"; ctxD.fillText("S₀", fx, fy+6);
+            ctxD.fillStyle = "#fff"; ctxD.font = "bold 16px " + FONT_SERIF; ctxD.fillText("S₀", fx, fy+6);
 
             const f1 = Math.min(1,Math.max(0,curStep)), f2 = Math.min(1,Math.max(0,curStep-1)), f3 = Math.min(1,Math.max(0,curStep-2)), fac = mass/2.0;
             drawArr(175,295,155,"Prélèvement","100 mL",targetStep>=1,f1);
-            drawBeaker(310,76,f1,Math.min(0.92,0.80*fac),ions1,"Solution S₁","Violet foncé");
+            drawBeaker(310,76,f1,Math.min(0.92,0.80*fac),ions1,"Solution S₁","Violet foncé",dt);
             drawArr(482,622,155,"Dilution × 10","10 mL → 100 mL",targetStep>=2,f2);
-            drawBeaker(638,76,f2,Math.min(0.75,0.36*fac),ions2,"Solution S₂","Violet moyen");
+            drawBeaker(638,76,f2,Math.min(0.75,0.36*fac),ions2,"Solution S₂","Violet moyen",dt);
             drawArr(810,950,155,"Dilution × 10","10 mL → 100 mL",targetStep>=3,f3);
-            drawBeaker(966,76,f3,Math.min(0.45,0.14*fac),ions3,"Solution S₃","Violet clair");
+            drawBeaker(966,76,f3,Math.min(0.45,0.14*fac),ions3,"Solution S₃","Violet clair",dt);
         } else {
-            ctxI.clearRect(0, 0, cIon.width, cIon.height);
-            simIons.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if (p.x < 18 || p.x > cIon.width-18) p.vx *= -1;
-                if (p.y < 18 || p.y > cIon.height-18) p.vy *= -1;
+            ctxI.clearRect(0, 0, WI, HI);
+            simIons.forEach(function(p) {
+                p.x += p.vx * dt; p.y += p.vy * dt;
+                if (p.x < 18) { p.x = 18; p.vx = Math.abs(p.vx); }
+                else if (p.x > WI-18) { p.x = WI-18; p.vx = -Math.abs(p.vx); }
+                if (p.y < 18) { p.y = 18; p.vy = Math.abs(p.vy); }
+                else if (p.y > HI-18) { p.y = HI-18; p.vy = -Math.abs(p.vy); }
                 ctxI.beginPath(); ctxI.arc(p.x,p.y,13.5,0,Math.PI*2);
                 ctxI.fillStyle = p.cat ? "#fee2e2" : "#d1fae5"; ctxI.fill();
                 ctxI.strokeStyle = p.cat ? "#b91c1c" : "#0f766e"; ctxI.lineWidth = 2; ctxI.stroke();
                 ctxI.fillStyle = p.cat ? "#991b1b" : "#065f46";
-                ctxI.font = "bold 9.5px Arial"; ctxI.textAlign = "center"; ctxI.textBaseline = "middle"; ctxI.fillText(p.lbl, p.x, p.y);
+                ctxI.font = "bold 9.5px " + FONT_SANS; ctxI.textAlign = "center"; ctxI.textBaseline = "middle"; ctxI.fillText(p.lbl, p.x, p.y);
             });
         }
     }
     renderTable(); updateCalc();
-    return { setMode, onMass, runStep, resetDil, renderTable, updateCalc, step };
+    return { setMode: setMode, onMass: onMass, runStep: runStep, resetDil: resetDil, renderTable: renderTable, updateCalc: updateCalc, step: step };
 })();
 
 // ============================================================================
-// BOUCLE D'ANIMATION PRINCIPALE
+// BOUCLE D'ANIMATION PRINCIPALE (Normalisée 60 / 90 / 120 / 144 Hz)
 // ============================================================================
 const SIMS = [Sim0, Sim1, Sim2, Sim3, Sim4, Sim5];
-function animateAll() {
-    SIMS[ACTIVE_VIEW].step();
-    requestAnimationFrame(animateAll);
+const rAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || function(cb) { return setTimeout(function() { cb(Date.now()); }, 16); };
+let lastFrameTime = 0;
+function animateAll(now) {
+    rAF(animateAll);
+    if (document.hidden) { lastFrameTime = 0; return; }
+    if (!lastFrameTime) lastFrameTime = now;
+    const dt = Math.max(0.25, Math.min(2.5, (now - lastFrameTime) / 16.6667));
+    lastFrameTime = now;
+    SIMS[ACTIVE_VIEW].step(dt);
 }
-animateAll();
+rAF(animateAll);
 </script>
 </body>
 </html>
